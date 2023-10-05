@@ -1,0 +1,23 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #f6f4eb;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+.navbar-left:hover {
+  cursor: pointer;
+}
+.navbar p {
+  margin: 0;
+  font-weight: bold;
+}
+.navbar-scrolled {
+  border-bottom: 1px solid lightgray;
+}

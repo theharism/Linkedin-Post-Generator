@@ -1,0 +1,180 @@
+* {
+  background-color: #f6f4eb;
+}
+
+/* Main.css */
+.container {
+  max-width: 650px; /* Set the maximum width to 800px */
+  margin: 6rem auto; /* Center the container horizontally */
+  padding: 1rem;
+  text-align: center;
+}
+
+.heading {
+  margin-top: 2rem;
+}
+.bold-text {
+  font-weight: bold;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.creator-content {
+  margin-top: 1rem;
+  text-align: left;
+}
+.creator-content > label {
+  margin-top: 1rem;
+}
+.creator-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid lightgray; /* Add border */
+  border-radius: 7px; /* Add border radius */
+  outline: none; /* Remove outline */
+}
+
+.question-container {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.question-dropdown {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid lightgray; /* Add border */
+  border-radius: 7px; /* Add border radius */
+  outline: none; /* Remove outline */
+}
+
+.selected-question {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 2px solid black; /* Add border */
+  border-radius: 7px; /* Add border radius */
+  outline: none; /* Remove outline */
+}
+
+.add-button {
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  padding: 0.6rem 0.3rem;
+  background-color: #609cbbea;
+  margin-top: 1rem;
+  width: 100%;
+  color: white;
+  transition: background-color 0.3s ease; /* Add transition for background-color */
+}
+
+.add-button:hover {
+  background-color: #1e3946c4; /* Change background-color on hover */
+}
+
+.submit-button {
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  padding: 0.6rem 0.3rem;
+  background-color: #214055;
+  margin-top: 1rem;
+  width: 100%;
+  color: white;
+  transition: background-color 0.3s ease; /* Add transition for background-color */
+}
+
+.submit-button:hover {
+  background-color: #214055da; /* Change background-color on hover */
+}
+
+.accordion-button {
+  width: 100%;
+  text-align: left;
+  border-radius: 7px;
+  padding: 1rem;
+  margin: 1rem 0;
+  cursor: pointer;
+  background-color: black; /* Background color when closed */
+  border: 2px solid #ddd; /* Border when closed */
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-button.active {
+  background-color: rgb(10, 10, 10); /* Background color when open */
+  color: white;
+}
+.selected-question-container {
+  max-height: 500px; /* Adjust the height as needed */
+  overflow: hidden auto;
+
+  margin-top: 1rem;
+}
+.answer-content {
+  background-color: #396888;
+  color: #ddd;
+  border-radius: 7px;
+  transition: 1s;
+  outline: none; /* Remove outline */
+  height: 0;
+  text-align: left;
+  border: 2px solid #ddd;
+  visibility: hidden;
+  font-size: 0;
+}
+
+.answer-content.show {
+  font-size: 16px;
+  visibility: visible;
+  word-wrap: break-word;
+  height: auto;
+  padding: 1rem;
+  margin: 0 0 1rem;
+  -webkit-transition: height 0.3s linear, padding-top 0.3s linear,
+    padding-bottom 0.3s linear, border-top-width 0.3s linear,
+    border-top-width 0.3s linear;
+  transition: height 0.3s linear, padding-top 0.3s linear,
+    padding-bottom 0.3s linear, border-top-width 0.3s linear,
+    border-top-width 0.3s linear;
+}
+ul {
+  list-style-type: none;
+}
+
+ul {
+  padding-left: 0;
+}
+.title {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.accordion-button:not(.collapsed) {
+  color: white;
+  background-color: #214055;
+  margin: -1px;
+}
+.accordion-button:not(.collapsed)::after {
+  color: #ddd;
+  background-color: transparent;
+}
+/* Add sticky positioning to your navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100; /* Make sure it's on top of other content */
+  background-color: #ffffff; /* Adjust the background color of your navbar */
+}
+@media only screen and (max-width: 540px) {
+  .bold-text {
+    font-size: 1.8rem;
+  }
+}
