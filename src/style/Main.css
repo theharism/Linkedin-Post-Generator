@@ -130,7 +130,9 @@
   visibility: hidden;
   font-size: 0;
 }
-
+.accordion-button:not(.collapsed):after {
+  display: none;
+}
 .answer-content.show {
   font-size: 16px;
   visibility: visible;

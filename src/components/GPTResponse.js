@@ -28,7 +28,18 @@ function GPTResponse({ message }) {
       <div className="responseCardContainer">
         <div className="responseCard">
           <p ref={pRef}>
-           {message}
+            {/* {message} */}
+            Embrace the Bright Side of Life! 🌟 Hello, LinkedIn community! 😄 I
+            hope this post finds you all in high spirits! Today, I wanted to
+            spread some positivity and remind you of the wonderful things that
+            surround us every day. 🌞 Life may throw challenges our way, but
+            it's important to take a moment to appreciate the small victories,
+            the supportive colleagues, and the opportunities that come our way.
+            Remember, each day is a new chance to learn, grow, and make a
+            positive impact. 💪 Let's keep smiling, stay grateful, and continue
+            to inspire each other on this incredible journey. 🚀 Share in the
+            comments: What's one thing that's making you smile today? 😊
+            #PositiveVibes #Gratitude #LinkedInCommunity #KeepSmiling
           </p>
           <button className="btn copy" onClick={handleCopyClick}>
             Copy
