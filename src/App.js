@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import GPTResponse from "./components/GPTResponse";
 import Main from "./components/Main";
 import { css } from "@emotion/react";
@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 import Navbar from "./common/Navbar";
 import Card from "./components/Cards";
 import Footer from "./common/Footer";
+import emojiStrip from "emoji-strip";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -13,21 +14,16 @@ function App() {
   const [response, setResponse] = useState("");
 
   const HandleGPTResponse = (data) => {
-    setResponse(data);
+    const responseWithoutEmojis = emojiStrip(data);
+    console.log("after remove emoji", responseWithoutEmojis);
+    setResponse(responseWithoutEmojis);
+    setShowGPTResponse(true);
+    setLoading(false);
   };
-  useEffect(() => {
-    if (loading) {
-      const timer = setTimeout(() => {
-        setLoading(false);
-        setShowGPTResponse(true);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [loading]);
 
   const handleLoading = () => {
     setLoading(true);
+    setShowGPTResponse(false);
   };
 
   const override = css`
@@ -35,6 +31,7 @@ function App() {
     margin: 0 auto;
     border-color: red;
   `;
+
   const centerContainerStyle = {
     display: "flex",
     justifyContent: "center",

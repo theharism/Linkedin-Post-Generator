@@ -105,16 +105,16 @@ function Main({ onPress, HandleGPTResponse }) {
         console.log("final user detals, ", userData);
         onPress();
         const response = await axios.post(
-          "http://localhost:4000/userDetails",
+          "http://192.168.18.124:4000/userDetails",
           userData
         );
 
         if (response.data.message) {
           console.log(
             "Response message from the backend:",
-            response.data.message
+            response.data.message.content
           );
-          HandleGPTResponse(response.data.message);
+          HandleGPTResponse(response.data.message.content);
         }
 
         // Log the entire response data received from the backend

@@ -14,10 +14,10 @@ function GPTResponse({ message }) {
     if (pRef.current) {
       const textToCopy = pRef.current.textContent;
       navigator.clipboard.writeText(textToCopy).then(() => {
-        setCopiedText(textToCopy); // Update the state to show that text is copied
+        setCopiedText(textToCopy);
         setTimeout(() => {
-          setCopiedText(""); // Clear the copied text message after a few seconds
-        }, 2000); // 2 seconds
+          setCopiedText("");
+        }, 2000);
       });
     }
   };
@@ -27,10 +27,7 @@ function GPTResponse({ message }) {
       <h2 className="RepsonseText">GENERATED POST</h2>
       <div className="responseCardContainer">
         <div className="responseCard">
-          <p ref={pRef}>
-            {/* {message} */}
-            <strong>Will integrate CHATGPT API soon ...</strong>
-          </p>
+          <pre>{message}</pre>
           <button className="btn copy" onClick={handleCopyClick}>
             Copy
           </button>
