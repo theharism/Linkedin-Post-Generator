@@ -98,10 +98,11 @@ function Main({ onPress, HandleGPTResponse }) {
         const userData = {
           creator,
           answers: selectedAnswers,
-          selectedTone,
+          selectedTone: isOtherToneSelected ? customTone : selectedTone,
           description,
         };
 
+        console.log("final user detals, ", userData);
         onPress();
         const response = await axios.post(
           "http://localhost:4000/userDetails",
@@ -109,11 +110,15 @@ function Main({ onPress, HandleGPTResponse }) {
         );
 
         if (response.data.message) {
-          console.log("response.data.message", response.data.message);
+          console.log(
+            "Response message from the backend:",
+            response.data.message
+          );
           HandleGPTResponse(response.data.message);
         }
 
-        console.log("Data submitted successfully:", response.data);
+        // Log the entire response data received from the backend
+        console.log("Data received from the backend:", response.data);
       } else {
         console.error("Invalid data for submission");
       }
