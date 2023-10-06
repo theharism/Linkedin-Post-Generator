@@ -5,19 +5,33 @@
   width: 100%;
   padding: 10px;
   background-color: #f6f4eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row; /* Start with a stacked layout for mobile */
 }
 
-.navbar-left {
-  display: flex;
-  align-items: center;
-}
-.navbar-left:hover {
-  cursor: pointer;
-}
 .navbar p {
   margin: 0;
   font-weight: bold;
+  font-size: 1.2em;
 }
+
 .navbar-scrolled {
   border-bottom: 1px solid lightgray;
+}
+@media only screen and (max-width: 767.98px) {
+  .navbar-left .img-container {
+    width: 100px;
+  }
+}
+@media only screen and (min-width: 767.98px) {
+  .navbar-left .img-container {
+    width: 150px;
+  }
+}
+@media only screen and (min-width: 1023.98px) {
+  .navbar-left .img-container {
+    width: 180px;
+  }
 }

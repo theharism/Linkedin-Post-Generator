@@ -7,6 +7,7 @@ function Navbar() {
   const handleTryNowClick = () => {
     window.location.reload();
   };
+
   useEffect(() => {
     // Function to handle scroll event
     const handleScroll = () => {
@@ -31,12 +32,15 @@ function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-left">
-        <img
-          src={process.env.PUBLIC_URL + "/Muse.png"}
-          alt="#"
-          style={{ height: 75, width: 75 }}
-          onClick={handleTryNowClick}
-        />
+        <div className="img-container">
+          <img
+            src={process.env.PUBLIC_URL + "/muse.png"}
+            alt="#"
+            className=""
+            style={{ width: "100%", height: "100%" }}
+            onClick={handleTryNowClick}
+          />
+        </div>
       </div>
       <div className="navbar-right">
         <p style={{ fontSize: "1.2em" }}>Post Generator</p>
