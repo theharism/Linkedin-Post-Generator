@@ -15,7 +15,7 @@ function App() {
 
   const HandleGPTResponse = (data) => {
     const responseWithoutEmojis = emojiStrip(data);
-    console.log("after remove emoji", responseWithoutEmojis);
+    console.log(responseWithoutEmojis);
     setResponse(responseWithoutEmojis);
     setShowGPTResponse(true);
     setLoading(false);

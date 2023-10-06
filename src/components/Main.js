@@ -102,7 +102,6 @@ function Main({ onPress, HandleGPTResponse }) {
           description,
         };
 
-        console.log("final user detals, ", userData);
         onPress();
         const response = await axios.post(
           "https://muse-backend.vercel.app/userDetails",
@@ -110,15 +109,11 @@ function Main({ onPress, HandleGPTResponse }) {
         );
 
         if (response.data.message) {
-          console.log(
-            "Response message from the backend:",
-            response.data.message.content
-          );
+          
           HandleGPTResponse(response.data.message.content);
         }
 
         // Log the entire response data received from the backend
-        console.log("Data received from the backend:", response.data);
       } else {
         console.error("Invalid data for submission");
       }
