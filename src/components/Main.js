@@ -105,7 +105,7 @@ function Main({ onPress, HandleGPTResponse }) {
         console.log("final user detals, ", userData);
         onPress();
         const response = await axios.post(
-          "http://192.168.18.124:4000/userDetails",
+          "https://muse-backend.vercel.app/userDetails",
           userData
         );
 
