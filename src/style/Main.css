@@ -1,7 +1,18 @@
 * {
   background-color: #f6f4eb;
 }
-
+.QCR {
+  margin-bottom: 1rem;
+}
+.MainDesc {
+  /* padding: 4r  em; */
+  width: 100%;
+  padding: 1rem 0.5rem;
+  font-size: 1rem;
+  border: 2px solid lightgray; /* Add border */
+  border-radius: 7px; /* Add border radius */
+  outline: none;
+}
 /* Main.css */
 .container {
   max-width: 650px; /* Set the maximum width to 800px */
@@ -58,7 +69,7 @@
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
-  border: 2px solid black; /* Add border */
+  border: 2px solid lightgray; /* Add border */
   border-radius: 7px; /* Add border radius */
   outline: none; /* Remove outline */
 }

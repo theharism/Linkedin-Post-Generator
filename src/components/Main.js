@@ -11,13 +11,53 @@ function Main({ onPress, HandleGPTResponse }) {
   const [newAnswer, setNewAnswer] = useState("");
   const [availableQuestions, setAvailableQuestions] = useState(allQuestions);
   const [selectedTone, setSelectedTone] = useState("");
+  const [description, setDescription] = useState("");
+  const [isOtherToneSelected, setIsOtherToneSelected] = useState(false);
+  const [customTone, setCustomTone] = useState("");
+  const [customQuestion, setCustomQuestion] = useState("");
 
   const handleSelectChange = (e) => {
-    setSelectedQuestion(e.target.value);
+    const selectedValue = e.target.value;
+    setSelectedQuestion(selectedValue);
+
+    if (selectedValue === "Other") {
+      // Automatically add the custom question to the accordion
+      if (newAnswer !== "") {
+        setSelectedAnswers((prevAnswers) => [
+          ...prevAnswers,
+          { question: customQuestion, answer: newAnswer },
+        ]);
+        setCustomQuestion(""); // Clear custom question field
+        setNewAnswer(""); // Clear answer field
+      }
+    }
+  };
+
+  const handleCustomChange = (e) => {
+    setCustomQuestion(e.target.value);
   };
 
   const handleCreator = (e) => {
     setCreator(e.target.value);
+  };
+
+  const handleToneChange = (event) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "Other") {
+      setIsOtherToneSelected(true);
+    } else {
+      setIsOtherToneSelected(false);
+      setSelectedTone(selectedValue);
+    }
+  };
+
+  const handleCustomToneChange = (event) => {
+    setCustomTone(event.target.value);
+  };
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   const handleAnswerChange = (e) => {
@@ -26,16 +66,29 @@ function Main({ onPress, HandleGPTResponse }) {
   };
 
   const handleAdd = () => {
-    if (selectedQuestion && newAnswer !== "") {
-      setSelectedAnswers([
-        ...selectedAnswers,
-        { question: selectedQuestion, answer: newAnswer },
-      ]);
+    if (newAnswer !== "") {
+      let newSelectedAnswers = [...selectedAnswers];
+      if (selectedQuestion === "Other") {
+        // If "Other" is selected, add the custom question and answer
+        newSelectedAnswers = [
+          ...newSelectedAnswers,
+          { question: customQuestion, answer: newAnswer },
+        ];
+      } else if (selectedQuestion) {
+        newSelectedAnswers = [
+          ...newSelectedAnswers,
+          { question: selectedQuestion, answer: newAnswer },
+        ];
+        setAvailableQuestions((prevQuestions) =>
+          prevQuestions.filter((question) => question !== selectedQuestion)
+        );
+      }
+
+      setSelectedAnswers(newSelectedAnswers);
       setSelectedQuestion("");
       setNewAnswer("");
-      setAvailableQuestions((prevQuestions) =>
-        prevQuestions.filter((question) => question !== selectedQuestion)
-      );
+      // Clear custom question field as well
+      setCustomQuestion("");
     }
   };
 
@@ -46,6 +99,7 @@ function Main({ onPress, HandleGPTResponse }) {
           creator,
           answers: selectedAnswers,
           selectedTone,
+          description,
         };
 
         onPress();
@@ -58,20 +112,16 @@ function Main({ onPress, HandleGPTResponse }) {
           console.log("response.data.message", response.data.message);
           HandleGPTResponse(response.data.message);
         }
-        // Handle the response here, if needed
+
         console.log("Data submitted successfully:", response.data);
       } else {
-        // Handle validation or display an error message
         console.error("Invalid data for submission");
       }
     } catch (error) {
-      // Handle errors here
       console.error("Error submitting data:", error);
     }
   };
-  const handleToneChange = (e) => {
-    setSelectedTone(e.target.value);
-  };
+
   useEffect(() => {
     setSelectedQuestion("");
   }, [availableQuestions]);
@@ -92,6 +142,17 @@ function Main({ onPress, HandleGPTResponse }) {
       </div>
 
       <div className="creator-content">
+        <label>Enter a description*</label>
+        <input
+          className="MainDesc"
+          type="text"
+          placeholder="What should the Post be about..."
+          value={description}
+          onChange={handleDescription}
+        />
+      </div>
+
+      <div className="creator-content">
         <label>Linkedin Creator's Profile URL *</label>
         <input
           className="creator-input"
@@ -103,25 +164,33 @@ function Main({ onPress, HandleGPTResponse }) {
       </div>
       <div className="question-container">
         <label>Tone *</label>
-        <select
-          className="question-dropdown"
-          value={selectedTone}
-          onChange={handleToneChange}
-        >
-          <option value="">Select a tone</option>
-          {Tone.map((tone, index) => {
-            const objectHere = `${tone.style} - ${tone.description}`;
-            return (
-              <option key={index} value={objectHere}>
+        {isOtherToneSelected ? (
+          <input
+            className="creator-input"
+            type="text"
+            placeholder="Enter Your Tone"
+            value={customTone}
+            onChange={handleCustomToneChange}
+          />
+        ) : (
+          <select
+            className="question-dropdown"
+            value={selectedTone}
+            onChange={handleToneChange}
+          >
+            <option value="">Select a tone</option>
+            {Tone.map((tone, index) => (
+              <option key={index} value={tone.style}>
                 {tone.style}
               </option>
-            );
-          })}
-        </select>
+            ))}
+            <option value="Other">Other</option>
+          </select>
+        )}
       </div>
 
       <div className="question-container">
-        <label>Select Questions (Atleast One)</label>
+        <label>Select Questions (Optional)</label>
         <select
           className="question-dropdown"
           value={selectedQuestion}
@@ -134,9 +203,15 @@ function Main({ onPress, HandleGPTResponse }) {
             </option>
           ))}
         </select>
-        {selectedQuestion && (
+        {selectedQuestion === "Other" ? (
           <div className="selected-question">
-            <p>Q: {selectedQuestion}</p>
+            <input
+              className="creator-input QCR"
+              type="text"
+              placeholder="Question: Add Your Question Here.."
+              value={customQuestion}
+              onChange={handleCustomChange}
+            />
             <div className="input-button-container">
               <input
                 className="answer-input"
@@ -149,7 +224,22 @@ function Main({ onPress, HandleGPTResponse }) {
               </button>
             </div>
           </div>
-        )}
+        ) : selectedQuestion ? (
+          <div className="selected-question">
+            <p>Q {selectedQuestion}</p>
+            <div className="input-button-container">
+              <input
+                className="answer-input"
+                placeholder="Answer Here..."
+                value={newAnswer}
+                onChange={handleAnswerChange}
+              />
+              <button className="add-button" onClick={handleAdd}>
+                Add
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="selected-question">

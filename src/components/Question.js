@@ -49,6 +49,7 @@ export const Questions = [
   "What have your clients verbally told you is valuable to them?",
   "What tends to discourage your prospect that shouldn’t?",
   "What process do you follow that’s 'weird but works' for you?",
+  "Other"
 ];
 
 export const Tone = [
