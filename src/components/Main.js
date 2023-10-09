@@ -94,7 +94,7 @@ function Main({ onPress, HandleGPTResponse }) {
 
   const submitData = async () => {
     try {
-      if (creator && selectedAnswers.length > 0) {
+      if (creator) {
         const userData = {
           creator,
           answers: selectedAnswers,
@@ -104,13 +104,14 @@ function Main({ onPress, HandleGPTResponse }) {
 
         onPress();
         const response = await axios.post(
-          "https://muse-backend.vercel.app/userDetails",
+          "http://localhost:4000/userDetails",
           userData
         );
 
         if (response.data.message) {
           
           HandleGPTResponse(response.data.message.content);
+          console.log(response.data.prompt);
         }
 
         // Log the entire response data received from the backend
