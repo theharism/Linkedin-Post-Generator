@@ -23,20 +23,24 @@ function GPTResponse({ message }) {
   };
 
   return (
-    <div className="container GPTcontainer">
-      <h2 className="RepsonseText">GENERATED POST</h2>
-      <div className="responseCardContainer">
-        <div className="responseCard">
-          <pre className="responseText">{message}</pre>
-          <button className="btn copy" onClick={handleCopyClick}>
-            Copy
-          </button>
-          {copiedText && <div className="copiedMessage">Copied!</div>}
+    <div className="ModiContainer">
+      <div className="container GPTcontainer">
+        <h2 className="RepsonseText">GENERATED POST</h2>
+        <div className="responseCardContainer">
+          <div className="responseCard">
+            <pre className="responseText">{message}</pre>
+            <button className="btn copy" onClick={handleCopyClick}>
+              Copy
+            </button>
+            {copiedText && <div className="copiedMessage">Copied!</div>}
+          </div>
         </div>
       </div>
-      <button className="TryNow" onClick={handleTryNowClick}>
-        Generate More
-      </button>
+      <div>
+        <button className="TryNow" onClick={handleTryNowClick}>
+          Generate More
+        </button>
+      </div>
     </div>
   );
 }

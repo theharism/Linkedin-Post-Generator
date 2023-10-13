@@ -155,11 +155,12 @@ function Main({ onPress, HandleGPTResponse }) {
         userData
       );
 
-      console.log("backend response", response.data.message);
+      // console.log("backend response", response.data.message);
+      // console.log("backend response", response.data.prompt);
 
       if (response.data.message) {
         HandleGPTResponse(response.data.message.content);
-        console.log(response.data.prompt);
+        console.log("Prompt" , response.data.prompt);
       }
 
       // Log the entire response data received from the backend

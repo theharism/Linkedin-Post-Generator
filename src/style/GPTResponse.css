@@ -1,12 +1,13 @@
 /* Your other styles go here */
+
 .RepsonseText {
   font-weight: bold;
   margin-bottom: 1rem;
 }
-.responseText{
+.responseText {
   white-space: pre-wrap;
-    max-width: 100%;
-    overflow: hidden;
+  max-width: 100%;
+  overflow: hidden;
 }
 /* Style for the response card */
 .responseCard {
@@ -33,14 +34,14 @@
   outline: none;
   color: white;
   font-weight: bold;
-  background-color: rgb(33, 64, 85);
+  background-color: #150261;
   padding: 1rem;
   border-radius: 10px;
   font-size: 15px;
   margin: 1rem 0;
 }
 .TryNow:hover {
-  background-color: rgb(54, 101, 133);
+  background-color: #150261;
 }
 
 /* Center the "Try Now" button horizontally */
@@ -50,5 +51,22 @@
   align-items: center;
   text-align: center;
 }
+.ModiContainer {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
 
+@media (min-width: 1018px) {
+  .ModiContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .TryNow {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+  }
+}
 /* Center the card horizontally within the container */
