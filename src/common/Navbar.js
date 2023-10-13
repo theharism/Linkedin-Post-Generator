@@ -46,16 +46,15 @@
 
 // export default NavbarComponent;
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { FaHome, FaUser } from "react-icons/fa";
 import "../style/Navbar.css";
 import logoImage from "../images/FinalLogo.png";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 const NavbarComponent = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navref = useRef();
 
   const ShowMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -65,30 +64,38 @@ const NavbarComponent = () => {
     setIsMobileMenuOpen(false);
   };
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isMobileMenuOpen]);
-
   return (
     <header>
       <div className="logo-container">
         <div className="logo">
-          <Link to={"/"} className="LOGOLink">
+          <ScrollLink to="/" className="LOGOLink">
             <img src={logoImage} alt="logo" className="LOGOImg" />
-          </Link>
+          </ScrollLink>
         </div>
       </div>
-      <nav ref={navref} className={isMobileMenuOpen ? "responsive_nav" : ""}>
-        <Link className="Link" to={"/"} onClick={closeMobileMenu}>
+      <nav className={isMobileMenuOpen ? "responsive_nav" : ""}>
+        <ScrollLink
+          to="pricing"
+          spy={true}
+          smooth={true}
+          duration={80}
+          offset={30}
+          onClick={closeMobileMenu}
+          className="Link"
+        >
           Pricing
-        </Link>
-        <Link className="Link" to="/affiliates" onClick={closeMobileMenu}>
+        </ScrollLink>
+        <ScrollLink
+          to="affiliates"
+          spy={true}
+          smooth={true}
+          duration={80}
+          offset={30}
+          onClick={closeMobileMenu}
+          className="Link"
+        >
           Affiliates
-        </Link>
+        </ScrollLink>
         <button onClick={ShowMenu} className="nav-btn nav-close-btn">
           <FaTimes className="Menu" />
         </button>
