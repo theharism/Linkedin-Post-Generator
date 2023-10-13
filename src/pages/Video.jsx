@@ -4,7 +4,7 @@ const Video = () => {
   return (
     <div className="video-section">
       <div className="content">
-        <p>Simple</p>
+        <p>Product Demo</p>
         <h4>Easy-to-use Interface</h4>
         <p>
           Give us input, we give the output.

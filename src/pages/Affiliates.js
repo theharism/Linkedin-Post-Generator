@@ -45,14 +45,11 @@ function Affiliates() {
         <Row className="containerForm ">
           <Col>
             <div className="before-after-text"></div>
-            <h2>Contact Us</h2>
-            <p>Please fill out the form below to contact us.</p>
-
+            <h2>Join Our Affiliate Program</h2>
             <Form className="FormPAge" onSubmit={handleSubmit}>
               <p>
-                Join Friends of Swell AI and receive a 20% commission on all
-                payments within the first 12 months for paying customers you
-                refer to swellai.com!
+                Join Our Program To Receive 20% Commission For First 12 Months
+                of Every Sign-Up Using Your Affiliate Code.
               </p>
               <Form.Group className="Group">
                 <Form.Label className="LeftAlignedLabel">First Name</Form.Label>
