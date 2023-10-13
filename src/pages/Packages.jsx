@@ -6,7 +6,7 @@ const Packages = () => {
     <div className="Packages container">
       <div className="PackagesContent">
         <p>Pricing</p>
-        <h4>Pricing for all production needs</h4>
+        <h4>Pricing for all your content needs</h4>
         <p>
           Cancel at any time. 100% no questions asked refunds. Message us for
           high volume custom pricing.

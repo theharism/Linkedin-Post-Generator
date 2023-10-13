@@ -7,8 +7,7 @@ const Video = () => {
         <p>Simple</p>
         <h4>Easy-to-use Interface</h4>
         <p>
-          Give us input, we give the output (up to you to change that if you
-          deem something better).
+          Give us input, we give the output.
         </p>
       </div>
       <div className="video-container">
