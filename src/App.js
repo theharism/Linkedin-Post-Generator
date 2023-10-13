@@ -13,6 +13,9 @@ import Packages from "./pages/Packages";
 import Affiliates from "./pages/Affiliates";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RenderPost from "./components/RenderPost";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
  
@@ -37,6 +40,7 @@ function App() {
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

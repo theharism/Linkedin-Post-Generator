@@ -6,6 +6,8 @@ import axios from "axios";
 import { CreatorsNames } from "../utils/CreatorNames";
 import { Container } from "react-bootstrap";
 import { FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Main({ onPress, HandleGPTResponse }) {
   const [creator, setCreator] = useState("");
@@ -134,9 +136,20 @@ function Main({ onPress, HandleGPTResponse }) {
         selectedTone: isOtherToneSelected ? customTone : selectedTone,
         textAreaContents,
       };
+
+      // Check if description and selectedTone are empty
+      if (!userData.description || !userData.selectedTone) {
+        toast.error("Please fill required fields !", {
+          position: "top-right",
+          autoClose: 1500, // Display the message for 3 seconds
+        });
+        return; // Exit the function without making the POST request
+      }
+
       console.log(userData);
 
       onPress();
+
       const response = await axios.post(
         "http://localhost:4000/userDetails",
         userData
@@ -186,7 +199,9 @@ function Main({ onPress, HandleGPTResponse }) {
         </div>
 
         <div className="creator-content">
-          <label>Enter a description*</label>
+          <label>
+            Enter a description <span className="Required">*</span>
+          </label>
           <input
             className="MainDesc"
             type="text"
@@ -250,7 +265,9 @@ function Main({ onPress, HandleGPTResponse }) {
         </div>
 
         <div className="question-container">
-          <label>Tone *</label>
+          <label>
+            Tone <span className="Required">*</span>
+          </label>
           {isOtherToneSelected ? (
             <input
               className="creator-input"

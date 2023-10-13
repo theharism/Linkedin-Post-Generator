@@ -1,6 +1,9 @@
 * {
   background-color: #f6f4eb;
 }
+.Required{
+  color: red;
+}
 .PostGenContaier {
   height: 100%;
 }

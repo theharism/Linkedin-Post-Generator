@@ -11,3 +11,9 @@ body {
   font-family: "Young Serif", serif;
   color: #000000;
 }
+.Toastify__toast {
+  background-color: #150261 !important;
+}
+.Toastify__toast-body {
+  color: #ffffff !important;
+}
