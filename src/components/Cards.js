@@ -6,8 +6,8 @@ function Card() {
   const dummyCards = [
     {
       title: "1",
-      description: "Creator's profile Url",
-      use: "Start by providing the LinkedIn profile URL of the creator whose writing style you want to emulate.",
+      description: "Set the scene",
+      use: "Give us some context as to what you'd like your post to talk about. Remember, the more detail you include, the more accurate and personalized your post will be.",
     },
     {
       title: "2",
