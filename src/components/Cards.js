@@ -1,6 +1,6 @@
 import React from "react";
 import "../style/Card.css";
-
+import { Container } from "react-bootstrap";
 function Card() {
   // Dummy data for the cards
   const dummyCards = [
@@ -27,30 +27,37 @@ function Card() {
   ];
 
   return (
-    <div className="Cardcontainer">
-      <div className="center-content">
-        <div className="heading-div">
-          <h1 className="text-bold">How to use Muse</h1>
-        </div>
-        <div className="card-div">
-          <div className="row">
-            {dummyCards.map((card, index) => (
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4" key={index}>
-                <div className="card rounded-circle-card text-center">
-                  <div className="card-body">
-                    <h5 className="card-title">{card.title}</h5>
-                    <span className="card-text des d-block m-3">
-                      {card.description}
-                    </span>
-                    <p className="card-text textde">{card.use}</p>
+    <Container className="C_Card">
+      <div className="Cardcontainer">
+        <div className="center-content">
+          <div className="heading-div">
+            <h1 className="text-bold">How to use Muse</h1>
+          </div>
+          <div className="card-div">
+            <div className="row">
+              {dummyCards.map((card, index) => (
+                <div className="col-lg-6 col-md-6 col-sm-12 mb-4 " key={index}>
+                  <div className="card rounded-circle-card text-center boxCard"
+                  style={{
+                    boxShadow:"white 0px 2px 7px",
+                    backgroundColor:"white"
+                  }}
+                  >
+                    <div className="card-body boxCard">
+                      <h5 className="card-title">{card.title}</h5>
+                      <span className="card-text des d-block m-3">
+                        {card.description}
+                      </span>
+                      <p className="card-text textde">{card.use}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

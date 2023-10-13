@@ -1,0 +1,96 @@
+.Container {
+  margin: 4rem 1rem 1rem 1.7rem;
+  background-color: #ffffff;
+}
+.Section .HeroLogo {
+  justify-content: center;
+  align-items: left;
+}
+.Section .HeroLogo .HeroInsideLogo {
+  display: block;
+  max-width: 40%;
+  height: auto;
+  margin-left: -2rem;
+}
+.Section h4 {
+  font-weight: bold;
+  padding: 1rem 0;
+  font-size: 25px;
+}
+.CheckSection {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem 0;
+}
+
+.CheckSection span {
+  margin-right: 1rem;
+}
+.formHero {
+  justify-content: center;
+  text-align: center;
+  margin: 4rem 0;
+}
+.formHero .FormLinks > button {
+  border: none;
+  outline: none;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #2394f7;
+  color: aliceblue;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.formHero .FormLinks > button:hover {
+  background-color: #2394f7bb;
+}
+.Pencil {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: -7px;
+  right: -4px;
+  font-size: 2rem;
+  color: black;
+}
+
+@media (min-width: 768px) {
+  .Pencil {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: -7px;
+    right: -4px;
+    font-size: 2.5rem;
+    color: black;
+  }
+
+  img {
+    width: auto;
+    max-width: none;
+  }
+  .Section .HeroLogo .HeroInsideLogo {
+    display: block;
+    max-width: 25%;
+    /* background-color: #2394f7; */
+    margin-left: -3rem;
+    height: auto;
+  }
+  .Container {
+    margin: 8rem 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .Section {
+    max-width: 60%;
+  }
+  .Section h4 {
+    font-weight: bold;
+    padding: 1rem 0;
+    font-size: 40px;
+  }
+  .formHero .FormLinks > button {
+    border: none;
+    padding: 1rem 2.5rem;
+  }
+}

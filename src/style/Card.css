@@ -1,14 +1,28 @@
+.C_Card {
+  background-color: #150261;
+  max-width: 100%;
+  color: white;
+  padding: 5px;
+  margin: 0;
+  margin-top: 1rem;
+}
+
 .Cardcontainer {
+  color: #ffffff;
   max-width: 900px;
   margin: 6rem auto;
   padding: 1rem;
   text-align: center;
 }
+.boxCard {
+  background-color: white;
+  border-radius: 10px;
+}
 .card {
   border-radius: 10px;
   padding: 0rem;
-  background-color: transparent;
-  box-shadow: #214055 0px 2px 7px;
+  background-color: white;
+  /* box-shadow: #214055 0px 2px 7px; */
 }
 .text-bold {
   font-weight: bold;
@@ -18,7 +32,8 @@
   font-weight: bold;
 }
 .card-title {
-  background-color: #214055;
+  /* background-color: #214055; */
+  background-color: #2394f7;
   color: white;
   border-radius: 50%;
   display: inline-block;
@@ -28,7 +43,8 @@
   text-align: center; /* Center text horizontally */
 }
 .card-title:hover {
-  background-color: rgb(54, 101, 133);
+  /* background-color: rgb(54, 101, 133) */
+  background-color: #2394f7;
 }
 .textde {
   min-height: 123px;

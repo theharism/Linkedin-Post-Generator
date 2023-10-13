@@ -1,37 +1,113 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background-color: #f6f4eb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row; /* Start with a stacked layout for mobile */
-}
-
-.navbar p {
+* {
   margin: 0;
-  font-weight: bold;
-  font-size: 1.2em;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-.navbar-scrolled {
+header {
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  color: black;
   border-bottom: 1px solid lightgray;
 }
-@media only screen and (max-width: 767.98px) {
-  .navbar-left .img-container {
-    width: 100px;
-  }
+
+nav .Link {
+  margin: 0 2rem;
+  text-decoration: none;
+  color: black;
 }
-@media only screen and (min-width: 767.98px) {
-  .navbar-left .img-container {
-    width: 150px;
-  }
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: left;
+  gap: 40px;
 }
-@media only screen and (min-width: 1023.98px) {
-  .navbar-left .img-container {
-    width: 180px;
+nav .Link:hover {
+  margin: 0 2rem;
+  color: rgba(0, 0, 0, 0.527);
+  text-decoration: none;
+}
+
+header .nav-btn {
+  padding: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 1.8rem;
+}
+
+.logo {
+  flex: 1;
+}
+
+.LOGOLink {
+  align-items: center;
+  font-size: 20px;
+}
+
+.logo .LOGOImg {
+  width: 100px;
+  /* margin: 20px; */
+  /* padding: 2rem; */
+}
+.nav-open-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.Link {
+  cursor: pointer;
+}
+.Menu svg {
+  color: black;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Menu svg {
+    color: aliceblue;
+  }
+  header .nav-btn {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  header nav {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: all 0.6s;
+    transform: translateX(150%);
+  }
+
+  header .responsive_nav {
+    transform: none;
+    z-index: 1;
+    background-color: #150261;
+  }
+
+  .nav-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    color: white;
+  }
+
+  nav .Link {
+    color: white;
+
+    font-size: 1.2rem;
   }
 }

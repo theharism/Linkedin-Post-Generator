@@ -3,6 +3,9 @@ import { Questions as allQuestions, Tone } from "./Question";
 import "../style/Main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { CreatorsNames } from "../utils/CreatorNames";
+import { Container } from "react-bootstrap";
+import { FaPencilAlt } from "react-icons/fa";
 
 function Main({ onPress, HandleGPTResponse }) {
   const [creator, setCreator] = useState("");
@@ -15,6 +18,33 @@ function Main({ onPress, HandleGPTResponse }) {
   const [isOtherToneSelected, setIsOtherToneSelected] = useState(false);
   const [customTone, setCustomTone] = useState("");
   const [customQuestion, setCustomQuestion] = useState("");
+  const [creatorName, setCreatorName] = useState("");
+  // const [TextArea, setTextArea] = useState("");
+  const [textArea, setTextArea] = useState("");
+  const [textAreaContents, setTextAreaContents] = useState([]);
+  const [questionAccordions, setQuestionAccordions] = useState([]);
+  const [textareaAccordions, setTextareaAccordions] = useState([]);
+
+  const addTextArea = () => {
+    if (textArea) {
+      setTextAreaContents([
+        ...textAreaContents,
+        { content: textArea, isOpen: false },
+      ]);
+      setTextArea(""); // Clear the textarea
+    }
+  };
+  const toggleQuestionAccordion = (index) => {
+    const updatedQuestionAccordions = [...questionAccordions];
+    updatedQuestionAccordions[index] = !updatedQuestionAccordions[index];
+    setQuestionAccordions(updatedQuestionAccordions);
+  };
+
+  const toggleTextareaAccordion = (index) => {
+    const updatedTextareaAccordions = [...textareaAccordions];
+    updatedTextareaAccordions[index] = !updatedTextareaAccordions[index];
+    setTextareaAccordions(updatedTextareaAccordions);
+  };
 
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
@@ -31,6 +61,10 @@ function Main({ onPress, HandleGPTResponse }) {
         setNewAnswer(""); // Clear answer field
       }
     }
+  };
+  const handleSelectCreatorName = (e) => {
+    const selectedValue = e.target.value;
+    setCreatorName(selectedValue);
   };
 
   const handleCustomChange = (e) => {
@@ -94,30 +128,28 @@ function Main({ onPress, HandleGPTResponse }) {
 
   const submitData = async () => {
     try {
-      if (creator) {
-        const userData = {
-          creator,
-          answers: selectedAnswers,
-          selectedTone: isOtherToneSelected ? customTone : selectedTone,
-          description,
-        };
+      const userData = {
+        description,
+        answers: selectedAnswers,
+        selectedTone: isOtherToneSelected ? customTone : selectedTone,
+        textAreaContents,
+      };
+      console.log(userData);
 
-        onPress();
-        const response = await axios.post(
-          "http://localhost:4000/userDetails",
-          userData
-        );
+      onPress();
+      const response = await axios.post(
+        "http://localhost:4000/userDetails",
+        userData
+      );
 
-        if (response.data.message) {
-          
-          HandleGPTResponse(response.data.message.content);
-          console.log(response.data.prompt);
-        }
+      console.log("backend response", response.data.message);
 
-        // Log the entire response data received from the backend
-      } else {
-        console.error("Invalid data for submission");
+      if (response.data.message) {
+        HandleGPTResponse(response.data.message.content);
+        console.log(response.data.prompt);
       }
+
+      // Log the entire response data received from the backend
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -127,149 +159,207 @@ function Main({ onPress, HandleGPTResponse }) {
     setSelectedQuestion("");
   }, [availableQuestions]);
 
+  // const toggleAccordion = (index) => {
+
+  //   setSelectedAnswers((prevAnswers) => {
+  //     const updatedAnswers = [...prevAnswers];
+  //     updatedAnswers[index].isOpen = !updatedAnswers[index].isOpen;
+  //     return updatedAnswers;
+  //   });
+  // };
   const toggleAccordion = (index) => {
-    setSelectedAnswers((prevAnswers) => {
-      const updatedAnswers = [...prevAnswers];
-      updatedAnswers[index].isOpen = !updatedAnswers[index].isOpen;
-      return updatedAnswers;
+    setTextAreaContents((prevContents) => {
+      const updatedContents = [...prevContents];
+      updatedContents[index].isOpen = !updatedContents[index].isOpen;
+      return updatedContents;
     });
   };
 
   return (
-    <div className="container">
-      <div className="heading">
-        <h1 className="bold-text">Linkedin Post Generator</h1>
-        <p>Generate Post quickly and easily with our new AI Post Generator.</p>
-      </div>
+    <Container className="PostGenContaier">
+      <div className="container">
+        <div className="heading">
+          <h1 className="bold-text">Linkedin Post Generator</h1>
+          <p>
+            Generate Post quickly and easily with our new AI Post Generator.
+          </p>
+        </div>
 
-      <div className="creator-content">
-        <label>Enter a description*</label>
-        <input
-          className="MainDesc"
-          type="text"
-          placeholder="What should the Post be about..."
-          value={description}
-          onChange={handleDescription}
-        />
-      </div>
-
-      <div className="creator-content">
-        <label>Linkedin Creator's Profile URL *</label>
-        <input
-          className="creator-input"
-          type="text"
-          placeholder="Profile URL..."
-          value={creator}
-          onChange={handleCreator}
-        />
-      </div>
-      <div className="question-container">
-        <label>Tone *</label>
-        {isOtherToneSelected ? (
+        <div className="creator-content">
+          <label>Enter a description*</label>
           <input
-            className="creator-input"
+            className="MainDesc"
             type="text"
-            placeholder="Enter Your Tone"
-            value={customTone}
-            onChange={handleCustomToneChange}
+            placeholder="What should the Post be about..."
+            value={description}
+            onChange={handleDescription}
           />
-        ) : (
+        </div>
+
+        <div className="question-container">
+          <label>Select Questions (Optional)</label>
           <select
             className="question-dropdown"
-            value={selectedTone}
-            onChange={handleToneChange}
+            value={selectedQuestion}
+            onChange={handleSelectChange}
           >
-            <option value="">Select a tone</option>
-            {Tone.map((tone, index) => (
-              <option key={index} value={tone.style}>
-                {tone.style}
+            <option value="">Select a question</option>
+            {availableQuestions.map((question, index) => (
+              <option key={index} value={question}>
+                {question}
               </option>
             ))}
-            <option value="Other">Other</option>
           </select>
-        )}
-      </div>
-
-      <div className="question-container">
-        <label>Select Questions (Optional)</label>
-        <select
-          className="question-dropdown"
-          value={selectedQuestion}
-          onChange={handleSelectChange}
-        >
-          <option value="">Select a question</option>
-          {availableQuestions.map((question, index) => (
-            <option key={index} value={question}>
-              {question}
-            </option>
-          ))}
-        </select>
-        {selectedQuestion === "Other" ? (
-          <div className="selected-question">
-            <input
-              className="creator-input QCR"
-              type="text"
-              placeholder="Question: Add Your Question Here.."
-              value={customQuestion}
-              onChange={handleCustomChange}
-            />
-            <div className="input-button-container">
+          {selectedQuestion === "Other" ? (
+            <div className="selected-question">
               <input
-                className="answer-input"
-                placeholder="Answer Here..."
-                value={newAnswer}
-                onChange={handleAnswerChange}
+                className="creator-input QCR"
+                type="text"
+                placeholder="Question: Add Your Question Here.."
+                value={customQuestion}
+                onChange={handleCustomChange}
               />
-              <button className="add-button" onClick={handleAdd}>
-                Add
-              </button>
-            </div>
-          </div>
-        ) : selectedQuestion ? (
-          <div className="selected-question">
-            <p>Q {selectedQuestion}</p>
-            <div className="input-button-container">
-              <input
-                className="answer-input"
-                placeholder="Answer Here..."
-                value={newAnswer}
-                onChange={handleAnswerChange}
-              />
-              <button className="add-button" onClick={handleAdd}>
-                Add
-              </button>
-            </div>
-          </div>
-        ) : null}
-      </div>
-
-      <div className="selected-question">
-        <button className="submit-button" onClick={submitData}>
-          Submit
-        </button>
-        <div className="selected-question-container">
-          {selectedAnswers.length >= 1 && (
-            <p className="title">Selected Questions</p>
-          )}
-          <ul className="accordion">
-            {selectedAnswers.map((item, index) => (
-              <li key={index} className="q-content">
-                <button
-                  className={`accordion-button ${item.isOpen ? "active" : ""}`}
-                  type="button"
-                  onClick={() => toggleAccordion(index)}
-                >
-                  Q: {item.question}
+              <div className="input-button-container">
+                <input
+                  className="answer-input"
+                  placeholder="Answer Here..."
+                  value={newAnswer}
+                  onChange={handleAnswerChange}
+                />
+                <button className="add-button" onClick={handleAdd}>
+                  Add
                 </button>
-                <div className={`answer-content ${item.isOpen ? "show" : ""}`}>
-                  Ans: {item.answer}
+              </div>
+            </div>
+          ) : selectedQuestion ? (
+            <div className="selected-question">
+              <p>Q {selectedQuestion}</p>
+              <div className="input-button-container">
+                <input
+                  className="answer-input"
+                  placeholder="Answer Here..."
+                  value={newAnswer}
+                  onChange={handleAnswerChange}
+                />
+                <button className="add-button" onClick={handleAdd}>
+                  Add
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="question-container">
+          <label>Tone *</label>
+          {isOtherToneSelected ? (
+            <input
+              className="creator-input"
+              type="text"
+              placeholder="Enter Your Tone"
+              value={customTone}
+              onChange={handleCustomToneChange}
+            />
+          ) : (
+            <select
+              className="question-dropdown"
+              value={selectedTone}
+              onChange={handleToneChange}
+            >
+              <option value="">Select a tone</option>
+              {Tone.map((tone, index) => (
+                <option key={index} value={tone.style}>
+                  {tone.style}
+                </option>
+              ))}
+              <option value="Other">Other</option>
+            </select>
+          )}
+        </div>
+
+        <div className="question-container textarea-container">
+          <label>Inspirational Post (Optional)</label>
+          <textarea
+            className="creator-input"
+            placeholder="Enter any inspirational posts..."
+            value={textArea}
+            onChange={(e) => setTextArea(e.target.value)}
+          />
+          <button
+            className="add-button"
+            onClick={addTextArea}
+            style={{
+              marginBottom: "40px",
+            }}
+          >
+            Add
+          </button>
+          <div className="accordion-container">
+            {textAreaContents.length >= 1 && (
+              <p className="title">Inspirational posts</p>
+            )}
+
+            {textAreaContents.map((content, index) => (
+              <div key={index} className="accordion-item">
+                <button
+                  className="accordion-button"
+                  type="button"
+                  onClick={() => toggleTextareaAccordion(index)}
+                >
+                  Show Inspirational Post {index + 1}
+                </button>
+                <div
+                  className={`custom-accordion-content ${
+                    textareaAccordions[index] ? "active" : ""
+                  }`}
+                >
+                  {content.content}
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
+        </div>
+
+        <div className="selected-question">
+          <div className="selected-question-container">
+            {selectedAnswers.length >= 1 && (
+              <p className="title">Selected Questions</p>
+            )}
+            <ul className="accordion">
+              {selectedAnswers.map((item, index) => (
+                <li key={index} className="q-content">
+                  <button
+                    className={`accordion-button ${
+                      questionAccordions[index] ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => toggleQuestionAccordion(index)} // This should be toggleQuestionAccordion
+                  >
+                    Q: {item.question}
+                  </button>
+                  <div
+                    className={`answer-content ${
+                      questionAccordions[index] ? "show" : ""
+                    }`}
+                  >
+                    Ans: {item.answer}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="PostSubmit">
+        <button
+          className="submit-button"
+          onClick={submitData}
+          style={{ position: "relative" }}
+        >
+          MUSE
+          <FaPencilAlt className="Pencil" />
+        </button>
+      </div>
+    </Container>
   );
 }
 

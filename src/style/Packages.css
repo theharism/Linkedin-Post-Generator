@@ -1,0 +1,53 @@
+.Packages {
+    margin-top: 5rem;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .plan{
+    margin: 1rem;
+  }
+  .card {
+    /* width: 300px;  */
+    text-align: left; /* To ensure text alignment is to the left */
+    margin-top: 1rem;
+    padding: 1rem;
+    /* Other styles for the card go here */
+  }
+  .PackagesContent {
+    max-width: 100%; 
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .PackagesContent h4 {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
+  .PackagesContent p {
+    margin: 10px 0;
+  }
+  @media (max-width: 760px) {
+    
+    .PackagesContent h4 {
+      padding: 1rem 0;
+      font-size: 2rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  }
+  /* Increase the width of the iframe on larger screens */
+  @media (min-width: 768px) {
+   
+    .PackagesContent h4 {
+      padding: 1rem 0;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  }
