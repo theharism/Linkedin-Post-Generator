@@ -58,7 +58,7 @@ const HeroSection = () => {
           className="FormLinks"
         >
           <button style={{ position: "relative" }}>
-            Start Musing
+            Create Your First Post
             <FaPencilAlt className="Pencil" />
           </button>
         </Link>

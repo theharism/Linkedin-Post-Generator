@@ -97,6 +97,28 @@ const NavbarComponent = () => {
         >
           Affiliates
         </ScrollLink>
+        <ScrollLink
+          to="video"
+          spy={true}
+          smooth={true}
+          duration={200}
+          offset={30}
+          onClick={closeMobileMenu}
+          className="Link"
+        >
+          How to Muse
+        </ScrollLink>
+        <Link
+          to="/post"
+          spy={true}
+          smooth={true}
+          duration={200}
+          offset={20}
+          onClick={closeMobileMenu}
+          className="Link"
+        >
+          Start Musing
+        </Link>
         <button onClick={ShowMenu} className="nav-btn nav-close-btn">
           <FaTimes className="Menu" />
         </button>
