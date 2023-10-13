@@ -64,17 +64,17 @@ import RenderPost from "./components/RenderPost";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import SubNavbar from "./common/SubNav";
 function App() {
   return (
     <div>
-      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={
               <div>
+                <Navbar />
                 <section id="hero">
                   <HeroSection />
                 </section>
@@ -93,7 +93,15 @@ function App() {
               </div>
             }
           />
-          <Route path="/post" element={<RenderPost />} />
+          <Route
+            path="/post"
+            element={
+              <div>
+                <SubNavbar />
+                <RenderPost />
+              </div>
+            }
+          />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

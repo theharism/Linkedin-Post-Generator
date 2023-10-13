@@ -47,11 +47,12 @@
 // export default NavbarComponent;
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "../style/Navbar.css";
 import logoImage from "../images/FinalLogo.png";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 
 const NavbarComponent = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -68,9 +69,9 @@ const NavbarComponent = () => {
     <header>
       <div className="logo-container">
         <div className="logo">
-          <ScrollLink to="/" className="LOGOLink">
+          <Link to="/" className="LOGOLink">
             <img src={logoImage} alt="logo" className="LOGOImg" />
-          </ScrollLink>
+          </Link>
         </div>
       </div>
       <nav className={isMobileMenuOpen ? "responsive_nav" : ""}>
@@ -79,7 +80,7 @@ const NavbarComponent = () => {
           spy={true}
           smooth={true}
           duration={80}
-          offset={200}
+          offset={30}
           onClick={closeMobileMenu}
           className="Link"
         >
