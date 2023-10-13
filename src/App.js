@@ -69,22 +69,33 @@ function App() {
   return (
     <div>
       <Navbar />
-      <section id="hero">
-        <HeroSection />
-      </section>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <section id="hero">
+                  <HeroSection />
+                </section>
 
-      <section id="video">
-        <Video />
-      </section>
+                <section id="video">
+                  <Video />
+                </section>
 
-      <section id="pricing">
-        <Packages />
-      </section>
+                <section id="pricing">
+                  <Packages />
+                </section>
 
-      <section id="affiliates">
-        <Affiliates />
-      </section>
-
+                <section id="affiliates">
+                  <Affiliates />
+                </section>
+              </div>
+            }
+          />
+          <Route path="/post" element={<RenderPost />} />
+        </Routes>
+      </BrowserRouter>
       <ToastContainer />
     </div>
   );
