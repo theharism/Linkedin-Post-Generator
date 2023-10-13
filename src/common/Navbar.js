@@ -79,7 +79,7 @@ const NavbarComponent = () => {
           spy={true}
           smooth={true}
           duration={80}
-          offset={30}
+          offset={200}
           onClick={closeMobileMenu}
           className="Link"
         >
@@ -89,7 +89,7 @@ const NavbarComponent = () => {
           to="affiliates"
           spy={true}
           smooth={true}
-          duration={80}
+          duration={200}
           offset={30}
           onClick={closeMobileMenu}
           className="Link"
