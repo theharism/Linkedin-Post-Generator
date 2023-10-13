@@ -10,7 +10,7 @@ const HeroSection = () => {
         <div className="HeroLogo">
           <img src={Logo} alt="logo" className="HeroInsideLogo" />
         </div>
-        <h4>This will create a responsive hero section with a logo</h4>
+        <h4>Create hyper-personal content using Muse, the #1 LinkedIn content writing tool</h4>
         <div>
           <div
             className="CheckSection"
@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span>
               <FaCheck className="check" size={20} />
             </span>
-            <p style={{ margin: "0" }}>Dummy Text</p>
+            <p style={{ margin: "0" }}> Your voice</p>
           </div>
           <div
             className="CheckSection"
@@ -28,7 +28,7 @@ const HeroSection = () => {
             <span>
               <FaCheck className="check" size={20} />
             </span>
-            <p style={{ margin: "0" }}>Dummy Text</p>
+            <p style={{ margin: "0" }}> Non-robotic / Non-Ai sounding content</p>
           </div>
           <div
             className="CheckSection"
@@ -37,7 +37,7 @@ const HeroSection = () => {
             <span>
               <FaCheck className="check" size={20} />
             </span>
-            <p style={{ margin: "0" }}>Dummy Text</p>
+            <p style={{ margin: "0" }}> Create months worth of content in minutes</p>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ const HeroSection = () => {
       <div className="formHero">
         <Link to={"/post"} style={{ textDecoration: "none", color: "white" }} className="FormLinks">
           <button style={{ position: "relative" }}>
-            Linkedin Post Generator
+            Create Your First Post
             <FaPencilAlt className="Pencil" />
           </button>
         </Link>

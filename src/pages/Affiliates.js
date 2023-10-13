@@ -12,6 +12,8 @@ function Affiliates() {
     firstName: "",
     lastName: "",
     email: "",
+    companyName: "",
+    NoOfMuseUsers: "",
   });
 
   const handleChange = (e) => {
@@ -90,6 +92,34 @@ function Affiliates() {
                 />
               </Form.Group>
 
+              <Form.Group className="Group">
+                <Form.Label className="LeftAlignedLabel">
+                  Company Name
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="companyName"
+                  placeholder="Enter your company name"
+                  className="FormInput"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="Group">
+                <Form.Label className="LeftAlignedLabel">
+                  No: of Muse Users
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="NoOfMuseUsers"
+                  placeholder="No Of Muse Users"
+                  className="FormInput"
+                  value={formData.NoOfMuseUsers}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
               <Button variant="primary" type="submit" className="submit">
                 Submit
               </Button>
@@ -102,3 +132,5 @@ function Affiliates() {
 }
 
 export default Affiliates;
+//  companyName:"",
+// NoOfMuseUsers:""
