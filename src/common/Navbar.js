@@ -47,12 +47,11 @@
 // export default NavbarComponent;
 
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "../style/Navbar.css";
 import logoImage from "../images/FinalLogo.png";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
 
 const NavbarComponent = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
