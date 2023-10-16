@@ -151,7 +151,7 @@ function Main({ onPress, HandleGPTResponse }) {
       onPress();
 
       const response = await axios.post(
-        "http://localhost:3000/api/chatGpt",
+        "http://localhost:4000/api/chatGpt",
         userData
       );
 

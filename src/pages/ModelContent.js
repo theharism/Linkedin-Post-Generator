@@ -7,7 +7,7 @@ import "../style/ModelContent.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-function ModelContent() {
+function ModelContent({ closeModal }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -30,21 +30,22 @@ function ModelContent() {
     try {
       console.log("Form data:", formData);
       const response = await axios.post(
-        "http://localhost:3000/api/sendMail",
+        "http://localhost:4000/api/sendMail",
         formData
       );
 
-      if(response.status === 200){
+      if (response.status === 200) {
         toast.success("Request Received Successfully!", {
           position: "top-right",
           autoClose: 1500, // Display the message for 3 seconds
         });
-      }else{
+        closeModal();
+      } else {
         toast.error("Something Went Wrong! Pls try again later", {
           position: "top-right",
           autoClose: 1500, // Display the message for 3 seconds
         });
-      };
+      }
     } catch (eror) {
       console.log(eror);
     }
@@ -108,7 +109,9 @@ function ModelContent() {
             </Form.Group>
 
             <Form.Group className="Group">
-              <Form.Label className="LeftAlignedLabel">No. of Muse Users</Form.Label>
+              <Form.Label className="LeftAlignedLabel">
+                No. of Muse Users
+              </Form.Label>
               <Form.Control
                 type="number"
                 name="NoOfMuseUsers"
@@ -119,9 +122,10 @@ function ModelContent() {
               />
             </Form.Group>
 
-
             <Form.Group className="Group">
-              <Form.Label className="LeftAlignedLabel">Select Package Type</Form.Label>
+              <Form.Label className="LeftAlignedLabel">
+                Select Package Type
+              </Form.Label>
               <div>
                 <Form.Check
                   type="radio"

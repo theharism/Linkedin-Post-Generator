@@ -100,7 +100,7 @@ const Packages = () => {
         <div className="row d-flex flex-row justify-content-center w-100">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              class="card"
+              className="card"
               style={{
                 textAlign: "left",
               }}
@@ -147,7 +147,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              class="card"
+              className="card"
               style={{
                 textAlign: "left",
               }}
@@ -210,7 +210,7 @@ const Packages = () => {
 
               {isModalOpen && (
                 <Modal closeModal={closeModal}>
-                  <ModelContent />
+                  <ModelContent closeModal={closeModal}/>
                 </Modal>
               )}
             </div>
@@ -222,7 +222,7 @@ const Packages = () => {
         <div className="row d-flex flex-row justify-content-center w-100">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              class="card"
+              className="card"
               style={{
                 textAlign: "left",
               }}
@@ -267,7 +267,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              class="card"
+              className="card"
               style={{
                 textAlign: "left",
               }}
@@ -328,7 +328,7 @@ const Packages = () => {
 
               {isModalOpen && (
                 <Modal closeModal={closeModal}>
-                  <ModelContent />
+                  <ModelContent closeModal={closeModal}/>
                 </Modal>
               )}
             </div>
