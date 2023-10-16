@@ -11,7 +11,7 @@ const HeroSection = () => {
           <img src={Logo} alt="logo" className="HeroInsideLogo" />
         </div>
         <h4>
-          Create hyper-personal content using Muse, the #1 LinkedIn content
+          Create hyper-personalized content using Muse, the #1 LinkedIn content
           writing tool
         </h4>
         <div>

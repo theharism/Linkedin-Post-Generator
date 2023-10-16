@@ -15,7 +15,7 @@
 
 .modal-content {
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   position: relative;
   width: 100%; 
   max-width: 60%; 
@@ -37,7 +37,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 625px) {
   .modal-content {
     max-width: 90%;
   }
@@ -83,6 +83,9 @@
 
 .PackagesContent p {
   margin: 10px 0;
+}
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 @media (max-width: 760px) {
   .PackagesContent h4 {

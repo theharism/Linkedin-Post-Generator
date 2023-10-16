@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../style/ModelContent.css";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function ModelContent() {
@@ -13,6 +14,7 @@ function ModelContent() {
     email: "",
     companyName: "",
     NoOfMuseUsers: "",
+    packageType: "monthly",
   });
 
   const handleChange = (e) => {
@@ -28,11 +30,21 @@ function ModelContent() {
     try {
       console.log("Form data:", formData);
       const response = await axios.post(
-        "http://localhost:4000/contactUs",
+        "http://localhost:3000/api/sendMail",
         formData
       );
 
-      console.log(response);
+      if(response.status === 200){
+        toast.success("Request Received Successfully!", {
+          position: "top-right",
+          autoClose: 1500, // Display the message for 3 seconds
+        });
+      }else{
+        toast.error("Something Went Wrong! Pls try again later", {
+          position: "top-right",
+          autoClose: 1500, // Display the message for 3 seconds
+        });
+      };
     } catch (eror) {
       console.log(eror);
     }
@@ -45,6 +57,18 @@ function ModelContent() {
           <div className="before-after-text"></div>
           <h2>Contact US</h2>
           <Form className="containerModel_FormPAge" onSubmit={handleSubmit}>
+            <Form.Group className="Group">
+              <Form.Label className="LeftAlignedLabel">First Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="firstName"
+                placeholder="Enter your First name"
+                className="FormInput"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
             <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">Last Name</Form.Label>
               <Form.Control
@@ -81,6 +105,41 @@ function ModelContent() {
                 value={formData.companyName}
                 onChange={handleChange}
               />
+            </Form.Group>
+
+            <Form.Group className="Group">
+              <Form.Label className="LeftAlignedLabel">No. of Muse Users</Form.Label>
+              <Form.Control
+                type="number"
+                name="NoOfMuseUsers"
+                placeholder="Enter the number of Muse users"
+                className="FormInput"
+                value={formData.NoOfMuseUsers}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+
+            <Form.Group className="Group">
+              <Form.Label className="LeftAlignedLabel">Select Package Type</Form.Label>
+              <div>
+                <Form.Check
+                  type="radio"
+                  label="Monthly"
+                  name="packageType"
+                  value="monthly"
+                  checked={formData.packageType === "monthly"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Yearly"
+                  name="packageType"
+                  value="yearly"
+                  checked={formData.packageType === "yearly"}
+                  onChange={handleChange}
+                />
+              </div>
             </Form.Group>
 
             <Button

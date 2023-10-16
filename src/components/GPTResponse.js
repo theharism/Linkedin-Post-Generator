@@ -24,11 +24,11 @@ function GPTResponse({ message }) {
 
   return (
     <div className="ModiContainer">
-      <div className="container GPTcontainer">
+      <div className="GPTcontainer">
         <h2 className="RepsonseText">GENERATED POST</h2>
         <div className="responseCardContainer">
           <div className="responseCard">
-            <pre className="responseText">{message}</pre>
+            <pre className="responseText" ref={pRef}>{message}</pre>
             <button className="btn copy" onClick={handleCopyClick}>
               Copy
             </button>

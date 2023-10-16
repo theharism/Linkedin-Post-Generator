@@ -3,7 +3,7 @@ import { Questions as allQuestions, Tone } from "./Question";
 import "../style/Main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { CreatorsNames } from "../utils/CreatorNames";
+// import { CreatorsNames } from "../utils/CreatorNames";
 import { Container } from "react-bootstrap";
 import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -151,7 +151,7 @@ function Main({ onPress, HandleGPTResponse }) {
       onPress();
 
       const response = await axios.post(
-        "http://localhost:4000/userDetails",
+        "http://localhost:3000/api/chatGpt",
         userData
       );
 

@@ -3,7 +3,7 @@ import "../style/Packages.css";
 import { FaCheck } from "react-icons/fa";
 import ModelContent from "./ModelContent";
 
-function Modal({ children, closeModal }) {
+export function Modal({ children, closeModal }) {
   return (
     <div className="modal">
       <div className="modal-content">
@@ -80,18 +80,16 @@ const Packages = () => {
         </p>
         <button
           href="#"
-          className={`btn btn-primary plan ${
-            activePlan === "Monthly" ? "active" : ""
-          }`}
+          className={`btn btn-primary plan ${activePlan === "Monthly" ? "active" : ""
+            }`}
           onClick={() => handlePlanChange("Monthly")}
         >
           Monthly
         </button>
         <button
           href="#"
-          className={`btn btn-primary plan ${
-            activePlan === "Yearly" ? "active" : ""
-          }`}
+          className={`btn btn-primary plan ${activePlan === "Yearly" ? "active" : ""
+            }`}
           onClick={() => handlePlanChange("Yearly")}
         >
           Yearly
@@ -112,6 +110,10 @@ const Packages = () => {
               <h2>
                 $49 <span style={{ color: "#6B7280" }}>/mo</span>
               </h2>
+
+              <p style={{ color: "#6B7280" }}>
+                $39 / month if you sign up for a year
+              </p>
 
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
@@ -155,6 +157,10 @@ const Packages = () => {
               <h2>
                 $99 <span style={{ color: "#6B7280" }}>/mo</span>
               </h2>
+
+              <p style={{ color: "#6B7280" }}>
+                $88 / month if you sign up for a year
+              </p>
 
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
@@ -225,11 +231,10 @@ const Packages = () => {
               <p style={{ color: "#6B7280" }}>To help you grow</p>
               <h2>
                 $468 <span style={{ color: "#6B7280" }}>/year</span>
+                <span style={{color:"#d40000", marginLeft: 20, textDecoration: 'line-through'}}>$588</span>
               </h2>
 
-              <p style={{ color: "#6B7280" }}>
-                $39 / month if you sign up for a year
-              </p>
+
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
               </button>
@@ -271,11 +276,10 @@ const Packages = () => {
               <p style={{ color: "#6B7280" }}>To help you grow</p>
               <h2>
                 $1056 <span style={{ color: "#6B7280" }}>/year</span>
+                <span style={{color:"#d40000", marginLeft: 20, textDecoration: 'line-through'}}>$1188</span>
               </h2>
 
-              <p style={{ color: "#6B7280" }}>
-                $88 / month if you sign up for a year
-              </p>
+
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
               </button>
@@ -310,48 +314,23 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              class="card"
+              className="card"
               style={{
                 textAlign: "left",
               }}
             >
               <h4>Enterprise Package</h4>
-              <p style={{ color: "#6B7280" }}>To help you grow</p>
-              <h2>
-                $49 <span style={{ color: "#6B7280" }}>/year</span>
-              </h2>
+              <p style={{ color: "#6B7280" }}>For Teams of 10+ Muse Users</p>
 
-              <p style={{ color: "#6B7280" }}>5 hours ($0.097/(min))</p>
-              <button href="#" className="btn btn-primary plan">
-                Choose Plan
+              <button onClick={openModal} className="btn btn-primary plan">
+                Contact Us
               </button>
-              <hr />
-              <div className="card-body">
-                <h5>What's included</h5>
-                <div
-                  className="CheckSection"
-                  style={{ display: "flex", alignItems: "baseline" }}
-                >
-                  <span>
-                    <FaCheck className="check" size={20} />
-                  </span>
-                  <p style={{ margin: "0", color: "#6B7280" }}>
-                    5 hours a month
-                  </p>
-                </div>
 
-                <div
-                  className="CheckSection"
-                  style={{ display: "flex", alignItems: "baseline" }}
-                >
-                  <span>
-                    <FaCheck className="check" size={20} />
-                  </span>
-                  <p style={{ margin: "0", color: "#6B7280" }}>
-                    Over 100 supported languages
-                  </p>
-                </div>
-              </div>
+              {isModalOpen && (
+                <Modal closeModal={closeModal}>
+                  <ModelContent />
+                </Modal>
+              )}
             </div>
           </div>
         </div>

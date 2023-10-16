@@ -14,14 +14,29 @@
 .custom-accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease-in-out; /* Smoothly transition max-height */
-  background-color: #2394f7; /* Change this color to your preference */
-  color: #ffffff; /* Change text color if needed */
+      background-color: #2394f7;
+      color: #ddd;
+      border-radius: 7px;
+      transition: 1s;
+      outline: none;
+      height: 0;
+      text-align: left;
+      border: 2px solid #ddd;
+      visibility: hidden;
+      font-size: 0;
+  
 }
 
 /* Apply the custom-accordion-content class to the active items */
 .custom-accordion-content.active {
   max-height: 1000px; /* Set a sufficiently high value to accommodate dynamic content */
+  font-size: 16px;
+  visibility: visible;
+  word-wrap: break-word;
+  height: auto;
+  padding: 1rem;
+  margin: 0 0 1rem;
+  transition: height 0.3s linear, padding-top 0.3s linear, padding-bottom 0.3s linear, border-top-width 0.3s linear, border-top-width 0.3s linear;
 }
 
 .MainDesc {
