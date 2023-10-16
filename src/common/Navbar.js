@@ -74,18 +74,11 @@ const NavbarComponent = () => {
         </div>
       </div>
       <nav className={isMobileMenuOpen ? "responsive_nav" : ""}>
-        <ScrollLink
-          to="pricing"
-          spy={true}
-          smooth={true}
-          duration={80}
-          offset={30}
-          onClick={closeMobileMenu}
-          className="Link"
-        >
-          Pricing
-        </ScrollLink>
-        <ScrollLink
+      <Link to="/post" className="Link">
+          Start Musing
+        </Link>
+        
+        {/* <ScrollLink
           to="affiliates"
           spy={true}
           smooth={true}
@@ -95,7 +88,7 @@ const NavbarComponent = () => {
           className="Link"
         >
           Affiliates
-        </ScrollLink>
+        </ScrollLink> */}
         <ScrollLink
           to="video"
           spy={true}
@@ -107,9 +100,17 @@ const NavbarComponent = () => {
         >
           How to Muse
         </ScrollLink>
-        <Link to="/post" className="Link">
-          Start Musing
-        </Link>
+        <ScrollLink
+          to="pricing"
+          spy={true}
+          smooth={true}
+          duration={80}
+          offset={30}
+          onClick={closeMobileMenu}
+          className="Link"
+        >
+          Pricing
+        </ScrollLink>
         <button onClick={ShowMenu} className="nav-btn nav-close-btn">
           <FaTimes className="Menu" />
         </button>

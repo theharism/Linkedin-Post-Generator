@@ -87,9 +87,9 @@ function App() {
                   <Packages />
                 </section>
 
-                <section id="affiliates">
+                {/* <section id="affiliates">
                   <Affiliates />
-                </section>
+                </section> */}
               </div>
             }
           />

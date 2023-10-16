@@ -1,0 +1,50 @@
+.containerModel {
+  margin: 0px 2px;
+  padding: 2rem 0.5rem 1rem 0.5rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.AffiliatesContainer {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+.containerModel_FormPAge {
+  padding: 0rem 0;
+}
+.containerModel_FormPAge p {
+  text-align: center;
+}
+.Group {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.LeftAlignedLabel {
+  text-align: left;
+}
+
+.Group:nth-child(1) {
+  text-align: left;
+  justify-content: left;
+  align-items: left;
+}
+.Group .FormInput {
+  padding: 1rem;
+  border: 1px solid lightgray;
+}
+.containerModel_submit {
+  border: none;
+  outline: none;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #2394f7;
+  color: aliceblue;
+  /* padding: 0.8rem 8rem; */
+}
+@media (max-width: 768px) {
+  .submit {
+    padding: 1.2rem 2rem;
+  }
+}
