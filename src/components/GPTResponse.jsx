@@ -148,7 +148,7 @@ function GPTResponse({ message }) {
               {Text && (
                 <div style={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "space-around",
                   width: "100%",
                   marginTop: "1rem",
                 }} className="ChangeDiv">

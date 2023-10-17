@@ -71,12 +71,13 @@
   margin-top: 1rem;
   background-color: #214055;
   border: none;
+  margin: 1rem;
 
 }
 .GPTButtons{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   margin: 1rem;
   
