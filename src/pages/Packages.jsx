@@ -47,27 +47,27 @@ const Packages = () => {
           Cancel at any time. 100% no questions asked refunds. Message us for
           high volume custom pricing.
         </p>
+      <div className="coming-soon">
+        <span>Coming Soon....</span>
+      </div>
         <button
           href="#"
-          className={`btn btn-primary plan ${
+          className={`btn btn-primary plan blur-card ${
             activePlan === "Monthly" ? "active" : ""
           }`}
-          onClick={() => handlePlanChange("Monthly")}
+          // onClick={() => handlePlanChange("Monthly")}
         >
           Monthly
         </button>
         <button
           href="#"
-          className={`btn btn-primary plan ${
+          className={`btn btn-primary plan blur-card ${
             activePlan === "Yearly" ? "active" : ""
           }`}
-          onClick={() => handlePlanChange("Yearly")}
+          // onClick={() => handlePlanChange("Yearly")}
         >
           Yearly
         </button>
-      </div>
-      <div className="coming-soon">
-        <span>Coming Soon....</span>
       </div>
       {activePlan === "Monthly" && (
         <div className="row d-flex flex-row justify-content-center w-100 blur-card ">
@@ -177,7 +177,9 @@ const Packages = () => {
               <h4>Enterprise Package</h4>
               <p style={{ color: "#6B7280" }}>For Teams of 10+ Muse Users</p>
 
-              <button onClick={openModal} className="btn btn-primary plan">
+              <button 
+              // onClick={openModal} 
+              className="btn btn-primary plan">
                 Contact Us
               </button>
 

@@ -30,7 +30,7 @@ function ModelContent({ closeModal }) {
     try {
       console.log("Form data:", formData);
       const response = await axios.post(
-        "http://localhost:4000/api/sendMail",
+        "http://localhost:3000/api/sendMail",
         formData
       );
 

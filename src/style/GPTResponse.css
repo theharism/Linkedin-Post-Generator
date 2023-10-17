@@ -40,8 +40,30 @@
   font-size: 15px;
   margin: 1rem 0;
 }
+.TryNoww {
+  border: none;
+  outline: none;
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 15px;
+  margin: 1rem 0;
+  background-color: #214055;
+}
+.GPTButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem;
+  
+}
 .TryNow:hover {
   background-color: #2394f7b8;
+}
+.TryNoww:hover{
+  background-color: #214055b8;
 }
 
 /* Center the "Try Now" button horizontally */
@@ -72,6 +94,12 @@
     position: absolute;
     top: 50%;
     right: 10%;
+  }
+  .TryNoww {
+    position: absolute;
+    /* top: 50%; */
+    right: 11%;
+    bottom: 52%;
   }
 }
 /* Center the card horizontally within the container */
