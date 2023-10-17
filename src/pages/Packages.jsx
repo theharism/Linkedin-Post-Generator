@@ -16,37 +16,6 @@ export function Modal({ children, closeModal }) {
   );
 }
 
-function ContactForm() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-  };
-
-  return (
-    <div>
-      <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="company">Company Name:</label>
-          <input type="text" id="company" name="company" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address">Address:</label>
-          <textarea id="address" name="address" rows="4" required />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-}
 const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,16 +49,18 @@ const Packages = () => {
         </p>
         <button
           href="#"
-          className={`btn btn-primary plan ${activePlan === "Monthly" ? "active" : ""
-            }`}
+          className={`btn btn-primary plan ${
+            activePlan === "Monthly" ? "active" : ""
+          }`}
           onClick={() => handlePlanChange("Monthly")}
         >
           Monthly
         </button>
         <button
           href="#"
-          className={`btn btn-primary plan ${activePlan === "Yearly" ? "active" : ""
-            }`}
+          className={`btn btn-primary plan ${
+            activePlan === "Yearly" ? "active" : ""
+          }`}
           onClick={() => handlePlanChange("Yearly")}
         >
           Yearly
@@ -100,7 +71,7 @@ const Packages = () => {
         <div className="row d-flex flex-row justify-content-center w-100">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card p-3"
               style={{
                 textAlign: "left",
               }}
@@ -147,7 +118,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card  p-3"
               style={{
                 textAlign: "left",
               }}
@@ -196,7 +167,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card  p-3"
               style={{
                 textAlign: "left",
               }}
@@ -210,7 +181,7 @@ const Packages = () => {
 
               {isModalOpen && (
                 <Modal closeModal={closeModal}>
-                  <ModelContent closeModal={closeModal}/>
+                  <ModelContent closeModal={closeModal} />
                 </Modal>
               )}
             </div>
@@ -222,7 +193,7 @@ const Packages = () => {
         <div className="row d-flex flex-row justify-content-center w-100">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card p-3"
               style={{
                 textAlign: "left",
               }}
@@ -231,9 +202,16 @@ const Packages = () => {
               <p style={{ color: "#6B7280" }}>To help you grow</p>
               <h2>
                 $468 <span style={{ color: "#6B7280" }}>/year</span>
-                <span style={{color:"#d40000", marginLeft: 20, textDecoration: 'line-through'}}>$588</span>
+                <span
+                  style={{
+                    color: "#d40000",
+                    marginLeft: 20,
+                    textDecoration: "line-through",
+                  }}
+                >
+                  $588
+                </span>
               </h2>
-
 
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
@@ -267,7 +245,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card p-3"
               style={{
                 textAlign: "left",
               }}
@@ -276,9 +254,16 @@ const Packages = () => {
               <p style={{ color: "#6B7280" }}>To help you grow</p>
               <h2>
                 $1056 <span style={{ color: "#6B7280" }}>/year</span>
-                <span style={{color:"#d40000", marginLeft: 20, textDecoration: 'line-through'}}>$1188</span>
+                <span
+                  style={{
+                    color: "#d40000",
+                    marginLeft: 20,
+                    textDecoration: "line-through",
+                  }}
+                >
+                  $1188
+                </span>
               </h2>
-
 
               <button href="#" className="btn btn-primary plan">
                 Choose Plan
@@ -314,7 +299,7 @@ const Packages = () => {
           </div>
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
-              className="card"
+              className="card p-3"
               style={{
                 textAlign: "left",
               }}
@@ -328,7 +313,7 @@ const Packages = () => {
 
               {isModalOpen && (
                 <Modal closeModal={closeModal}>
-                  <ModelContent closeModal={closeModal}/>
+                  <ModelContent closeModal={closeModal} />
                 </Modal>
               )}
             </div>

@@ -11,7 +11,6 @@ const Video = () => {
         </p>
       </div>
       <div className="video-container">
-        {/* Add your video element here */}
         <iframe
           title="Video"
           width="560"

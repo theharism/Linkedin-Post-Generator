@@ -3,14 +3,12 @@ import { Questions as allQuestions, Tone } from "./Question";
 import "../style/Main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-// import { CreatorsNames } from "../utils/CreatorNames";
 import { Container } from "react-bootstrap";
 import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Main({ onPress, HandleGPTResponse }) {
-  const [creator, setCreator] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState("");
@@ -20,8 +18,6 @@ function Main({ onPress, HandleGPTResponse }) {
   const [isOtherToneSelected, setIsOtherToneSelected] = useState(false);
   const [customTone, setCustomTone] = useState("");
   const [customQuestion, setCustomQuestion] = useState("");
-  const [creatorName, setCreatorName] = useState("");
-  // const [TextArea, setTextArea] = useState("");
   const [textArea, setTextArea] = useState("");
   const [textAreaContents, setTextAreaContents] = useState([]);
   const [questionAccordions, setQuestionAccordions] = useState([]);
@@ -33,7 +29,7 @@ function Main({ onPress, HandleGPTResponse }) {
         ...textAreaContents,
         { content: textArea, isOpen: false },
       ]);
-      setTextArea(""); // Clear the textarea
+      setTextArea("");
     }
   };
   const toggleQuestionAccordion = (index) => {
@@ -53,28 +49,18 @@ function Main({ onPress, HandleGPTResponse }) {
     setSelectedQuestion(selectedValue);
 
     if (selectedValue === "Other") {
-      // Automatically add the custom question to the accordion
       if (newAnswer !== "") {
         setSelectedAnswers((prevAnswers) => [
           ...prevAnswers,
           { question: customQuestion, answer: newAnswer },
         ]);
-        setCustomQuestion(""); // Clear custom question field
-        setNewAnswer(""); // Clear answer field
+        setCustomQuestion(""); 
+        setNewAnswer(""); 
       }
     }
   };
-  const handleSelectCreatorName = (e) => {
-    const selectedValue = e.target.value;
-    setCreatorName(selectedValue);
-  };
-
   const handleCustomChange = (e) => {
     setCustomQuestion(e.target.value);
-  };
-
-  const handleCreator = (e) => {
-    setCreator(e.target.value);
   };
 
   const handleToneChange = (event) => {
@@ -105,7 +91,6 @@ function Main({ onPress, HandleGPTResponse }) {
     if (newAnswer !== "") {
       let newSelectedAnswers = [...selectedAnswers];
       if (selectedQuestion === "Other") {
-        // If "Other" is selected, add the custom question and answer
         newSelectedAnswers = [
           ...newSelectedAnswers,
           { question: customQuestion, answer: newAnswer },
@@ -123,7 +108,6 @@ function Main({ onPress, HandleGPTResponse }) {
       setSelectedAnswers(newSelectedAnswers);
       setSelectedQuestion("");
       setNewAnswer("");
-      // Clear custom question field as well
       setCustomQuestion("");
     }
   };
@@ -137,13 +121,12 @@ function Main({ onPress, HandleGPTResponse }) {
         textAreaContents,
       };
 
-      // Check if description and selectedTone are empty
       if (!userData.description || !userData.selectedTone) {
         toast.error("Please fill required fields !", {
           position: "top-right",
-          autoClose: 1500, // Display the message for 3 seconds
+          autoClose: 1500, 
         });
-        return; // Exit the function without making the POST request
+        return; 
       }
 
       console.log(userData);
@@ -155,15 +138,12 @@ function Main({ onPress, HandleGPTResponse }) {
         userData
       );
 
-      // console.log("backend response", response.data.message);
-      // console.log("backend response", response.data.prompt);
 
       if (response.data.message) {
         HandleGPTResponse(response.data.message.content);
         console.log("Prompt" , response.data.prompt);
       }
 
-      // Log the entire response data received from the backend
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -172,22 +152,6 @@ function Main({ onPress, HandleGPTResponse }) {
   useEffect(() => {
     setSelectedQuestion("");
   }, [availableQuestions]);
-
-  // const toggleAccordion = (index) => {
-
-  //   setSelectedAnswers((prevAnswers) => {
-  //     const updatedAnswers = [...prevAnswers];
-  //     updatedAnswers[index].isOpen = !updatedAnswers[index].isOpen;
-  //     return updatedAnswers;
-  //   });
-  // };
-  const toggleAccordion = (index) => {
-    setTextAreaContents((prevContents) => {
-      const updatedContents = [...prevContents];
-      updatedContents[index].isOpen = !updatedContents[index].isOpen;
-      return updatedContents;
-    });
-  };
 
   return (
     <Container className="PostGenContaier">
@@ -350,7 +314,7 @@ function Main({ onPress, HandleGPTResponse }) {
                       questionAccordions[index] ? "active" : ""
                     }`}
                     type="button"
-                    onClick={() => toggleQuestionAccordion(index)} // This should be toggleQuestionAccordion
+                    onClick={() => toggleQuestionAccordion(index)} 
                   >
                     Q: {item.question}
                   </button>

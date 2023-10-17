@@ -3,8 +3,8 @@ import "../style/GPTResponse.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function GPTResponse({ message }) {
-  const [copiedText, setCopiedText] = useState(""); // State to store the copied text
-  const pRef = useRef(null); // Reference to the <p> element
+  const [copiedText, setCopiedText] = useState(""); 
+  const pRef = useRef(null); 
 
   const handleTryNowClick = () => {
     window.location.reload();

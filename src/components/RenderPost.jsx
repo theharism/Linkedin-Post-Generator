@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import GPTResponse from "../components/GPTResponse";
-import Main from "../components/Main";
+import GPTResponse from "./GPTResponse";
+import Main from "./Main";
 import { css } from "@emotion/react";
 import { ClipLoader } from "react-spinners";
-import Card from "../components/Cards";
-import Footer from "../common/Footer";
+import Card from "./Cards";
 import emojiStrip from "emoji-strip";
 
 const RenderPost = () => {

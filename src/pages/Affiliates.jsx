@@ -129,5 +129,3 @@ function Affiliates() {
 }
 
 export default Affiliates;
-//  companyName:"",
-// NoOfMuseUsers:""

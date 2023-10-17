@@ -56,19 +56,10 @@
   margin: 1rem;
 }
 .card {
-  /* display: flex;
-  flex-direction: column;
-  height: 100%; */
-  /* width: 300px;  */
-  text-align: left; /* To ensure text alignment is to the left */
+  text-align: left; 
   margin-top: 1rem;
   padding: 1rem;
-  /* margin-top: 1rem; */
-  /* Other styles for the card go here */
 }
-/* .card-body {
-  flex-grow: 1;
-} */
 .PackagesContent {
   max-width: 100%;
   padding: 10px;
@@ -103,7 +94,5 @@
     margin-top: 20px;
     font-weight: bold;
   }
-  .Card{
-    
-  }
+  
 }
