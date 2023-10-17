@@ -39,7 +39,7 @@ const Packages = () => {
     }
   }, [isModalOpen]);
   return (
-    <div className="Packages container">
+    <div className="Packages container ">
       <div className="PackagesContent">
         <p>Pricing</p>
         <h4>Pricing for all your content needs</h4>
@@ -66,9 +66,11 @@ const Packages = () => {
           Yearly
         </button>
       </div>
-
+      <div className="coming-soon">
+        <span>Coming Soon....</span>
+      </div>
       {activePlan === "Monthly" && (
-        <div className="row d-flex flex-row justify-content-center w-100">
+        <div className="row d-flex flex-row justify-content-center w-100 blur-card ">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
               className="card p-3"
@@ -190,7 +192,7 @@ const Packages = () => {
       )}
 
       {activePlan === "Yearly" && (
-        <div className="row d-flex flex-row justify-content-center w-100">
+        <div className="row d-flex flex-row justify-content-center w-100 blur-card">
           <div className="col-12 col-md-6 col-lg-4 ">
             <div
               className="card p-3"
