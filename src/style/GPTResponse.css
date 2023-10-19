@@ -17,6 +17,8 @@
   white-space: pre-wrap;
   max-width: 100%;
   overflow: hidden;
+  font-family: "Inter", sans-serif;
+  font-family: "Young Serif", serif;
 }
 /* Style for the response card */
 .responseCard {

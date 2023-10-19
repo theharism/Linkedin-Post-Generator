@@ -259,7 +259,7 @@ function Main({ onPress, HandleGPTResponse }) {
         </div>
 
         <div className="question-container textarea-container">
-          <label>Inspirational Post (Optional)</label>
+          <label>Inspiration Post (Optional)</label>
           <textarea
             className="creator-input"
             placeholder="Enter any inspirational posts..."
