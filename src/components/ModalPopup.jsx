@@ -28,7 +28,7 @@ const ModalPopup = ({ onClose }) => {
     try {
       if (formData.firstName && formData.lastName && formData.email) {
         const response = await axios.post(
-          "http://localhost:3000/api/registeration",
+          `${process.env.REACT_APP_BASE_URL}/api/registeration`,
           formData
         );
         toast.success(response.data.message, {

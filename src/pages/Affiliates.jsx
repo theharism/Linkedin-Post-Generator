@@ -29,7 +29,7 @@ function Affiliates() {
     try {
       console.log("Form data:", formData);
       const response = await axios.post(
-        "http://localhost:4000/contactUs",
+        `${process.env.REACT_APP_BASE_URL}/contactUs`,
         formData
       );
 

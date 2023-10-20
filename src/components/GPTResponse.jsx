@@ -17,7 +17,7 @@ function GPTResponse({ message }) {
   const handleBreakItUp = async () => {
     setLoading(true); // Set loading to true during the request.
     try {
-      const response = await axios.post('http://localhost:3000/api/breakItUp', { content: message });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/breakItUp`, { content: message });
 
       if (response.data.message) {
         console.log(response.data);
@@ -35,7 +35,7 @@ function GPTResponse({ message }) {
     setLoading(true);
     try {
       console.log('loading...')
-      const response = await axios.post('http://localhost:3000/api/changeHook', { content: Text });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/changeHook`, { content: Text });
 
       if (response.data.message) {
         console.log(response.data);
@@ -56,7 +56,7 @@ function GPTResponse({ message }) {
     setLoading(true);
     try {
       console.log('loading...')
-      const response = await axios.post('http://localhost:3000/api/changeTease', { content: Text });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/changeTease`, { content: Text });
 
       if (response.data.message) {
         console.log(response.data);
@@ -76,7 +76,7 @@ function GPTResponse({ message }) {
     setLoading(true);
     try {
       console.log('loading...')
-      const response = await axios.post('http://localhost:3000/api/changeValue', { content: Text });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/changeValue`, { content: Text });
 
       if (response.data.message) {
         console.log(response.data);
@@ -97,7 +97,7 @@ function GPTResponse({ message }) {
     setLoading(true);
     try {
       console.log('loading...')
-      const response = await axios.post('http://localhost:3000/api/changeCTA', { content: Text });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/changeCTA`, { content: Text });
 
       if (response.data.message) {
         console.log(response.data);
