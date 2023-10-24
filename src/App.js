@@ -69,7 +69,6 @@
 
 // export default App;
 
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ModalPopup from "./components/ModalPopup";
@@ -82,16 +81,33 @@ import Packages from "./pages/Packages";
 import Video from "./pages/Video";
 import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Profile from "./components/Profile";
 
 function App() {
   const [showPostModal, setShowPostModal] = useState(false);
+  const auth = getAuth();
 
-  useEffect(() => {
-    const hasVisitedPostRoute = localStorage.getItem("visitedPostRoute");
-    if (!hasVisitedPostRoute) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
       setShowPostModal(true);
     }
-  }, []);
+  });
+
+  // useEffect(() => {
+  //   const hasVisitedPostRoute = false; //localStorage.getItem("visitedPostRoute");
+  //   if (!hasVisitedPostRoute) {
+  //     setShowPostModal(true);
+  //   }
+  // }, []);
 
   const closeModal = () => {
     setShowPostModal(false);
@@ -144,6 +160,28 @@ function App() {
               </div>
             }
           />
+          {!showPostModal && (
+            <>
+              <Route
+                path="/profile"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <Profile />
+                  </div>
+                }
+              />
+              <Route
+                path="/myposts"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <Profile />
+                  </div>
+                }
+              />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
 

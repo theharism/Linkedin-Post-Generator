@@ -43,6 +43,67 @@
   color: aliceblue;
   /* padding: 0.8rem 8rem; */
 }
+
+.separator {
+  font-size: 16px;
+  color: #000; /* Set the color you prefer for the separator text */
+  margin: 10px; /* Adjust the spacing around the "OR" text */
+}
+
+.hollow-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.hollow-button img {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.auth-state {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.3s; /* Smooth transition effect for text color */
+
+  /* Hover effect */
+  &:hover {
+    color: #0056b3; /* New text color on hover */
+    cursor: pointer; /* Change cursor on hover (optional) */
+  }
+}
+
+/* The default state of the form */
+.vanish-left {
+  transition: transform 0.5s ease; /* Apply the transition to the transform property */
+}
+
+/* The state when the form vanishes to the left */
+.vanish-left.vanished {
+  transform: translateX(-120%); /* Move the form to the left by 100% of its width */
+}
+
+.vanish-right {
+  transition: transform 0.5s ease; /* Apply the transition to the transform property */
+}
+
+/* The state when the form vanishes to the left */
+.vanish-right.vanished {
+  transform: translateX(120%); /* Move the form to the left by 100% of its width */
+}
+
+.enter-left {
+  transform: translateX(0);
+}
+
+/* Exiting form (to the left) */
+.exit-right {
+  transform: translateX(-100%);
+}
+
 @media (max-width: 768px) {
   .submit {
     padding: 1.2rem 2rem;

@@ -68,6 +68,15 @@ header .nav-btn {
   color: black;
 }
 
+.account-icon-container {
+  margin-left: auto; /* Move the icon to the right corner */
+  display: flex;
+}
+
+.account-icon {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1024px) {
   .Menu svg {
     color: aliceblue;
