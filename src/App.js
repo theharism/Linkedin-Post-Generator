@@ -70,7 +70,13 @@
 // export default App;
 
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import ModalPopup from "./components/ModalPopup";
 import Navbar from "./common/Navbar";
 import SubNavbar from "./common/SubNav";
@@ -83,10 +89,13 @@ import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Profile from "./components/Profile";
+import { useDispatch } from "react-redux";
+import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 
 function App() {
-  const [showPostModal, setShowPostModal] = useState(false);
   const auth = getAuth();
+  const dispatch = useDispatch();
+  const [localAuth, setAuth] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -94,39 +103,17 @@ function App() {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
       console.log(uid);
+      dispatch(setAuthState());
+      setAuth(true);
       // ...
     } else {
       // User is signed out
       // ...
-      setShowPostModal(true);
+
+      dispatch(resetAuthState());
+      setAuth(false);
     }
   });
-
-  // useEffect(() => {
-  //   const hasVisitedPostRoute = false; //localStorage.getItem("visitedPostRoute");
-  //   if (!hasVisitedPostRoute) {
-  //     setShowPostModal(true);
-  //   }
-  // }, []);
-
-  const closeModal = () => {
-    setShowPostModal(false);
-  };
-
-  // Add a state to track whether the modal is open
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    setIsModalOpen(showPostModal);
-  }, [showPostModal]);
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-  }, [isModalOpen]);
 
   return (
     <div>
@@ -160,7 +147,7 @@ function App() {
               </div>
             }
           />
-          {!showPostModal && (
+          {localAuth && (
             <>
               <Route
                 path="/profile"
@@ -184,8 +171,6 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-
-      {isModalOpen && <ModalPopup onClose={closeModal} />}
 
       <ToastContainer />
     </div>

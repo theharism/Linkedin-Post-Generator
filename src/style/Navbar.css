@@ -21,9 +21,8 @@ nav .Link {
 .nav {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: left;
-  gap: 40px;
+  align-items: center; /* Vertically center items */
+  width: 100%;
 }
 nav .Link:hover {
   margin: 0 2rem;
@@ -68,9 +67,22 @@ header .nav-btn {
   color: black;
 }
 
+.left-nav-items {
+  display: flex; /* Display children in a row */
+  align-items: center; /* Vertically center items */
+}
+
+/* Style for the right items */
+.right-nav-items {
+  display: flex; /* Display children in a row */
+  align-items: center; /* Vertically center items */
+  margin-left: auto;
+}
+
 .account-icon-container {
-  margin-left: auto; /* Move the icon to the right corner */
   display: flex;
+  align-items: center; /* Vertically center items */
+  margin-left: auto; 
 }
 
 .account-icon {

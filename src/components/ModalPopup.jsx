@@ -14,10 +14,11 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  sendEmailVerification,
 } from "firebase/auth";
-import { isValidEmailProvider } from "../constants/helper";
+import { isEmail } from "../constants/helper";
 
-const ModalPopup = ({ onClose }) => {
+const ModalPopup = ({ state, onClose }) => {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
@@ -28,7 +29,7 @@ const ModalPopup = ({ onClose }) => {
     password: "",
   });
 
-  const [authState, setAuthState] = useState(false); //false for sign up | true for sign in
+  const [authState, setAuthState] = useState(state); //false for sign up | true for sign in
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,15 +39,21 @@ const ModalPopup = ({ onClose }) => {
     });
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose(); // Close the modal when clicking on the overlay
+    }
+  };
+
   const handleAuthChange = () => {
     setAuthState(!authState);
     const container = document.querySelector(".Maincontainer");
     container.scrollIntoView({ behavior: "smooth" });
   };
 
-  const continueWithGoogle = (e) => {
+  const continueWithGoogle = async (e) => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
@@ -54,13 +61,55 @@ const ModalPopup = ({ onClose }) => {
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        toast.success("Registration Successfull", {
+        toast.success("Signed In Successfully", {
           position: "top-right",
           autoClose: 1500,
         });
-        localStorage.setItem("visitedPostRoute", "true");
+
         onClose();
         console.log(user);
+
+        if (!user.emailVerified) {
+          var actionCodeSettings = {
+            url: `${process.env.REACT_APP_BASE_URL}`,
+          };
+
+          sendEmailVerification(auth.currentUser, actionCodeSettings)
+            .then(() => {
+              toast.success("Email Verification Link Sent", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+            })
+            .catch(() => {
+              toast.success("Error sending Email Verification Link", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+            });
+        }
+
+        try {
+          await axios.post(
+            `${process.env.REACT_APP_BASE_URL}/api/registeration`,
+            {
+              fullName: user.displayName,
+              email: user.email,
+              username: user.uid,
+            }
+          );
+        } catch (error) {
+          if (error.response) {
+            const errorMessage = error.response.data.error;
+            console.log(errorMessage);
+          } else {
+            console.log("An unexpected error occurred:", error);
+            toast.error("An unexpected error occurred", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          }
+        }
       })
       .catch((error) => {
         // Handle Errors here.
@@ -77,106 +126,123 @@ const ModalPopup = ({ onClose }) => {
           autoClose: 1500,
         });
         // ...
+        return;
       });
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    try {
-      if (
-        formData.fullName &&
-        formData.password &&
-        formData.email &&
-        formData.username
-      ) {
-        if (!isValidEmailProvider(formData.email)) {
-          toast.error("Invalid Email", {
-            position: "top-right",
-            autoClose: 1500,
-          });
-          return;
-        }
-
-        await axios
-          .post(`${process.env.REACT_APP_BASE_URL}/api/registeration`, formData)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            if (error.response) {
-              const errorMessage = error.response.data.error;
-              console.log(errorMessage);
-
-              toast.error(errorMessage, {
-                position: "top-right",
-                autoClose: 1500,
-              });
-            } else {
-              // Handle network errors or other unexpected issues.
-              console.log("An unexpected error occurred:", error);
-              toast.error("An unexpected error occurred", {
-                position: "top-right",
-                autoClose: 1500,
-              });
-            }
-
-            return;
-          });
-
-        createUserWithEmailAndPassword(auth, formData.email, formData.password)
-          .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-
-            toast.success("Registration Successfull", {
-              position: "top-right",
-              autoClose: 1500,
-            });
-            localStorage.setItem("visitedPostRoute", "true");
-            onClose();
-            console.log(user);
-            // ...
-          })
-          .catch((error) => {
-            switch (error.code) {
-              case "auth/email-already-in-use":
-                // Display an error message to the user that the email address is already in use.
-                toast.error("Email already taken", {
-                  position: "top-right",
-                  autoClose: 1500,
-                });
-                break;
-              case "auth/invalid-email":
-                // Display an error message to the user that the email address is invalid.
-                toast.error("Invalid Email", {
-                  position: "top-right",
-                  autoClose: 1500,
-                });
-                break;
-              case "auth/weak-password":
-                toast.error("Weak Password", {
-                  position: "top-right",
-                  autoClose: 1500,
-                });
-                break;
-              default:
-                // Display a generic error message to the user.
-                toast.error("Unexpected Error", {
-                  position: "top-right",
-                  autoClose: 1500,
-                });
-                break;
-            }
-          });
-      } else {
-        toast.error("Please fill in all required fields", {
+    if (
+      formData.fullName &&
+      formData.password &&
+      formData.email &&
+      formData.username
+    ) {
+      if (!isEmail(formData.email)) {
+        toast.error("Invalid Email", {
           position: "top-right",
           autoClose: 1500,
         });
+        return;
       }
-    } catch (error) {
-      console.log(error);
+
+      try {
+        await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/api/registeration`,
+          {
+            fullName: formData.fullName,
+            username: formData.username,
+            email: formData.email,
+          }
+        );
+      } catch (error) {
+        if (error.response) {
+          const errorMessage = error.response.data.error;
+          console.log(errorMessage);
+
+          toast.error(errorMessage, {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        } else {
+          console.log("An unexpected error occurred:", error);
+          toast.error("An unexpected error occurred", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        }
+
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          // Signed up
+
+          const user = userCredential.user;
+
+          toast.success("Registration Successfull", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+
+          onClose();
+          console.log(user);
+          var actionCodeSettings = {
+            url: `${process.env.REACT_APP_BASE_URL}`,
+          };
+
+          sendEmailVerification(auth.currentUser, actionCodeSettings)
+            .then(() => {
+              toast.success("Email Verification Link Sent", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+            })
+            .catch(() => {
+              toast.success("Error sending Email Verification Link", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+            });
+        })
+        .catch((error) => {
+          switch (error.code) {
+            case "auth/email-already-in-use":
+              // Display an error message to the user that the email address is already in use.
+              toast.error("Email already taken", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+              break;
+            case "auth/invalid-email":
+              // Display an error message to the user that the email address is invalid.
+              toast.error("Invalid Email", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+              break;
+            case "auth/weak-password":
+              toast.error("Weak Password", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+              break;
+            default:
+              // Display a generic error message to the user.
+              toast.error("Unexpected Error", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+              break;
+          }
+        });
+    } else {
+      toast.error("Please fill in all required fields", {
+        position: "top-right",
+        autoClose: 1500,
+      });
     }
   };
 
@@ -186,7 +252,7 @@ const ModalPopup = ({ onClose }) => {
       if (formData.email && formData.password) {
         let email = null;
 
-        if (!isValidEmailProvider(formData.email)) {
+        if (!isEmail(formData.email)) {
           try {
             const response = await axios.post(
               `${process.env.REACT_APP_BASE_URL}/api/signin`,
@@ -207,9 +273,9 @@ const ModalPopup = ({ onClose }) => {
               });
             }
           } catch (error) {
+            console.log(error);
             if (error.response) {
               const errorMessage = error.response.data.error;
-              console.log(errorMessage);
 
               toast.error(errorMessage, {
                 position: "top-right",
@@ -223,6 +289,8 @@ const ModalPopup = ({ onClose }) => {
                 autoClose: 1500,
               });
             }
+
+            return;
           }
         }
 
@@ -235,11 +303,11 @@ const ModalPopup = ({ onClose }) => {
             // Signed up
             const user = userCredential.user;
 
-            toast.success("Registration Successfull", {
+            toast.success("Signed in Successfull", {
               position: "top-right",
               autoClose: 1500,
             });
-            localStorage.setItem("visitedPostRoute", "true");
+
             onClose();
             console.log(user);
             // ...
@@ -256,7 +324,7 @@ const ModalPopup = ({ onClose }) => {
                 break;
               case "auth/invalid-login-credentials":
                 // Display an error message to the user that the email address does not exist.
-                toast.error("User not found", {
+                toast.error("Invalid Login Credentials", {
                   position: "top-right",
                   autoClose: 1500,
                 });
@@ -264,6 +332,13 @@ const ModalPopup = ({ onClose }) => {
               case "auth/user-disabled":
                 // Display an error message to the user that their account has been disabled.
                 toast.error("User disabled", {
+                  position: "top-right",
+                  autoClose: 1500,
+                });
+                break;
+              case "auth/too-many-requests":
+                // Display an error message to the user that their account has been disabled.
+                toast.error("Too many requests. Temporarily blocked", {
                   position: "top-right",
                   autoClose: 1500,
                 });
@@ -287,8 +362,9 @@ const ModalPopup = ({ onClose }) => {
       console.log(error);
     }
   };
+
   return (
-    <div className="modal">
+    <div className="modal" onClick={handleOverlayClick}>
       <div className="modal-content">
         <div className="Maincontainer">
           <Container className="AffiliatesContainer">

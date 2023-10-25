@@ -1,23 +1,9 @@
-function isValidEmailProvider(email) {
-  const allowedProviders = ["gmail.com", "yahoo.com", "outlook.com"];
+function isEmail(input) {
+  // Define a regular expression pattern for an email
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-  // Extract the domain from the email address
-  const emailParts = email.split("@");
-  if (emailParts.length !== 2) {
-    // Invalid email format (must have only one "@")
-    return false;
-  }
-
-  const domain = emailParts[1];
-
-  // Check if the domain is in the list of allowed providers
-  for (const provider of allowedProviders) {
-    if (domain.endsWith(provider)) {
-      return true;
-    }
-  }
-
-  return false;
+  // Use the pattern to test the input
+  return emailPattern.test(input);
 }
 
-export { isValidEmailProvider };
+export { isEmail };
