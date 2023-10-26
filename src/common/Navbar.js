@@ -6,14 +6,23 @@ import { Link as ScrollLink } from "react-scroll";
 import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ModalPopup from "../components/ModalPopup";
+import ProfileModal from "../components/ProfileModal"
 import { useSelector } from "react-redux";
 
 const NavbarComponent = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPostModal, setShowPostModal] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
   const authState = useSelector((state) => state.Auth.authState);
-  const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const ShowMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -68,12 +77,11 @@ const NavbarComponent = () => {
         <div className="right-nav-items">
           {authState ? (
             <>
-              {" "}
               <Link to="/myposts" className="Link">
                 My Posts
               </Link>
               <AccountCircleIcon
-                onClick={() => navigate("profile")}
+                onClick={handleClick}
                 className="account-icon"
                 fontSize="medium"
               />
@@ -108,6 +116,7 @@ const NavbarComponent = () => {
       {showPostModal === "register" ? (
         <ModalPopup state={false} onClose={closeModal} />
       ) : null}
+      <ProfileModal anchorEl={anchorEl} open={open} handleClose={handleClose} />
     </header>
   );
 };

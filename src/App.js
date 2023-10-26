@@ -89,6 +89,7 @@ import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Profile from "./components/Profile";
+import EmailVerifyModal from "./components/EmailVerifyModal"
 import { useDispatch } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 
@@ -96,7 +97,7 @@ function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
-
+  console.log(auth.currentUser)
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -171,7 +172,7 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-
+      {auth.currentUser && !auth.currentUser.emailVerified && <EmailVerifyModal />}
       <ToastContainer />
     </div>
   );

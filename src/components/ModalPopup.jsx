@@ -14,7 +14,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  sendEmailVerification,
+  sendEmailVerification
 } from "firebase/auth";
 import { isEmail } from "../constants/helper";
 
@@ -26,7 +26,7 @@ const ModalPopup = ({ state, onClose }) => {
     fullName: "",
     username: "",
     email: "",
-    password: "",
+    password: ""
   });
 
   const [authState, setAuthState] = useState(state); //false for sign up | true for sign in
@@ -35,7 +35,7 @@ const ModalPopup = ({ state, onClose }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -63,7 +63,7 @@ const ModalPopup = ({ state, onClose }) => {
         // ...
         toast.success("Signed In Successfully", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1500
         });
 
         onClose();
@@ -71,20 +71,20 @@ const ModalPopup = ({ state, onClose }) => {
 
         if (!user.emailVerified) {
           var actionCodeSettings = {
-            url: `${process.env.REACT_APP_BASE_URL}`,
+            url: `${process.env.REACT_APP_BASE_URL}`
           };
 
           sendEmailVerification(auth.currentUser, actionCodeSettings)
             .then(() => {
               toast.success("Email Verification Link Sent", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             })
             .catch(() => {
               toast.success("Error sending Email Verification Link", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             });
         }
@@ -95,7 +95,7 @@ const ModalPopup = ({ state, onClose }) => {
             {
               fullName: user.displayName,
               email: user.email,
-              username: user.uid,
+              username: user.uid
             }
           );
         } catch (error) {
@@ -106,7 +106,7 @@ const ModalPopup = ({ state, onClose }) => {
             console.log("An unexpected error occurred:", error);
             toast.error("An unexpected error occurred", {
               position: "top-right",
-              autoClose: 1500,
+              autoClose: 1500
             });
           }
         }
@@ -123,7 +123,7 @@ const ModalPopup = ({ state, onClose }) => {
         console.log(errorMessage);
         toast.error(errorMessage, {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1500
         });
         // ...
         return;
@@ -142,7 +142,7 @@ const ModalPopup = ({ state, onClose }) => {
       if (!isEmail(formData.email)) {
         toast.error("Invalid Email", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1500
         });
         return;
       }
@@ -153,7 +153,7 @@ const ModalPopup = ({ state, onClose }) => {
           {
             fullName: formData.fullName,
             username: formData.username,
-            email: formData.email,
+            email: formData.email
           }
         );
       } catch (error) {
@@ -163,13 +163,13 @@ const ModalPopup = ({ state, onClose }) => {
 
           toast.error(errorMessage, {
             position: "top-right",
-            autoClose: 1500,
+            autoClose: 1500
           });
         } else {
           console.log("An unexpected error occurred:", error);
           toast.error("An unexpected error occurred", {
             position: "top-right",
-            autoClose: 1500,
+            autoClose: 1500
           });
         }
 
@@ -184,26 +184,26 @@ const ModalPopup = ({ state, onClose }) => {
 
           toast.success("Registration Successfull", {
             position: "top-right",
-            autoClose: 1500,
+            autoClose: 1500
           });
 
           onClose();
           console.log(user);
           var actionCodeSettings = {
-            url: `${process.env.REACT_APP_BASE_URL}`,
+            url: `${process.env.REACT_APP_BASE_URL}`
           };
 
           sendEmailVerification(auth.currentUser, actionCodeSettings)
             .then(() => {
               toast.success("Email Verification Link Sent", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             })
             .catch(() => {
               toast.success("Error sending Email Verification Link", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             });
         })
@@ -213,27 +213,27 @@ const ModalPopup = ({ state, onClose }) => {
               // Display an error message to the user that the email address is already in use.
               toast.error("Email already taken", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
               break;
             case "auth/invalid-email":
               // Display an error message to the user that the email address is invalid.
               toast.error("Invalid Email", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
               break;
             case "auth/weak-password":
               toast.error("Weak Password", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
               break;
             default:
               // Display a generic error message to the user.
               toast.error("Unexpected Error", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
               break;
           }
@@ -241,7 +241,7 @@ const ModalPopup = ({ state, onClose }) => {
     } else {
       toast.error("Please fill in all required fields", {
         position: "top-right",
-        autoClose: 1500,
+        autoClose: 1500
       });
     }
   };
@@ -257,7 +257,7 @@ const ModalPopup = ({ state, onClose }) => {
             const response = await axios.post(
               `${process.env.REACT_APP_BASE_URL}/api/signin`,
               {
-                username: formData.email,
+                username: formData.email
               }
             );
 
@@ -269,7 +269,7 @@ const ModalPopup = ({ state, onClose }) => {
               // Handle the case where the response status is not 200 (e.g., server error)
               toast.error("User not found", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             }
           } catch (error) {
@@ -279,14 +279,14 @@ const ModalPopup = ({ state, onClose }) => {
 
               toast.error(errorMessage, {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             } else {
               // Handle network errors or other unexpected issues.
               console.log("An unexpected error occurred:", error);
               toast.error("An unexpected error occurred", {
                 position: "top-right",
-                autoClose: 1500,
+                autoClose: 1500
               });
             }
 
@@ -305,7 +305,7 @@ const ModalPopup = ({ state, onClose }) => {
 
             toast.success("Signed in Successfull", {
               position: "top-right",
-              autoClose: 1500,
+              autoClose: 1500
             });
 
             onClose();
@@ -319,35 +319,35 @@ const ModalPopup = ({ state, onClose }) => {
                 // Display an error message to the user that the password is incorrect.
                 toast.error("Wrong Password", {
                   position: "top-right",
-                  autoClose: 1500,
+                  autoClose: 1500
                 });
                 break;
               case "auth/invalid-login-credentials":
                 // Display an error message to the user that the email address does not exist.
                 toast.error("Invalid Login Credentials", {
                   position: "top-right",
-                  autoClose: 1500,
+                  autoClose: 1500
                 });
                 break;
               case "auth/user-disabled":
                 // Display an error message to the user that their account has been disabled.
                 toast.error("User disabled", {
                   position: "top-right",
-                  autoClose: 1500,
+                  autoClose: 1500
                 });
                 break;
               case "auth/too-many-requests":
                 // Display an error message to the user that their account has been disabled.
                 toast.error("Too many requests. Temporarily blocked", {
                   position: "top-right",
-                  autoClose: 1500,
+                  autoClose: 1500
                 });
                 break;
               default:
                 // Display a generic error message to the user.
                 toast.error("An unexpected error occurred", {
                   position: "top-right",
-                  autoClose: 1500,
+                  autoClose: 1500
                 });
                 break;
             }
@@ -355,7 +355,7 @@ const ModalPopup = ({ state, onClose }) => {
       } else {
         toast.error("Please fill in all required fields", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1500
         });
       }
     } catch (error) {
@@ -477,7 +477,7 @@ const ModalPopup = ({ state, onClose }) => {
                     display: "flex",
                     justifyContent: "flex-end",
                     width: "100%",
-                    marginBottom: "20px",
+                    marginBottom: "20px"
                   }}
                 >
                   <button
