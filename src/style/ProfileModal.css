@@ -1,0 +1,16 @@
+.TypographyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.Typography {
+  flex: 1;
+  text-align: center;
+}
+
+.IconButton {
+  position: absolute;
+  right: 10px;
+}
