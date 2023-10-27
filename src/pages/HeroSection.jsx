@@ -3,7 +3,10 @@ import { FaCheck, FaPencilAlt } from "react-icons/fa";
 import "../style/HeroSection.css";
 import Logo from "../images/FinalLogo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const HeroSection = () => {
+  const authState = useSelector((state) => state.Auth.authState);
+
   return (
     <div className="Container">
       <div className="Section">
@@ -51,18 +54,20 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="formHero">
-        <Link
-          to={"/post"}
-          style={{ textDecoration: "none", color: "white" }}
-          className="FormLinks"
-        >
-          <button style={{ position: "relative" }}>
-            Create Your First Post
-            <FaPencilAlt className="Pencil" />
-          </button>
-        </Link>
-      </div>
+      {authState && (
+        <div className="formHero">
+          <Link
+            to={"/post"}
+            style={{ textDecoration: "none", color: "white" }}
+            className="FormLinks"
+          >
+            <button style={{ position: "relative" }}>
+              Create Your First Post
+              <FaPencilAlt className="Pencil" />
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

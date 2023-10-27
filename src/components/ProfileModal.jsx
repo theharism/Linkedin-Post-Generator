@@ -8,7 +8,7 @@ import LockResetRoundedIcon from "@mui/icons-material/LockResetRounded";
 import Logout from "@mui/icons-material/Logout";
 import app from "../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -19,11 +19,19 @@ import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/ProfileModal.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../slices/UserSlice";
+import { Divider } from "@mui/material";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [state, setState] = useState("");
+  const userFullName = useSelector((state) => state.User.fullName);
+  const userAuthType = useSelector((state) => state.User.authType);
+  const userEmail = useSelector((state) => state.User.email);
+  const userReferalCode = useSelector((state) => state.User.referalCode);
 
   function signout() {
     signOut(auth)
@@ -32,14 +40,14 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         navigate("/");
         toast.success("Signed out Successfull", {
           position: "top-right",
-          autoClose: 1500
+          autoClose: 1500,
         });
       })
       .catch((error) => {
         // An error happened.
         toast.error("Error Signing out", {
           position: "top-right",
-          autoClose: 1500
+          autoClose: 1500,
         });
       });
   }
@@ -47,14 +55,13 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const Modal = () => {
     const [formData, setFormData] = useState({
       fullName: "",
-      password: ""
     });
 
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
       });
     };
 
@@ -65,6 +72,77 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
       if (e.target === e.currentTarget) {
         closeModal(); // Close the modal when clicking on the overlay
       }
+    };
+
+    const handleUpdateName = () => {
+      const requestData = {
+        fullName: formData.fullName, // Replace with the new full name
+        email: userEmail, // Replace with the user's email
+      };
+
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/api/updateName`, requestData)
+        .then((response) => {
+          // Handle a successful response
+          console.log("User's full name updated:", response.data);
+          dispatch(
+            setUser({
+              user: { ...response.data.user, authType: "emailPassword" },
+            })
+          );
+
+          toast.success("Name Updated", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+
+          closeModal();
+        })
+        .catch((error) => {
+          // Handle errors
+          if (error.response) {
+            // The request was made, but the server responded with a non-2xx status code
+            console.error(
+              "Server error:",
+              error.response.status,
+              error.response.data
+            );
+            toast.error("Error updating name", {
+              position: "top-right",
+              autoClose: 1500,
+            });
+          } else if (error.request) {
+            // The request was made, but no response was received
+            console.error("No response received");
+          } else {
+            // Something happened in setting up the request
+            console.error("Request setup error:", error.message);
+          }
+        });
+    };
+
+    const handleChangePassword = () => {
+      sendPasswordResetEmail(auth, userEmail)
+        .then(() => {
+          // Password reset email sent!
+          toast.success("Password Change Email sent", {
+            position: "top-right",
+            autoClose: 1500,
+          });
+
+          closeModal();
+
+          // ..
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          toast.error(errorMessage, {
+            position: "top-right",
+            autoClose: 1500,
+          });
+        });
     };
 
     return (
@@ -96,27 +174,25 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
                       </Form.Group>
                     </Form>
                   )}
+
                   {state === "password" && (
-                    <Form className="FormPage">
-                      <Form.Group className="Group">
-                        <Form.Label className="LeftAlignedLabel">
-                          Password
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          name="password"
-                          placeholder="Enter your password"
-                          className="FormInput"
-                          value={formData.password}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
-                    </Form>
+                    <>
+                      <br />
+                      <h6>
+                        A password change link will be send to registered email
+                      </h6>
+                      <br />
+                    </>
                   )}
+
                   <Button
-                    variant="primary"
+                    variant="danger"
                     className="submit w-100"
-                    //onClick={state ? handleLogin : handleRegister}
+                    onClick={
+                      state === "password"
+                        ? handleChangePassword
+                        : handleUpdateName
+                    }
                   >
                     {state === "name" && "Update"}
                     {state === "password" && "Change"}
@@ -148,7 +224,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
               width: 32,
               height: 32,
               ml: -0.5,
-              mr: 1
+              mr: 1,
             },
             "&:before": {
               content: '""',
@@ -160,35 +236,46 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
               height: 10,
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0
-            }
-          }
+              zIndex: 0,
+            },
+          },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <div className="TypographyContainer">
-          <Typography sx={{ fontFamily: "inherit" }}>theharism</Typography>
-          <IconButton size={"small"} onClick={() => setState("name")}>
-            <EditIcon fontSize="small" />
-          </IconButton>
+          <Typography sx={{ fontFamily: "inherit" }}>{userFullName}</Typography>
+          {userAuthType !== "google" && (
+            <IconButton size={"small"} onClick={() => setState("name")}>
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
         </div>
-
-        <MenuItem
-          sx={{ fontFamily: "inherit" }}
-          onClick={() => setState("password")}
-        >
-          <ListItemIcon>
-            <LockResetRoundedIcon fontSize="small" />
-          </ListItemIcon>
-          Change Password
-        </MenuItem>
+        <Divider />
+        <div className="TypographyContainer">
+          <Typography sx={{ fontFamily: "inherit" }}>
+            Referral Code: {userReferalCode}
+          </Typography>
+        </div>
+        {userAuthType !== "google" && (
+          <>
+            <MenuItem
+              sx={{ fontFamily: "inherit" }}
+              onClick={() => setState("password")}
+            >
+              <ListItemIcon>
+                <LockResetRoundedIcon fontSize="small" />
+              </ListItemIcon>
+              Change Password
+            </MenuItem>
+          </>
+        )}
         <MenuItem sx={{ fontFamily: "inherit" }} onClick={signout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
-        </MenuItem>
+        </MenuItem>{" "}
       </Menu>
       {state === "name" && <Modal />}
       {state === "password" && <Modal />}
