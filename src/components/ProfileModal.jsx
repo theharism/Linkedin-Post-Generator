@@ -88,6 +88,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           dispatch(
             setUser({
               user: { ...response.data.user, authType: "emailPassword" },
+              write: true,
             })
           );
 

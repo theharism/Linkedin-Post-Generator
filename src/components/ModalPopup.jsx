@@ -102,7 +102,7 @@ const ModalPopup = ({ state, onClose }) => {
             }
           );
 
-          referalCode = response.data.referalCode;
+          referalCode = response.data.referalcode;
         } catch (error) {
           if (error.response) {
             const errorMessage = error.response.data.error;
@@ -125,6 +125,7 @@ const ModalPopup = ({ state, onClose }) => {
         dispatch(
           setUser({
             user: { ...temp, authType: "google", referalCode: referalCode },
+            write: true,
           })
         );
 

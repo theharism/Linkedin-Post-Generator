@@ -88,33 +88,34 @@ import Video from "./pages/Video";
 import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Profile from "./components/Profile";
-import EmailVerifyModal from "./components/EmailVerifyModal"
+import EmailVerifyModal from "./components/EmailVerifyModal";
 import { useDispatch } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
+import { setUser } from "./slices/UserSlice";
+import MyPosts from "./components/MyPosts";
 
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
-  console.log(auth.currentUser)
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      console.log(uid);
       dispatch(setAuthState());
       setAuth(true);
-      // ...
     } else {
-      // User is signed out
-      // ...
-
       dispatch(resetAuthState());
       setAuth(false);
     }
   });
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const user = JSON.parse(userString);
+      dispatch(setUser({ user: user, write: false }));
+    }
+  }, []);
 
   return (
     <div>
@@ -139,32 +140,24 @@ function App() {
               </div>
             }
           />
-          <Route
-            path="/post"
-            element={
-              <div>
-                <SubNavbar />
-                <RenderPost />
-              </div>
-            }
-          />
           {localAuth && (
             <>
               <Route
-                path="/profile"
+                path="/post"
                 element={
                   <div>
                     <SubNavbar />
-                    <Profile />
+                    <RenderPost />
                   </div>
                 }
               />
+
               <Route
                 path="/myposts"
                 element={
                   <div>
                     <SubNavbar />
-                    <Profile />
+                    <MyPosts />
                   </div>
                 }
               />
@@ -172,7 +165,9 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-      {auth.currentUser && !auth.currentUser.emailVerified && <EmailVerifyModal />}
+      {auth.currentUser && !auth.currentUser.emailVerified && (
+        <EmailVerifyModal />
+      )}
       <ToastContainer />
     </div>
   );

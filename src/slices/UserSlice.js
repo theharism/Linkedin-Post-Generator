@@ -18,6 +18,10 @@ export const UserSlice = createSlice({
       state.username = user.username;
       state.authType = user.authType;
       state.referalCode = user.referalCode;
+      const write = action.payload.write;
+      if (write) {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
     },
     resetUser: (state) => {
       state.fullName = "";
@@ -25,6 +29,8 @@ export const UserSlice = createSlice({
       state.username = "";
       state.authType = "";
       state.referalCode = "";
+
+      localStorage.removeItem("user");
     },
   },
 });
