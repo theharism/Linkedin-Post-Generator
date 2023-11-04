@@ -7,6 +7,8 @@ import { Container } from "react-bootstrap";
 import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { deletePoint } from "../slices/PointsSlice";
 
 function Main({ onPress, HandleGPTResponse }) {
   const [selectedQuestion, setSelectedQuestion] = useState("");
@@ -22,6 +24,8 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textAreaContents, setTextAreaContents] = useState([]);
   const [questionAccordions, setQuestionAccordions] = useState([]);
   const [textareaAccordions, setTextareaAccordions] = useState([]);
+
+  const dispatch = useDispatch();
 
   const addTextArea = () => {
     if (textArea) {
@@ -54,8 +58,8 @@ function Main({ onPress, HandleGPTResponse }) {
           ...prevAnswers,
           { question: customQuestion, answer: newAnswer },
         ]);
-        setCustomQuestion(""); 
-        setNewAnswer(""); 
+        setCustomQuestion("");
+        setNewAnswer("");
       }
     }
   };
@@ -124,9 +128,9 @@ function Main({ onPress, HandleGPTResponse }) {
       if (!userData.description || !userData.selectedTone) {
         toast.error("Please fill required fields !", {
           position: "top-right",
-          autoClose: 1500, 
+          autoClose: 1500,
         });
-        return; 
+        return;
       }
 
       console.log(userData);
@@ -138,12 +142,11 @@ function Main({ onPress, HandleGPTResponse }) {
         userData
       );
 
-
       if (response.data.message) {
         HandleGPTResponse(response.data.message.content);
-        console.log("Prompt" , response.data.prompt);
+        dispatch(deletePoint());
+        console.log("Prompt", response.data.prompt);
       }
-
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -314,7 +317,7 @@ function Main({ onPress, HandleGPTResponse }) {
                       questionAccordions[index] ? "active" : ""
                     }`}
                     type="button"
-                    onClick={() => toggleQuestionAccordion(index)} 
+                    onClick={() => toggleQuestionAccordion(index)}
                   >
                     Q: {item.question}
                   </button>

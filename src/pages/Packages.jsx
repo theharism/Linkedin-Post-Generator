@@ -21,28 +21,8 @@ const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const stripePromise = loadStripe(
-    "pk_test_51NxxhdLCXkiJMpgWCfQxYaoJoAA8nesqmEs54DtqiemvgMVHAKzaJZ62PJFUyP5jIiIZx8GB2Xd5QJx1eEpqmnag000jkKcCHG"
-  );
-
-  const handlePayment = async () => {
-    const stripe = await stripePromise;
-
-    const { error } = await stripe.redirectToCheckout({
-      lineItems: [
-        {
-          price: "price_1O6x9rLCXkiJMpgWMkemdXBh",
-          quantity: 1,
-        },
-      ],
-      mode: "subscription",
-      successUrl: "https://www.google.com/",
-      cancelUrl: "https://www.instagram.com/",
-    });
-
-    if (error) {
-      console.error("Error redirecting to checkout:", error);
-    }
+  const handlePayment = (url) => {
+    window.open(url, "_blank");
   };
 
   const openModal = () => {
@@ -114,9 +94,12 @@ const Packages = () => {
               </p>
 
               <button
-                href="#"
                 className="btn btn-primary plan"
-                onClick={handlePayment}
+                onClick={() =>
+                  handlePayment(
+                    "https://buy.stripe.com/test_28obJW0rLgfi2tOaEF"
+                  )
+                }
               >
                 Choose Plan
               </button>
@@ -164,7 +147,10 @@ const Packages = () => {
                 $88 / month if you sign up for a year
               </p>
 
-              <button href="#" className="btn btn-primary plan">
+              <button
+                onClick={() => handlePayment()}
+                className="btn btn-primary plan"
+              >
                 Choose Plan
               </button>
               <hr />
@@ -247,7 +233,10 @@ const Packages = () => {
                 </span>
               </h2>
 
-              <button href="#" className="btn btn-primary plan">
+              <button
+                onClick={() => handlePayment()}
+                className="btn btn-primary plan"
+              >
                 Choose Plan
               </button>
               <hr />
@@ -299,7 +288,14 @@ const Packages = () => {
                 </span>
               </h2>
 
-              <button href="#" className="btn btn-primary plan">
+              <button
+                className="btn btn-primary plan"
+                onClick={() =>
+                  handlePayment(
+                    "https://buy.stripe.com/test_8wM4hu5M5aUY4BW000"
+                  )
+                }
+              >
                 Choose Plan
               </button>
               <hr />

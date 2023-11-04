@@ -341,7 +341,12 @@ const ModalPopup = ({ state, onClose }) => {
 
             onClose();
 
-            dispatch(setUser({ user: { ...user, authType: "emailPassword" } }));
+            dispatch(
+              setUser({
+                user: { ...user, authType: "emailPassword" },
+                write: true,
+              })
+            );
 
             // ...
           })

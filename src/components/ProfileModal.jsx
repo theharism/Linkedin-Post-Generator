@@ -22,16 +22,17 @@ import "../style/ProfileModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
+import { PointsSlice } from "../slices/PointsSlice";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, setState] = useState("");
-  const userFullName = useSelector((state) => state.User.fullName);
-  const userAuthType = useSelector((state) => state.User.authType);
-  const userEmail = useSelector((state) => state.User.email);
-  const userReferalCode = useSelector((state) => state.User.referalCode);
+
+  const user = useSelector((state) => state.User);
+  const subscription = useSelector((state) => state.Subscription.type);
+  const points = useSelector((state) => state.Points.points);
 
   function signout() {
     signOut(auth)
@@ -77,7 +78,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     const handleUpdateName = () => {
       const requestData = {
         fullName: formData.fullName, // Replace with the new full name
-        email: userEmail, // Replace with the user's email
+        email: user.email, // Replace with the user's email
       };
 
       axios
@@ -123,7 +124,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     };
 
     const handleChangePassword = () => {
-      sendPasswordResetEmail(auth, userEmail)
+      sendPasswordResetEmail(auth, user.email)
         .then(() => {
           // Password reset email sent!
           toast.success("Password Change Email sent", {
@@ -245,20 +246,42 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <div className="TypographyContainer">
-          <Typography sx={{ fontFamily: "inherit" }}>{userFullName}</Typography>
-          {userAuthType !== "google" && (
+          <Typography sx={{ fontFamily: "inherit" }}>
+            {user.fullName}
+          </Typography>
+          {user.authType !== "google" && (
             <IconButton size={"small"} onClick={() => setState("name")}>
               <EditIcon fontSize="small" />
             </IconButton>
           )}
         </div>
         <Divider />
-        <div className="TypographyContainer">
+
+        <MenuItem sx={{ fontFamily: "inherit" }}>
+          <Typography sx={{ fontFamily: "inherit" }}>
+            Credits: {points}
+          </Typography>
+        </MenuItem>
+
+        <MenuItem sx={{ fontFamily: "inherit" }}>
+          <Typography sx={{ fontFamily: "inherit" }}>Plan: </Typography>
+          <Typography sx={{ fontFamily: "inherit", color: "green" }}>
+            &nbsp;{subscription}
+          </Typography>
+        </MenuItem>
+
+        <MenuItem sx={{ fontFamily: "inherit" }}>
+          <Typography sx={{ fontFamily: "inherit" }}>
+            Referral Code: {user.referalCode}
+          </Typography>
+        </MenuItem>
+
+        {/* <div className="TypographyContainer">
           <Typography sx={{ fontFamily: "inherit" }}>
             Referral Code: {userReferalCode}
           </Typography>
-        </div>
-        {userAuthType !== "google" && (
+        </div> */}
+        {user.authType !== "google" && (
           <>
             <MenuItem
               sx={{ fontFamily: "inherit" }}
@@ -276,7 +299,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
-        </MenuItem>{" "}
+        </MenuItem>
       </Menu>
       {state === "name" && <Modal />}
       {state === "password" && <Modal />}

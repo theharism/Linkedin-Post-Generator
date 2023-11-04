@@ -93,6 +93,9 @@ import { useDispatch } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
+import Success from "./components/Success";
+import { setSubscription } from "./slices/SubscriptionSlice";
+import { setPoints } from "./slices/PointsSlice";
 
 function App() {
   const auth = getAuth();
@@ -111,9 +114,21 @@ function App() {
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
+    const subscriptionString = localStorage.getItem("subscription");
+    const pointsString = localStorage.getItem("points");
+
     if (userString) {
       const user = JSON.parse(userString);
       dispatch(setUser({ user: user, write: false }));
+    }
+    if (subscriptionString) {
+      const sub = JSON.parse(subscriptionString);
+      console.log(sub);
+      dispatch(setSubscription({ subscription: sub, write: false }));
+    }
+    if (pointsString) {
+      const poi = JSON.parse(pointsString);
+      dispatch(setPoints({ points: poi }));
     }
   }, []);
 
@@ -158,6 +173,16 @@ function App() {
                   <div>
                     <SubNavbar />
                     <MyPosts />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/success"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <Success />
                   </div>
                 }
               />
