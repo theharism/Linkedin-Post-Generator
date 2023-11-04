@@ -6,7 +6,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ModalPopup from "../components/ModalPopup";
-import ProfileModal from "../components/ProfileModal"
+import ProfileModal from "../components/ProfileModal";
 import { useSelector } from "react-redux";
 
 const NavbarComponent = () => {
@@ -16,6 +16,10 @@ const NavbarComponent = () => {
   const open = Boolean(anchorEl);
 
   const authState = useSelector((state) => state.Auth.authState);
+
+  const hideModal = () => {
+    setShowPostModal(false);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,9 +51,15 @@ const NavbarComponent = () => {
       </div>
       <nav className={isMobileMenuOpen ? "responsive_nav" : "nav"}>
         <div className="left-nav-items">
-          <Link to="/post" className="Link">
-            Start Musing
-          </Link>
+          {authState ? (
+            <Link to="/post" className="Link">
+              Start Musing
+            </Link>
+          ) : (
+            <Link onClick={() => setShowPostModal("signin")} className="Link">
+              Start Musing
+            </Link>
+          )}
 
           <ScrollLink
             to="video"

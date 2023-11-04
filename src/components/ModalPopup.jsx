@@ -19,6 +19,8 @@ import {
 import { useDispatch } from "react-redux";
 import { isEmail } from "../constants/helper";
 import { setUser } from "../slices/UserSlice";
+import { setSubscription } from "../slices/SubscriptionSlice";
+import { setPoints } from "../slices/PointsSlice";
 
 const ModalPopup = ({ state, onClose }) => {
   const auth = getAuth(app);
@@ -33,6 +35,7 @@ const ModalPopup = ({ state, onClose }) => {
   });
 
   const [authState, setAuthState] = useState(state); //false for sign up | true for sign in
+  const [customer, setCustomer] = useState(false); //false for new customer, true for new customer
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,51 +95,25 @@ const ModalPopup = ({ state, onClose }) => {
             });
         }
 
-        let referalCode = null;
-
-        try {
-          const response = await axios.post(
-            `${process.env.REACT_APP_BASE_URL}/api/referalcode`,
-            {
-              email: user.email,
-            }
-          );
-
-          referalCode = response.data.referalcode;
-        } catch (error) {
-          if (error.response) {
-            const errorMessage = error.response.data.error;
-            console.log(errorMessage);
-          } else {
-            console.log("An unexpected error occurred:", error);
-            toast.error("An unexpected error occurred", {
-              position: "top-right",
-              autoClose: 1500,
-            });
-          }
-        }
-
         const temp = {
           fullName: user.displayName,
           email: user.email,
           username: user.uid,
         };
 
-        dispatch(
-          setUser({
-            user: { ...temp, authType: "google", referalCode: referalCode },
-            write: true,
-          })
-        );
+        let referalCode = null;
 
         try {
-          await axios.post(
+          const response = await axios.post(
             `${process.env.REACT_APP_BASE_URL}/api/registeration`,
             temp
           );
+
+          referalCode = response.data.user.referalCode;
         } catch (error) {
           if (error.response) {
             const errorMessage = error.response.data.error;
+            setCustomer(true);
             console.log(errorMessage);
           } else {
             console.log("An unexpected error occurred:", error);
@@ -146,23 +123,64 @@ const ModalPopup = ({ state, onClose }) => {
             });
           }
         }
+
+        if (customer) {
+          try {
+            const response = await axios.post(
+              `${process.env.REACT_APP_BASE_URL}/api/userdata`,
+              {
+                email: user.email,
+              }
+            );
+
+            const user1 = response.data.user;
+
+            dispatch(
+              setUser({
+                user: { ...user1, authType: "google" },
+                write: true,
+              })
+            );
+
+            if (response.data.subscription) {
+              const { id, createdDate, expiresDate, type, points } =
+                response.data.subscription;
+              dispatch(
+                setSubscription({
+                  subscription: { id, createdDate, expiresDate, type },
+                  write: true,
+                })
+              );
+              dispatch(setPoints({ points }));
+            }
+          } catch (error) {
+            if (error.response) {
+              const errorMessage = error.response.data.error;
+              console.log(errorMessage);
+            } else {
+              console.log("An unexpected error occurred:", error);
+              toast.error("An unexpected error occurred", {
+                position: "top-right",
+                autoClose: 1500,
+              });
+            }
+          }
+        } else {
+          dispatch(
+            setUser({
+              user: { ...temp, authType: "google", referalCode: referalCode },
+              write: true,
+            })
+          );
+        }
       })
       .catch((error) => {
-        // Handle Errors here.
-        //const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
-        // const email = error.customData.email;
-        // // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-
         console.log(errorMessage);
         toast.error(errorMessage, {
           position: "top-right",
           autoClose: 1500,
         });
-        // ...
-        return;
       });
   };
 
@@ -183,8 +201,10 @@ const ModalPopup = ({ state, onClose }) => {
         return;
       }
 
+      let referalCode = null;
+
       try {
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/api/registeration`,
           {
             fullName: formData.fullName,
@@ -192,6 +212,8 @@ const ModalPopup = ({ state, onClose }) => {
             email: formData.email,
           }
         );
+
+        referalCode = response.data.user.referalCode;
       } catch (error) {
         if (error.response) {
           const errorMessage = error.response.data.error;
@@ -222,6 +244,19 @@ const ModalPopup = ({ state, onClose }) => {
             position: "top-right",
             autoClose: 1500,
           });
+
+          dispatch(
+            setUser({
+              user: {
+                fullName: formData.fullName,
+                username: formData.username,
+                email: formData.email,
+                authType: "emailPassword",
+                referalCode,
+              },
+              write: true,
+            })
+          );
 
           onClose();
           console.log(user);
@@ -287,6 +322,7 @@ const ModalPopup = ({ state, onClose }) => {
     try {
       if (formData.email && formData.password) {
         let user = null;
+        let subscription = null;
 
         try {
           const response = await axios.post(
@@ -298,9 +334,10 @@ const ModalPopup = ({ state, onClose }) => {
 
           if (response.status === 200) {
             // If the request was successful, access the email from the response data
-            console.log(response.data);
             user = response.data.user;
-            console.log(user);
+            if (response.data.subscription) {
+              subscription = response.data.subscription;
+            }
           } else {
             // Handle the case where the response status is not 200 (e.g., server error)
             toast.error("User not found", {
@@ -340,6 +377,15 @@ const ModalPopup = ({ state, onClose }) => {
             });
 
             onClose();
+
+            const { id, createdDate, expiresDate, type, points } = subscription;
+            dispatch(
+              setSubscription({
+                subscription: { id, createdDate, expiresDate, type },
+                write: true,
+              })
+            );
+            dispatch(setPoints({ points }));
 
             dispatch(
               setUser({

@@ -25,6 +25,7 @@ export const SubscriptionSlice = createSlice({
       state.id = null;
       state.createdDate = "";
       state.expiresDate = "";
+      localStorage.setItem("subscription", JSON.stringify(state));
     },
   },
 });

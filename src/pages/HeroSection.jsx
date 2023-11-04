@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCheck, FaPencilAlt } from "react-icons/fa";
 import "../style/HeroSection.css";
 import Logo from "../images/FinalLogo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ModalPopup from "../components/ModalPopup";
 const HeroSection = () => {
   const authState = useSelector((state) => state.Auth.authState);
+
+  const [showPostModal, setShowPostModal] = useState(false);
+
+  const closeModal = () => {
+    setShowPostModal(false);
+  };
+
+  const showModal = () => {
+    setShowPostModal(true);
+  };
 
   return (
     <div className="Container">
@@ -54,18 +65,35 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="formHero">
-        <Link
-          to={"/post"}
-          style={{ textDecoration: "none", color: "white" }}
-          className="FormLinks"
-        >
-          <button style={{ position: "relative" }}>
-            Create Your First Post
-            <FaPencilAlt className="Pencil" />
-          </button>
-        </Link>
-      </div>
+      {authState ? (
+        <div className="formHero">
+          <Link
+            to={"/post"}
+            style={{ textDecoration: "none", color: "white" }}
+            className="FormLinks"
+          >
+            <button style={{ position: "relative" }}>
+              Create Your First Post
+              <FaPencilAlt className="Pencil" />
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="formHero">
+          <Link
+            onClick={showModal}
+            style={{ textDecoration: "none", color: "white" }}
+            className="FormLinks"
+          >
+            <button style={{ position: "relative" }}>
+              Create Your First Post
+              <FaPencilAlt className="Pencil" />
+            </button>
+          </Link>
+        </div>
+      )}
+
+      {showPostModal && <ModalPopup state={true} onClose={closeModal} />}
     </div>
   );
 };

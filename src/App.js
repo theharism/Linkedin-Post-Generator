@@ -94,8 +94,8 @@ import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
 import Success from "./components/Success";
-import { setSubscription } from "./slices/SubscriptionSlice";
-import { setPoints } from "./slices/PointsSlice";
+import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
+import { resetPoints, setPoints } from "./slices/PointsSlice";
 
 function App() {
   const auth = getAuth();
@@ -123,8 +123,14 @@ function App() {
     }
     if (subscriptionString) {
       const sub = JSON.parse(subscriptionString);
-      console.log(sub);
-      dispatch(setSubscription({ subscription: sub, write: false }));
+      const temp = new Date(sub.expiresDate);
+      const currentDate = new Date();
+      if (temp < currentDate) {
+        dispatch(resetSubscription());
+        dispatch(resetPoints());
+      } else {
+        dispatch(setSubscription({ subscription: sub, write: false }));
+      }
     }
     if (pointsString) {
       const poi = JSON.parse(pointsString);

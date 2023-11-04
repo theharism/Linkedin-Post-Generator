@@ -15,7 +15,7 @@ const Success = () => {
   const [status, setStatus] = useState(false);
 
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.User.username);
+  const email = useSelector((state) => state.User.email);
 
   useEffect(() => {
     if (sessionId != null) {
@@ -23,7 +23,7 @@ const Success = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/success`, {
           params: {
             session_id: sessionId,
-            username,
+            email,
           },
         })
         .then((response) => {

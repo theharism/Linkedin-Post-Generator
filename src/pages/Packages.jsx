@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../style/Packages.css";
 import { FaCheck } from "react-icons/fa";
 import ModelContent from "./ModelContent";
-import { loadStripe } from "@stripe/stripe-js";
+import ModalPopup from "../components/ModalPopup";
+import { useSelector } from "react-redux";
 
 export function Modal({ children, closeModal }) {
   return (
@@ -21,8 +22,20 @@ const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [showPostModal, setShowPostModal] = useState(false);
+
+  const authState = useSelector((state) => state.Auth.authState);
+
+  const hideModal = () => {
+    setShowPostModal(false);
+  };
+
   const handlePayment = (url) => {
-    window.open(url, "_blank");
+    if (!authState) {
+      setShowPostModal(true);
+    } else {
+      window.open(url, "_blank");
+    }
   };
 
   const openModal = () => {
@@ -52,9 +65,9 @@ const Packages = () => {
           Cancel at any time. 100% no questions asked refunds. Message us for
           high volume custom pricing.
         </p>
-        <div className="coming-soon">
+        {/* <div className="coming-soon">
           <span>Coming Soon....</span>
-        </div>
+        </div> */}
         <button
           href="#"
           className={`btn btn-primary plan ${
@@ -350,6 +363,8 @@ const Packages = () => {
           </div>
         </div>
       )}
+
+      {showPostModal && <ModalPopup state={true} onClose={hideModal} />}
     </div>
   );
 };
