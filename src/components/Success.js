@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../style/Success.css";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSubscription } from "../slices/SubscriptionSlice";
 import { addPoints } from "../slices/PointsSlice";
 
@@ -15,6 +15,7 @@ const Success = () => {
   const [status, setStatus] = useState(false);
 
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.User.username);
 
   useEffect(() => {
     if (sessionId != null) {
@@ -22,6 +23,7 @@ const Success = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/success`, {
           params: {
             session_id: sessionId,
+            username,
           },
         })
         .then((response) => {
@@ -30,8 +32,6 @@ const Success = () => {
           const points = response.data.points;
           const subscription = {
             id: response.data.id,
-            amount_total: response.data.amount_total,
-            customer_details: response.data.customer_details,
             createdDate: response.data.createdDate,
             expiresDate: response.data.expiresDate,
             type: response.data.type,
