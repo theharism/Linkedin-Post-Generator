@@ -10,11 +10,13 @@ const RenderPost = () => {
   const [loading, setLoading] = useState(false);
   const [showGPTResponse, setShowGPTResponse] = useState(false);
   const [response, setResponse] = useState("");
+  const [query, setQuery] = useState("");
 
-  const HandleGPTResponse = (data) => {
+  const HandleGPTResponse = (data, ques) => {
     const responseWithoutEmojis = emojiStrip(data);
     setResponse(responseWithoutEmojis);
     setShowGPTResponse(true);
+    setQuery(ques);
     setLoading(false);
   };
 
@@ -47,7 +49,7 @@ const RenderPost = () => {
           />
         </div>
       ) : showGPTResponse ? (
-        <GPTResponse message={response} />
+        <GPTResponse message={response} query={query} />
       ) : (
         <>
           <Main onPress={handleLoading} HandleGPTResponse={HandleGPTResponse} />

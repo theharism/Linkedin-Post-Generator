@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-function GPTResponse({ message }) {
+function GPTResponse({ message, query }) {
   const [loading, setLoading] = useState(false);
   const [copiedText, setCopiedText] = useState("");
   const [Text, setText] = useState("");
@@ -130,9 +130,10 @@ function GPTResponse({ message }) {
 
   const handleSavePost = async () => {
     try {
+      console.log("qqqqqqqqqqqqq", query);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/savepost`,
-        { content: message, username: username }
+        { content: message, username: username, question: query }
       );
 
       if (response.data.message) {
