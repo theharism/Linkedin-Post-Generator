@@ -109,9 +109,7 @@ const Packages = () => {
               <button
                 className="btn btn-primary plan"
                 onClick={() =>
-                  handlePayment(
-                    "https://buy.stripe.com/test_28obJW0rLgfi2tOaEF"
-                  )
+                  handlePayment("https://buy.stripe.com/aEUeWr8wB71SaBOaEE")
                 }
               >
                 Choose Plan
@@ -205,10 +203,7 @@ const Packages = () => {
               <h4>Enterprise Package</h4>
               <p style={{ color: "#6B7280" }}>For Teams of 10+ Muse Users</p>
 
-              <button
-                // onClick={openModal}
-                className="btn btn-primary plan"
-              >
+              <button onClick={openModal} className="btn btn-primary plan">
                 Contact Us
               </button>
 
@@ -304,9 +299,7 @@ const Packages = () => {
               <button
                 className="btn btn-primary plan"
                 onClick={() =>
-                  handlePayment(
-                    "https://buy.stripe.com/test_8wM4hu5M5aUY4BW000"
-                  )
+                  handlePayment("https://buy.stripe.com/28og0v28dfyo11efYZ")
                 }
               >
                 Choose Plan

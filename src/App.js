@@ -96,6 +96,7 @@ import MyPosts from "./components/MyPosts";
 import Success from "./components/Success";
 import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
 import { resetPoints, setPoints } from "./slices/PointsSlice";
+import Footer from "./common/Footer";
 
 function App() {
   const auth = getAuth();
@@ -158,6 +159,7 @@ function App() {
                 <section id="pricing">
                   <Packages />
                 </section>
+                <Footer />
               </div>
             }
           />
@@ -169,6 +171,7 @@ function App() {
                   <div>
                     <SubNavbar />
                     <RenderPost />
+                    <Footer />
                   </div>
                 }
               />
@@ -179,6 +182,7 @@ function App() {
                   <div>
                     <SubNavbar />
                     <MyPosts />
+                    <Footer />
                   </div>
                 }
               />

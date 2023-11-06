@@ -48,6 +48,10 @@ function ModelContent({ closeModal }) {
       }
     } catch (eror) {
       console.log(eror);
+      toast.error("Something Went Wrong! Pls try again later", {
+        position: "top-right",
+        autoClose: 1500, // Display the message for 3 seconds
+      });
     }
   };
 

@@ -176,6 +176,7 @@ function Main({ onPress, HandleGPTResponse }) {
             placeholder="What should the Post be about..."
             value={description}
             onChange={handleDescription}
+            maxLength={10}
           />
         </div>
 
@@ -265,7 +266,7 @@ function Main({ onPress, HandleGPTResponse }) {
           <label>Inspiration Post (Optional)</label>
           <textarea
             className="creator-input"
-            placeholder="Enter any inspirational posts..."
+            placeholder="Enter any inspiration posts..."
             value={textArea}
             onChange={(e) => setTextArea(e.target.value)}
           />
@@ -280,7 +281,7 @@ function Main({ onPress, HandleGPTResponse }) {
           </button>
           <div className="accordion-container">
             {textAreaContents.length >= 1 && (
-              <p className="title">Inspirational posts</p>
+              <p className="title">Inspiration posts</p>
             )}
 
             {textAreaContents.map((content, index) => (
@@ -290,7 +291,7 @@ function Main({ onPress, HandleGPTResponse }) {
                   type="button"
                   onClick={() => toggleTextareaAccordion(index)}
                 >
-                  Show Inspirational Post {index + 1}
+                  Show Inspiration Post {index + 1}
                 </button>
                 <div
                   className={`custom-accordion-content ${

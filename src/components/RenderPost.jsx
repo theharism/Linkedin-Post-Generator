@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import GPTResponse from "./GPTResponse";
 import Main from "./Main";
 import { css } from "@emotion/react";
-import { ClipLoader } from "react-spinners";
 import Card from "./Cards";
 import emojiStrip from "emoji-strip";
 
@@ -41,11 +40,11 @@ const RenderPost = () => {
     <div>
       {loading ? (
         <div style={centerContainerStyle}>
-          <ClipLoader
-            color={"#000000"}
-            loading={true}
-            css={override}
-            size={70}
+          <img
+            src={require("../images/loading.gif")} // Replace with the path to your GIF image
+            alt="Animated GIF"
+            width="200" // Adjust the width as needed
+            height="200" // Adjust the height as needed
           />
         </div>
       ) : showGPTResponse ? (

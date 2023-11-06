@@ -208,6 +208,10 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     );
   };
 
+  const infinitySymbolStyle = {
+    fontSize: "1.5em", // Adjust the font size as needed
+  };
+
   return (
     <React.Fragment>
       <Menu
@@ -259,7 +263,12 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
 
         <MenuItem sx={{ fontFamily: "inherit" }}>
           <Typography sx={{ fontFamily: "inherit" }}>
-            Credits: {points}
+            Credits:{" "}
+            {points > 10000 ? (
+              <span style={infinitySymbolStyle}>&infin;</span>
+            ) : (
+              points
+            )}
           </Typography>
         </MenuItem>
 

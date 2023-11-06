@@ -87,7 +87,8 @@ const ModalPopup = ({ state, onClose }) => {
                 autoClose: 1500,
               });
             })
-            .catch(() => {
+            .catch((error) => {
+              console.log(error);
               toast.success("Error sending Email Verification Link", {
                 position: "top-right",
                 autoClose: 1500,
@@ -378,14 +379,17 @@ const ModalPopup = ({ state, onClose }) => {
 
             onClose();
 
-            const { id, createdDate, expiresDate, type, points } = subscription;
-            dispatch(
-              setSubscription({
-                subscription: { id, createdDate, expiresDate, type },
-                write: true,
-              })
-            );
-            dispatch(setPoints({ points }));
+            if (subscription) {
+              const { id, createdDate, expiresDate, type, points } =
+                subscription;
+              dispatch(
+                setSubscription({
+                  subscription: { id, createdDate, expiresDate, type },
+                  write: true,
+                })
+              );
+              dispatch(setPoints({ points }));
+            }
 
             dispatch(
               setUser({
@@ -397,7 +401,7 @@ const ModalPopup = ({ state, onClose }) => {
             // ...
           })
           .catch((error) => {
-            console.log(error.code);
+            console.log(error);
             switch (error.code) {
               case "auth/wrong-password":
                 // Display an error message to the user that the password is incorrect.
