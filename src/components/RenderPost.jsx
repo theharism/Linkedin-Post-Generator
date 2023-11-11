@@ -4,6 +4,7 @@ import Main from "./Main";
 import { css } from "@emotion/react";
 import Card from "./Cards";
 import emojiStrip from "emoji-strip";
+import { Typography } from "@mui/material";
 
 const RenderPost = () => {
   const [loading, setLoading] = useState(false);
@@ -32,10 +33,12 @@ const RenderPost = () => {
 
   const centerContainerStyle = {
     display: "flex",
+    flexDirection: "column", // Align items in a column
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
   };
+
   return (
     <div>
       {loading ? (
@@ -46,6 +49,7 @@ const RenderPost = () => {
             width="200" // Adjust the width as needed
             height="200" // Adjust the height as needed
           />
+          <h6>Your Post is being Mused, this will take a moment</h6>
         </div>
       ) : showGPTResponse ? (
         <GPTResponse message={response} query={query} />

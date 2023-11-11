@@ -16,6 +16,7 @@ const Success = () => {
 
   const dispatch = useDispatch();
   const email = useSelector((state) => state.User.email);
+  const fullName = useSelector((state) => state.User.fullName);
 
   useEffect(() => {
     if (sessionId != null) {
@@ -26,7 +27,7 @@ const Success = () => {
             email,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
           console.log(response.data);
           setStatus(true);
           const points = response.data.points;
@@ -39,6 +40,16 @@ const Success = () => {
 
           dispatch(setSubscription({ subscription, write: true }));
           dispatch(addPoints({ points }));
+
+          if (subscription.type === "Starter")
+            await axios.post(
+              `${process.env.REACT_APP_BASE_URL}/api/useremail`,
+              {
+                fullName: fullName,
+                email: email,
+                type: "paid", // new user
+              }
+            );
         })
         .catch((error) => {
           console.error("Error:", error);

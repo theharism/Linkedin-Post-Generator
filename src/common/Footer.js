@@ -7,12 +7,13 @@ const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const footerStyle = {
+    flex: "0 0 auto",
     display: "flex",
-    justifyContent: "space-between", // Space between items
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#150261",
     height: "60px",
-    padding: "0 20px", // Add padding to create space around items
+    padding: "0 20px",
   };
 
   const linkStyle = {

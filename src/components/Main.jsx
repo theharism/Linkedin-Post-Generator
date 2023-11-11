@@ -176,7 +176,6 @@ function Main({ onPress, HandleGPTResponse }) {
             placeholder="What should the Post be about..."
             value={description}
             onChange={handleDescription}
-            maxLength={10}
           />
         </div>
 

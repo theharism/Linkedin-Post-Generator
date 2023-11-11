@@ -193,7 +193,8 @@ const Packages = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-6 col-lg-4 ">
+
+          {/* <div className="col-12 col-md-6 col-lg-4 ">
             <div
               className="card  p-3"
               style={{
@@ -213,7 +214,7 @@ const Packages = () => {
                 </Modal>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -333,7 +334,7 @@ const Packages = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-6 col-lg-4 ">
+          {/* <div className="col-12 col-md-6 col-lg-4 ">
             <div
               className="card p-3"
               style={{
@@ -353,7 +354,7 @@ const Packages = () => {
                 </Modal>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 

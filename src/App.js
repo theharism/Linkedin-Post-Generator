@@ -110,6 +110,10 @@ function App() {
     } else {
       dispatch(resetAuthState());
       setAuth(false);
+
+      localStorage.removeItem("user");
+      localStorage.removeItem("subscription");
+      localStorage.removeItem("points");
     }
   });
 
@@ -182,7 +186,6 @@ function App() {
                   <div>
                     <SubNavbar />
                     <MyPosts />
-                    <Footer />
                   </div>
                 }
               />

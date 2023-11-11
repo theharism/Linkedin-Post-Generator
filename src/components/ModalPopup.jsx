@@ -111,6 +111,12 @@ const ModalPopup = ({ state, onClose }) => {
           );
 
           referalCode = response.data.user.referalCode;
+
+          await axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
+            fullName: user.displayName,
+            email: user.email,
+            type: "new", // new user
+          });
         } catch (error) {
           if (error.response) {
             const errorMessage = error.response.data.error;
@@ -215,6 +221,12 @@ const ModalPopup = ({ state, onClose }) => {
         );
 
         referalCode = response.data.user.referalCode;
+
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
+          fullName: formData.fullName,
+          email: formData.email,
+          type: "new", // new user
+        });
       } catch (error) {
         if (error.response) {
           const errorMessage = error.response.data.error;

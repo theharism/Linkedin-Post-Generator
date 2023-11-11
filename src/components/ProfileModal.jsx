@@ -39,6 +39,9 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
       .then(() => {
         // Sign-out successful.
         navigate("/");
+        localStorage.removeItem("user");
+        localStorage.removeItem("subscription");
+        localStorage.removeItem("points");
         toast.success("Signed out Successfull", {
           position: "top-right",
           autoClose: 1500,
@@ -279,17 +282,12 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           </Typography>
         </MenuItem>
 
-        <MenuItem sx={{ fontFamily: "inherit" }}>
+        {/* <MenuItem sx={{ fontFamily: "inherit" }}>
           <Typography sx={{ fontFamily: "inherit" }}>
             Referral Code: {user.referalCode}
           </Typography>
-        </MenuItem>
+        </MenuItem> */}
 
-        {/* <div className="TypographyContainer">
-          <Typography sx={{ fontFamily: "inherit" }}>
-            Referral Code: {userReferalCode}
-          </Typography>
-        </div> */}
         {user.authType !== "google" && (
           <>
             <MenuItem

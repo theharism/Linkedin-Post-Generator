@@ -12,6 +12,7 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import Footer from "../common/Footer";
 
 const MyPosts = () => {
   const username = useSelector((state) => state.User.username);
@@ -78,7 +79,9 @@ const MyPosts = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const RenderPost = ({ index, summary, content }) => {
+  const RenderPost = ({ index, summary, content, time }) => {
+    const date = new Date(time);
+
     return (
       <div>
         <Accordion
@@ -89,10 +92,28 @@ const MyPosts = () => {
             aria-controls={`panel${index}d-content`}
             id={`panel${index}d-header`}
           >
-            <Typography>{summary}</Typography>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between", // Adjust this property
+                alignItems: "center", // Center vertically if needed
+                width: "100%", // Ensure the content takes up the full width
+              }}
+            >
+              <Typography sx={{ fontFamily: "inherit" }}>{summary}</Typography>
+              <Typography sx={{ fontFamily: "inherit" }}>
+                {date.toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Typography>
+            </div>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>{content}</Typography>
+            <Typography sx={{ fontFamily: "inherit", textAlign: "justify" }}>
+              {content}
+            </Typography>
           </AccordionDetails>
         </Accordion>
 
@@ -113,20 +134,28 @@ const MyPosts = () => {
   };
 
   return (
-    <Container className="PostGenContaier">
-      <div className="container">
-        <div className="heading">
-          <h1 className="bold-text">Saved Posts</h1>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <Container className="PostGenContaier">
+        <div className="container">
+          <div className="heading">
+            <h1 className="bold-text">Saved Posts</h1>
+          </div>
+          {posts.map((item, index) => (
+            <RenderPost
+              index={index}
+              summary={item.question}
+              content={item.content}
+              time={item.createdAt}
+            />
+          ))}
         </div>
-        {posts.map((item, index) => (
-          <RenderPost
-            index={index}
-            summary={item.question}
-            content={item.content}
-          />
-        ))}
+      </Container>
+      <div style={{ marginTop: "auto" }}>
+        <Footer />
       </div>
-    </Container>
+    </div>
   );
 };
 

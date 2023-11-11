@@ -16,6 +16,7 @@ const NavbarComponent = () => {
   const open = Boolean(anchorEl);
 
   const authState = useSelector((state) => state.Auth.authState);
+  const points = useSelector((state) => state.Points.points);
 
   const hideModal = () => {
     setShowPostModal(false);
@@ -52,9 +53,22 @@ const NavbarComponent = () => {
       <nav className={isMobileMenuOpen ? "responsive_nav" : "nav"}>
         <div className="left-nav-items">
           {authState ? (
-            <Link to="/post" className="Link">
-              Start Musing
-            </Link>
+            points > 0 ? (
+              <Link to="/post" className="Link">
+                Start Musing
+              </Link>
+            ) : (
+              <ScrollLink
+                to="pricing"
+                spy={true}
+                smooth={true}
+                duration={80}
+                offset={30}
+                className="Link"
+              >
+                Start Musing
+              </ScrollLink>
+            )
           ) : (
             <Link onClick={() => setShowPostModal("signin")} className="Link">
               Start Musing
