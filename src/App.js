@@ -105,16 +105,13 @@ function App() {
   const [localAuth, setAuth] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
 
-  useEffect(() => {
-    if (auth.currentUser && !auth.currentUser.emailVerified) {
-      setShowEmailVerification(true);
-    }
-  });
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(setAuthState());
       setAuth(true);
+      if (auth.currentUser && !auth.currentUser.emailVerified) {
+        setShowEmailVerification(true);
+      }
     } else {
       dispatch(resetAuthState());
       setAuth(false);

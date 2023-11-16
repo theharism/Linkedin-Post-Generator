@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorIcon from "@mui/icons-material/Error";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -14,22 +14,65 @@ const EmailVerifyModal = ({ onClose }) => {
   const fullName = useSelector((state) => state.User.fullName);
   const auth = getAuth();
 
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
 
   // useEffect(() => {
-  //   const checkVerification = () => {
-  //     if (auth.currentUser && auth.currentUser.emailVerified) {
-  //       //setVerified(true);
+  //   function checkVerification() {
+  //     auth.currentUser.reload();
+  //     console.log(auth);
+  //     if (!verified && auth.currentUser && auth.currentUser.emailVerified) {
+  //       setVerified(true);
+  //       try {
+  //         axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
+  //           fullName,
+  //           email,
+  //           type: "new", // new user
+  //         });
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
   //     }
-  //   };
-  //   checkVerification();
-  //   const intervalId = setInterval(() => {
-  //     checkVerification();
-  //   }, 3000); // 5000 milliseconds = 5 seconds
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
+  //   }
+  //   if (!verified) {
+  //     const intervalId = setInterval(() => {
+  //       checkVerification();
+  //     }, 3000);
+  //     return () => {
+  //       clearInterval(intervalId);
+  //     };
+  //   }
   // }, []);
+
+  const checkVerification = useCallback(async () => {
+    await auth.currentUser.reload();
+    console.log(auth);
+    if (!verified && auth.currentUser && auth.currentUser.emailVerified) {
+      setVerified(true);
+      try {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
+          fullName,
+          email,
+          type: "new", // new user
+        });
+        setTimeout(() => {
+          onClose();
+        }, 10000);
+      } catch (error) {
+        console.log(error);
+      }
+
+      onClose();
+    }
+  }, [auth, verified, setVerified, axios, fullName, email]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      checkVerification();
+    }, 3000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [checkVerification]);
 
   return (
     <div className="modal">
@@ -47,15 +90,7 @@ const EmailVerifyModal = ({ onClose }) => {
                       Josh@muse-tool.com
                     </a>
                   </p>
-
-                  <button
-                    type="button"
-                    width="300px"
-                    className="btnSuccess"
-                    onClick={onClose}
-                  >
-                    Start Musing
-                  </button>
+                  <p className="description">Redirecting in 5 seconds...</p>
                 </Col>
               ) : (
                 <Col>
