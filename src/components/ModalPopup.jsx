@@ -76,11 +76,7 @@ const ModalPopup = ({ state, onClose }) => {
         console.log(user);
 
         if (!user.emailVerified) {
-          var actionCodeSettings = {
-            url: `${process.env.REACT_APP_BASE_URL}`,
-          };
-
-          sendEmailVerification(auth.currentUser, actionCodeSettings)
+          sendEmailVerification(auth.currentUser)
             .then(() => {
               toast.success("Email Verification Link Sent", {
                 position: "top-right",
@@ -221,12 +217,6 @@ const ModalPopup = ({ state, onClose }) => {
         );
 
         referalCode = response.data.user.referalCode;
-
-        await axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
-          fullName: formData.fullName,
-          email: formData.email,
-          type: "new", // new user
-        });
       } catch (error) {
         if (error.response) {
           const errorMessage = error.response.data.error;
@@ -272,12 +262,8 @@ const ModalPopup = ({ state, onClose }) => {
           );
 
           onClose();
-          console.log(user);
-          var actionCodeSettings = {
-            url: `${process.env.REACT_APP_BASE_URL}`,
-          };
 
-          sendEmailVerification(auth.currentUser, actionCodeSettings)
+          sendEmailVerification(auth.currentUser)
             .then(() => {
               toast.success("Email Verification Link Sent", {
                 position: "top-right",

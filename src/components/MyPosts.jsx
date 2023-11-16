@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
@@ -13,6 +9,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Footer from "../common/Footer";
+import "../style/MyPosts.css";
 
 const MyPosts = () => {
   const username = useSelector((state) => state.User.username);
@@ -111,7 +108,10 @@ const MyPosts = () => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography sx={{ fontFamily: "inherit", textAlign: "justify" }}>
+            <Typography
+              className="responseText"
+              sx={{ fontFamily: "inherit", textAlign: "justify" }}
+            >
               {content}
             </Typography>
           </AccordionDetails>

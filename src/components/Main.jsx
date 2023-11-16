@@ -265,7 +265,7 @@ function Main({ onPress, HandleGPTResponse }) {
           <label>Inspiration Post (Optional)</label>
           <textarea
             className="creator-input"
-            placeholder="Enter any inspiration posts..."
+            placeholder="Paste post(s) here for inspiration"
             value={textArea}
             onChange={(e) => setTextArea(e.target.value)}
           />

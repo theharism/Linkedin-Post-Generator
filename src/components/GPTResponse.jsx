@@ -5,10 +5,12 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import EditPostModal from "./EditPostModal";
 
-function GPTResponse({ message, query }) {
+function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
   const [copiedText, setCopiedText] = useState("");
+  const [editPost, setEditPost] = useState(false);
   const [Text, setText] = useState("");
   const pRef = useRef(null);
 
@@ -151,6 +153,17 @@ function GPTResponse({ message, query }) {
     }
   };
 
+  const handleEditPost = () => {
+    setEditPost(true);
+  };
+
+  const onClose = (newMessage) => {
+    setEditPost(false);
+    if (newMessage) {
+      ifEdited(newMessage);
+    }
+  };
+
   const handleCopyClick = () => {
     if (pRef.current) {
       const textToCopy = pRef.current.textContent;
@@ -233,6 +246,12 @@ function GPTResponse({ message, query }) {
                   </button>
                   <button
                     className="btn btn-primary kuchbi"
+                    onClick={handleEditPost}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-primary kuchbi"
                     onClick={handleSavePost}
                   >
                     Save
@@ -241,6 +260,7 @@ function GPTResponse({ message, query }) {
               </div>
             )}
             {copiedText && <div className="copiedMessage">Copied!</div>}
+            {editPost && <EditPostModal message={message} onClose={onClose} />}
           </div>
         </div>
       </div>

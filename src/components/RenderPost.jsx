@@ -25,6 +25,12 @@ const RenderPost = () => {
     setShowGPTResponse(false);
   };
 
+  const ifEdited = (newResponse) => {
+    if (newResponse) {
+      setResponse(newResponse);
+    }
+  };
+
   const override = css`
     display: block;
     margin: 0 auto;
@@ -52,7 +58,7 @@ const RenderPost = () => {
           <h6>Your Post is being Mused, this will take a moment</h6>
         </div>
       ) : showGPTResponse ? (
-        <GPTResponse message={response} query={query} />
+        <GPTResponse message={response} query={query} ifEdited={ifEdited} />
       ) : (
         <>
           <Main onPress={handleLoading} HandleGPTResponse={HandleGPTResponse} />

@@ -97,11 +97,19 @@ import Success from "./components/Success";
 import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
 import { resetPoints, setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
+import EmailVerified from "./components/emailverified";
 
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+
+  useEffect(() => {
+    if (auth.currentUser && !auth.currentUser.emailVerified) {
+      setShowEmailVerification(true);
+    }
+  });
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -142,6 +150,10 @@ function App() {
       dispatch(setPoints({ points: poi }));
     }
   }, []);
+
+  const onClose = () => {
+    setShowEmailVerification(false);
+  };
 
   return (
     <div>
@@ -199,13 +211,21 @@ function App() {
                   </div>
                 }
               />
+
+              <Route
+                path="/emailverified"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <EmailVerified />
+                  </div>
+                }
+              />
             </>
           )}
         </Routes>
       </BrowserRouter>
-      {auth.currentUser && !auth.currentUser.emailVerified && (
-        <EmailVerifyModal />
-      )}
+      {showEmailVerification && <EmailVerifyModal onClose={onClose} />}
       <ToastContainer />
     </div>
   );
