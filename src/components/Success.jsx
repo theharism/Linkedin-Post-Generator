@@ -21,7 +21,7 @@ const Success = () => {
   useEffect(() => {
     if (sessionId != null) {
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/success`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/api/success`, {
           params: {
             session_id: sessionId,
             email,
