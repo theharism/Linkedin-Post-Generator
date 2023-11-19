@@ -162,7 +162,9 @@ function Main({ onPress, HandleGPTResponse }) {
         <div className="heading">
           <h1 className="bold-text">Linkedin Post Generator</h1>
           <p>
-            Generate Post quickly and easily with our new AI Post Generator.
+            Our database of top-performing posts allow us to Muse <br />
+            the most captivating, engaging, and converting Linkedin content
+            Instantly
           </p>
         </div>
 
@@ -170,17 +172,55 @@ function Main({ onPress, HandleGPTResponse }) {
           <label>
             Enter a description <span className="Required">*</span>
           </label>
-          <input
+          <textArea
             className="MainDesc"
             type="text"
             placeholder="What should the Post be about..."
             value={description}
             onChange={handleDescription}
           />
+          {/* 
+          </textArea>
+          <input
+            className="MainDesc"
+            type="text"
+            placeholder="What should the Post be about..."
+            value={description}
+            onChange={handleDescription}
+          /> */}
         </div>
 
         <div className="question-container">
-          <label>Select Questions (Optional)</label>
+          <label>
+            Tone <span className="Required">*</span>
+          </label>
+          {isOtherToneSelected ? (
+            <input
+              className="creator-input"
+              type="text"
+              placeholder="Enter Your Tone"
+              value={customTone}
+              onChange={handleCustomToneChange}
+            />
+          ) : (
+            <select
+              className="question-dropdown"
+              value={selectedTone}
+              onChange={handleToneChange}
+            >
+              <option value="">Select a tone</option>
+              {Tone.map((tone, index) => (
+                <option key={index} value={tone.style}>
+                  {tone.style}
+                </option>
+              ))}
+              <option value="Other">Other</option>
+            </select>
+          )}
+        </div>
+
+        <div className="question-container">
+          <label>Use these questions as post inspiration (Optional)</label>
           <select
             className="question-dropdown"
             value={selectedQuestion}
@@ -230,35 +270,6 @@ function Main({ onPress, HandleGPTResponse }) {
               </div>
             </div>
           ) : null}
-        </div>
-
-        <div className="question-container">
-          <label>
-            Tone <span className="Required">*</span>
-          </label>
-          {isOtherToneSelected ? (
-            <input
-              className="creator-input"
-              type="text"
-              placeholder="Enter Your Tone"
-              value={customTone}
-              onChange={handleCustomToneChange}
-            />
-          ) : (
-            <select
-              className="question-dropdown"
-              value={selectedTone}
-              onChange={handleToneChange}
-            >
-              <option value="">Select a tone</option>
-              {Tone.map((tone, index) => (
-                <option key={index} value={tone.style}>
-                  {tone.style}
-                </option>
-              ))}
-              <option value="Other">Other</option>
-            </select>
-          )}
         </div>
 
         <div className="question-container textarea-container">

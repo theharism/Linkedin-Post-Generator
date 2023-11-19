@@ -97,7 +97,6 @@ import Success from "./components/Success";
 import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
 import { resetPoints, setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
-import EmailVerified from "./components/emailverified";
 
 function App() {
   const auth = getAuth();
@@ -136,7 +135,7 @@ function App() {
       const temp = new Date(sub.expiresDate);
       const currentDate = new Date();
       if (temp < currentDate) {
-        dispatch(resetSubscription());
+        dispatch(resetSubscription({ completed: true }));
         dispatch(resetPoints());
       } else {
         dispatch(setSubscription({ subscription: sub, write: false }));
@@ -205,16 +204,6 @@ function App() {
                   <div>
                     <SubNavbar />
                     <Success />
-                  </div>
-                }
-              />
-
-              <Route
-                path="/emailverified"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <EmailVerified />
                   </div>
                 }
               />

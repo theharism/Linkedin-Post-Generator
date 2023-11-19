@@ -6,4 +6,16 @@ function isEmail(input) {
   return emailPattern.test(input);
 }
 
-export { isEmail };
+function checkSubscriptionType(inputString) {
+  const lowercaseString = inputString.toLowerCase();
+  const hasMonthlySubstring = lowercaseString.includes("monthly");
+  const hasYearlySubstring = lowercaseString.includes("yearly");
+
+  return hasMonthlySubstring
+    ? "Monthly"
+    : hasYearlySubstring
+    ? "Yearly"
+    : "Free";
+}
+
+export { isEmail, checkSubscriptionType };

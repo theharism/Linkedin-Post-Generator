@@ -6,6 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
+import Swal from "sweetalert2";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,27 @@ function GPTResponse({ message, query, ifEdited }) {
       setLoading(false); // Set loading to false when the request completes.
     }
   };
+
+  const handleMakeItShorter = async () => {
+    setLoading(true); // Set loading to true during the request.
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/makeitshorter`,
+        { content: message }
+      );
+
+      if (response.data.message) {
+        console.log(response.data);
+        console.log("Make it shorter --> ", response.data.prompt);
+        setText(response.data.message.content);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false); // Set loading to false when the request completes.
+    }
+  };
+
   const handleChangeHook = async () => {
     setLoading(true);
     try {
@@ -132,16 +154,17 @@ function GPTResponse({ message, query, ifEdited }) {
 
   const handleSavePost = async () => {
     try {
-      console.log("qqqqqqqqqqqqq", query);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/savepost`,
         { content: message, username: username, question: query }
       );
 
       if (response.data.message) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 1500,
+        Swal.fire({
+          title: response.data.message,
+          icon: "success",
+          showConfirmButton: false, // Hide the "OK" button in the success popup
+          timer: 1000,
         });
       }
     } catch (error) {
@@ -243,6 +266,12 @@ function GPTResponse({ message, query, ifEdited }) {
                     onClick={handleBreakItUp}
                   >
                     Break It Up
+                  </button>
+                  <button
+                    className="btn btn-primary kuchbi"
+                    onClick={handleMakeItShorter}
+                  >
+                    Make It Shorter
                   </button>
                   <button
                     className="btn btn-primary kuchbi"

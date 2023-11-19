@@ -45,6 +45,7 @@
   border: 2px solid lightgray; /* Add border */
   border-radius: 7px; /* Add border radius */
   outline: none;
+  min-height: 150px;
 }
 /* Main.css */
 .container {

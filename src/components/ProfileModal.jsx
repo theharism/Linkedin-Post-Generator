@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Link as ScrollLink } from "react-scroll";
 import axios from "axios";
 import { toast } from "react-toastify";
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,16 +24,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
 import { PointsSlice } from "../slices/PointsSlice";
+import Swal from "sweetalert2";
+import { checkSubscriptionType } from "../constants/helper";
+import MyPlans from "./MyPlans";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, setState] = useState("");
+  const [showMyPlanModal, setShowMyPlanModal] = useState(false);
 
   const user = useSelector((state) => state.User);
   const subscription = useSelector((state) => state.Subscription.type);
   const points = useSelector((state) => state.Points.points);
+
+  const subscriptionType = checkSubscriptionType(subscription);
 
   function signout() {
     signOut(auth)
@@ -42,9 +49,12 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         localStorage.removeItem("user");
         localStorage.removeItem("subscription");
         localStorage.removeItem("points");
-        toast.success("Signed out Successfull", {
-          position: "top-right",
-          autoClose: 1500,
+
+        Swal.fire({
+          title: "Signed Out!",
+          icon: "success",
+          showConfirmButton: false, // Hide the "OK" button in the success popup
+          timer: 1000,
         });
       })
       .catch((error) => {
@@ -215,6 +225,15 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     fontSize: "1.5em", // Adjust the font size as needed
   };
 
+  const handleMyPlan = () => {
+    setShowMyPlanModal(true);
+    handleClose();
+  };
+
+  const onClose = () => {
+    setShowMyPlanModal(false);
+  };
+
   return (
     <React.Fragment>
       <Menu
@@ -280,6 +299,26 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           <Typography sx={{ fontFamily: "inherit", color: "green" }}>
             &nbsp;{subscription}
           </Typography>
+          &nbsp;&nbsp;&nbsp;
+          {subscriptionType === "Free" ? (
+            <ScrollLink
+              to="pricing"
+              spy={true}
+              smooth={true}
+              duration={80}
+              offset={30}
+            >
+              <button onClick={handleClose} className="upgrade-buuton">
+                Upgrade
+              </button>
+            </ScrollLink>
+          ) : (
+            <>
+              <button onClick={handleMyPlan} className="upgrade-buuton">
+                My Plan
+              </button>
+            </>
+          )}
         </MenuItem>
 
         {/* <MenuItem sx={{ fontFamily: "inherit" }}>
@@ -310,6 +349,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
       </Menu>
       {state === "name" && <Modal />}
       {state === "password" && <Modal />}
+      {showMyPlanModal && <MyPlans onClose={onClose} type={subscription} />}
     </React.Fragment>
   );
 }

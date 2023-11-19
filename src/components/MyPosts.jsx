@@ -10,6 +10,9 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Footer from "../common/Footer";
 import "../style/MyPosts.css";
+import { FaPencilAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import GeneratePost from "./GeneratePost";
 
 const MyPosts = () => {
   const username = useSelector((state) => state.User.username);
@@ -142,14 +145,18 @@ const MyPosts = () => {
           <div className="heading">
             <h1 className="bold-text">Saved Posts</h1>
           </div>
-          {posts.map((item, index) => (
-            <RenderPost
-              index={index}
-              summary={item.question}
-              content={item.content}
-              time={item.createdAt}
-            />
-          ))}
+          {posts.length > 0 ? (
+            posts.map((item, index) => (
+              <RenderPost
+                index={index}
+                summary={item.question}
+                content={item.content}
+                time={item.createdAt}
+              />
+            ))
+          ) : (
+            <GeneratePost />
+          )}
         </div>
       </Container>
       <div style={{ marginTop: "auto" }}>

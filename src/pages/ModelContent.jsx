@@ -6,15 +6,13 @@ import Col from "react-bootstrap/Col";
 import "../style/ModelContent.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function ModelContent({ closeModal }) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
-    companyName: "",
-    NoOfMuseUsers: "",
-    packageType: "monthly",
+    inquiry: "",
   });
 
   const handleChange = (e) => {
@@ -35,9 +33,11 @@ function ModelContent({ closeModal }) {
       );
 
       if (response.status === 200) {
-        toast.success("Request Received Successfully!", {
-          position: "top-right",
-          autoClose: 1500, // Display the message for 3 seconds
+        Swal.fire({
+          title: "Request Received Successfully!",
+          icon: "success",
+          showConfirmButton: false, // Hide the "OK" button in the success popup
+          timer: 1000,
         });
         closeModal();
       } else {
@@ -63,18 +63,18 @@ function ModelContent({ closeModal }) {
           <h2>Contact US</h2>
           <Form className="containerModel_FormPAge" onSubmit={handleSubmit}>
             <Form.Group className="Group">
-              <Form.Label className="LeftAlignedLabel">First Name</Form.Label>
+              <Form.Label className="LeftAlignedLabel">Full Name</Form.Label>
               <Form.Control
                 type="text"
-                name="firstName"
-                placeholder="Enter your First name"
+                name="fullName"
+                placeholder="Enter your full name"
                 className="FormInput"
-                value={formData.firstName}
+                value={formData.fullName}
                 onChange={handleChange}
               />
             </Form.Group>
 
-            <Form.Group className="Group">
+            {/* <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">Last Name</Form.Label>
               <Form.Control
                 type="text"
@@ -84,7 +84,7 @@ function ModelContent({ closeModal }) {
                 value={formData.lastName}
                 onChange={handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">
@@ -101,6 +101,22 @@ function ModelContent({ closeModal }) {
             </Form.Group>
 
             <Form.Group className="Group">
+              <Form.Label className="LeftAlignedLabel">Inquiry</Form.Label>
+              <textarea
+                className="FormInput"
+                type="text"
+                placeholder="Write your queries here"
+                value={formData.inquiry}
+                onChange={(event) =>
+                  setFormData({
+                    ...formData,
+                    inquiry: event.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+
+            {/* <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">Company Name</Form.Label>
               <Form.Control
                 type="text"
@@ -110,9 +126,9 @@ function ModelContent({ closeModal }) {
                 value={formData.companyName}
                 onChange={handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
 
-            <Form.Group className="Group">
+            {/* <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">
                 No. of Muse Users
               </Form.Label>
@@ -124,9 +140,9 @@ function ModelContent({ closeModal }) {
                 value={formData.NoOfMuseUsers}
                 onChange={handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
 
-            <Form.Group className="Group">
+            {/* <Form.Group className="Group">
               <Form.Label className="LeftAlignedLabel">
                 Select Package Type
               </Form.Label>
@@ -148,12 +164,12 @@ function ModelContent({ closeModal }) {
                   onChange={handleChange}
                 />
               </div>
-            </Form.Group>
+            </Form.Group> */}
 
             <Button
               variant="primary"
               type="submit"
-              className="containerModel_submit"
+              className="containerModel_submit w-100"
             >
               Submit
             </Button>

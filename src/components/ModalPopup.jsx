@@ -21,6 +21,7 @@ import { isEmail } from "../constants/helper";
 import { setUser } from "../slices/UserSlice";
 import { setSubscription } from "../slices/SubscriptionSlice";
 import { setPoints } from "../slices/PointsSlice";
+import Swal from "sweetalert2";
 
 const ModalPopup = ({ state, onClose }) => {
   const auth = getAuth(app);
@@ -67,9 +68,16 @@ const ModalPopup = ({ state, onClose }) => {
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        toast.success("Signed In Successfully", {
-          position: "top-right",
-          autoClose: 1500,
+        // toast.success("Signed In Successfully", {
+        //   position: "top-right",
+        //   autoClose: 1500,
+        // });
+
+        Swal.fire({
+          title: "Signed In!",
+          icon: "success",
+          showConfirmButton: false, // Hide the "OK" button in the success popup
+          timer: 1000,
         });
 
         onClose();
@@ -243,9 +251,16 @@ const ModalPopup = ({ state, onClose }) => {
 
           const user = userCredential.user;
 
-          toast.success("Registration Successfull", {
-            position: "top-right",
-            autoClose: 1500,
+          // toast.success("Registration Successfull", {
+          //   position: "top-right",
+          //   autoClose: 1500,
+          // });
+
+          Swal.fire({
+            title: "Registeration Successfull!",
+            icon: "success",
+            showConfirmButton: false, // Hide the "OK" button in the success popup
+            timer: 1000,
           });
 
           dispatch(
@@ -370,9 +385,11 @@ const ModalPopup = ({ state, onClose }) => {
           .then((userCredential) => {
             // Signed up
 
-            toast.success("Signed in Successfull", {
-              position: "top-right",
-              autoClose: 1500,
+            Swal.fire({
+              title: "Signed In!",
+              icon: "success",
+              showConfirmButton: false, // Hide the "OK" button in the success popup
+              timer: 1000,
             });
 
             onClose();

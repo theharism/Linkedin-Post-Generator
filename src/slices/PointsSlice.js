@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const PointsSlice = createSlice({
   name: "Points",
   initialState: {
-    points: 12,
+    points: 1,
   },
   reducers: {
     setPoints: (state, action) => {
@@ -11,7 +11,7 @@ export const PointsSlice = createSlice({
       localStorage.setItem("points", state.points);
     },
     resetPoints: (state) => {
-      state.points = 12;
+      state.points = 1;
       localStorage.setItem("points", state.points);
     },
     addPoints: (state, action) => {

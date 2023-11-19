@@ -1,24 +1,10 @@
-import React, { useState } from "react";
-import { FaCheck, FaPencilAlt } from "react-icons/fa";
+import React from "react";
+import { FaCheck } from "react-icons/fa";
 import "../style/HeroSection.css";
 import Logo from "../images/FinalLogo.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import ModalPopup from "../components/ModalPopup";
-import { Link as ScrollLink } from "react-scroll";
+import GeneratePost from "../components/GeneratePost";
+
 const HeroSection = () => {
-  const authState = useSelector((state) => state.Auth.authState);
-  const points = useSelector((state) => state.Points.points);
-  const [showPostModal, setShowPostModal] = useState(false);
-
-  const closeModal = () => {
-    setShowPostModal(false);
-  };
-
-  const showModal = () => {
-    setShowPostModal(true);
-  };
-
   return (
     <div className="Container">
       <div className="Section">
@@ -65,53 +51,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-
-      {authState ? (
-        <div className="formHero">
-          {points > 0 ? (
-            <Link
-              to={"/post"}
-              style={{ textDecoration: "none", color: "white" }}
-              className="FormLinks"
-            >
-              <button style={{ position: "relative" }}>
-                Create Your First Post
-                <FaPencilAlt className="Pencil" />
-              </button>
-            </Link>
-          ) : (
-            <ScrollLink
-              to="pricing"
-              spy={true}
-              smooth={true}
-              duration={80}
-              offset={30}
-              style={{ textDecoration: "none", color: "white" }}
-              className="FormLinks"
-            >
-              <button style={{ position: "relative" }}>
-                Create Your First Post
-                <FaPencilAlt className="Pencil" />
-              </button>
-            </ScrollLink>
-          )}
-        </div>
-      ) : (
-        <div className="formHero">
-          <Link
-            onClick={showModal}
-            style={{ textDecoration: "none", color: "white" }}
-            className="FormLinks"
-          >
-            <button style={{ position: "relative" }}>
-              Create Your First Post
-              <FaPencilAlt className="Pencil" />
-            </button>
-          </Link>
-        </div>
-      )}
-
-      {showPostModal && <ModalPopup state={true} onClose={closeModal} />}
+      <GeneratePost />
     </div>
   );
 };
