@@ -187,7 +187,11 @@ export const YearlyStarter = ({ handlePayment, cancel }) => {
                 <span>
                   <FaCheck className="check" size={20} />
                 </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>30 posts</p>
+                <p
+                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
+                >
+                  144 posts / year
+                </p>
               </div>
 
               <div
@@ -198,7 +202,65 @@ export const YearlyStarter = ({ handlePayment, cancel }) => {
                   <FaCheck className="check" size={20} />
                 </span>
                 <p style={{ margin: "0", color: "#6B7280" }}>
-                  Less than 50 supported languages
+                  Instant, well-formatted LinkedIn content in your desired tone
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  Generate and save posts for later
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  No bulky paragraphs
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  No complicated Ai wording
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  Skimmable formatting
                 </p>
               </div>
             </div>
@@ -395,7 +457,11 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
                 <span>
                   <FaCheck className="check" size={20} />
                 </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>Unlimited posts</p>
+                <p
+                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
+                >
+                  Unlimited posts / Year
+                </p>
               </div>
 
               <div
@@ -406,7 +472,65 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
                   <FaCheck className="check" size={20} />
                 </span>
                 <p style={{ margin: "0", color: "#6B7280" }}>
-                  Over 100 supported languages
+                  Instant, well-formatted LinkedIn content in your desired tone
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  Generate and save posts for later
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  No bulky paragraphs
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  No complicated Ai wording
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p style={{ margin: "0", color: "#6B7280" }}>
+                  Skimmable formatting
                 </p>
               </div>
             </div>
