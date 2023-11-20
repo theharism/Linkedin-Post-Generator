@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 
-export const MonthlyStarter = ({ handlePayment, cancel }) => {
+export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -34,7 +34,7 @@ export const MonthlyStarter = ({ handlePayment, cancel }) => {
             className="btn btn-primary plan"
             onClick={() =>
               handlePayment(
-                "https://buy.stripe.com/test_9AQaGEbqJ08Z2ze9AA?prefilled_email=chharis9999@gmail.com"
+                `https://buy.stripe.com/test_9AQaGEbqJ08Z2ze9AA?prefilled_email=${email}`
               )
             }
           >
