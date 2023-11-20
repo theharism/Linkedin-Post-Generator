@@ -15,19 +15,12 @@ export const SubscriptionSlice = createSlice({
       state.id = subscription.id;
       state.createdDate = subscription.createdDate;
       state.expiresDate = subscription.expiresDate;
-      const write = action.payload.write;
-      if (write) {
-        localStorage.setItem("subscription", JSON.stringify(subscription));
-      }
     },
     resetSubscription: (state, action) => {
       state.type = "Free";
-      if (action.payload.completed) {
-        state.id = null;
-        state.createdDate = "";
-        state.expiresDate = "";
-      }
-      localStorage.setItem("subscription", JSON.stringify(state));
+      state.id = null;
+      state.createdDate = "";
+      state.expiresDate = "";
     },
   },
 });

@@ -149,7 +149,6 @@ const ModalPopup = ({ state, onClose }) => {
             dispatch(
               setUser({
                 user: { ...user1, authType: "google" },
-                write: true,
               })
             );
 
@@ -159,7 +158,6 @@ const ModalPopup = ({ state, onClose }) => {
               dispatch(
                 setSubscription({
                   subscription: { id, createdDate, expiresDate, type },
-                  write: true,
                 })
               );
               dispatch(setPoints({ points }));
@@ -400,7 +398,6 @@ const ModalPopup = ({ state, onClose }) => {
               dispatch(
                 setSubscription({
                   subscription: { id, createdDate, expiresDate, type },
-                  write: true,
                 })
               );
               dispatch(setPoints({ points }));

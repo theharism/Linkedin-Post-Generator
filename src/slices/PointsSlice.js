@@ -8,19 +8,15 @@ export const PointsSlice = createSlice({
   reducers: {
     setPoints: (state, action) => {
       state.points = action.payload.points;
-      localStorage.setItem("points", state.points);
     },
     resetPoints: (state) => {
       state.points = 1;
-      localStorage.setItem("points", state.points);
     },
     addPoints: (state, action) => {
       state.points += action.payload.points;
-      localStorage.setItem("points", state.points);
     },
     deletePoint: (state) => {
       state.points -= 1;
-      localStorage.setItem("points", state.points);
     },
   },
 });

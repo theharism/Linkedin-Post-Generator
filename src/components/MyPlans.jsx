@@ -56,7 +56,7 @@ const MyPlans = ({ type, onClose }) => {
               showConfirmButton: false, // Hide the "OK" button in the success popup
               timer: 1000,
             });
-            dispatch(resetSubscription({ completed: false }));
+            dispatch(resetSubscription());
           }
         } catch (error) {
           console.log(error);

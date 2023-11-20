@@ -47,8 +47,6 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         // Sign-out successful.
         navigate("/");
         localStorage.removeItem("user");
-        localStorage.removeItem("subscription");
-        localStorage.removeItem("points");
 
         Swal.fire({
           title: "Signed Out!",

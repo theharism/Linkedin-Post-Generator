@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePoint } from "../slices/PointsSlice";
 
 function Main({ onPress, HandleGPTResponse }) {
@@ -24,6 +24,8 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textAreaContents, setTextAreaContents] = useState([]);
   const [questionAccordions, setQuestionAccordions] = useState([]);
   const [textareaAccordions, setTextareaAccordions] = useState([]);
+
+  const email = useSelector((state) => state.User.email);
 
   const dispatch = useDispatch();
 
@@ -123,6 +125,7 @@ function Main({ onPress, HandleGPTResponse }) {
         answers: selectedAnswers,
         selectedTone: isOtherToneSelected ? customTone : selectedTone,
         textAreaContents,
+        email: email,
       };
 
       if (!userData.description || !userData.selectedTone) {
@@ -160,8 +163,10 @@ function Main({ onPress, HandleGPTResponse }) {
     <Container className="PostGenContaier">
       <div className="container">
         <div className="heading">
-          <h1 className="bold-text">Linkedin Post Generator</h1>
-          <p>
+          <h1 className="bold-text" style={{ textAlign: "left" }}>
+            Linkedin Post Generator
+          </h1>
+          <p style={{ textAlign: "left" }}>
             Our database of top-performing posts allow us to Muse <br />
             the most captivating, engaging, and converting Linkedin content
             Instantly

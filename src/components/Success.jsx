@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubscription } from "../slices/SubscriptionSlice";
-import { addPoints } from "../slices/PointsSlice";
+import { addPoints, setPoints } from "../slices/PointsSlice";
 
 const Success = () => {
   const location = useLocation();
@@ -38,8 +38,8 @@ const Success = () => {
             type: response.data.type,
           };
 
-          dispatch(setSubscription({ subscription, write: true }));
-          dispatch(addPoints({ points }));
+          dispatch(setSubscription({ subscription }));
+          dispatch(setPoints({ points }));
 
           if (subscription.type === "Starter")
             await axios.post(

@@ -97,11 +97,13 @@ import Success from "./components/Success";
 import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
 import { resetPoints, setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
+import axios from "axios";
 
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
+  const [localPoints, setLocalPoints] = useState(null);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
@@ -116,34 +118,44 @@ function App() {
       setAuth(false);
 
       localStorage.removeItem("user");
-      localStorage.removeItem("subscription");
-      localStorage.removeItem("points");
     }
   });
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
-    const subscriptionString = localStorage.getItem("subscription");
-    const pointsString = localStorage.getItem("points");
 
     if (userString) {
       const user = JSON.parse(userString);
       dispatch(setUser({ user: user, write: false }));
-    }
-    if (subscriptionString) {
-      const sub = JSON.parse(subscriptionString);
-      const temp = new Date(sub.expiresDate);
-      const currentDate = new Date();
-      if (temp < currentDate) {
-        dispatch(resetSubscription({ completed: true }));
-        dispatch(resetPoints());
-      } else {
-        dispatch(setSubscription({ subscription: sub, write: false }));
+
+      async function fetchSubscriptionStatus() {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BASE_URL}/api/subscriptionstatus`,
+            {
+              params: {
+                email: user.email,
+              },
+            }
+          );
+
+          const data = response.data;
+          setLocalPoints(data.subscription.points);
+          console.log(data);
+          if (data.status === "active") {
+            dispatch(setSubscription({ subscription: data.subscription }));
+            dispatch(setPoints({ points: data.subscription.points }));
+          } else {
+            dispatch(resetSubscription());
+            dispatch(setPoints({ points: data.subscription.points }));
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // Handle errors
+        }
       }
-    }
-    if (pointsString) {
-      const poi = JSON.parse(pointsString);
-      dispatch(setPoints({ points: poi }));
+
+      fetchSubscriptionStatus();
     }
   }, []);
 
@@ -177,17 +189,18 @@ function App() {
           />
           {localAuth && (
             <>
-              <Route
-                path="/post"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <RenderPost />
-                    <Footer />
-                  </div>
-                }
-              />
-
+              {localPoints > 0 && (
+                <Route
+                  path="/post"
+                  element={
+                    <div>
+                      <SubNavbar />
+                      <RenderPost />
+                      <Footer />
+                    </div>
+                  }
+                />
+              )}
               <Route
                 path="/myposts"
                 element={
