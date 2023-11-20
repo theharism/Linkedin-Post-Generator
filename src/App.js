@@ -89,7 +89,7 @@ import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailVerifyModal from "./components/EmailVerifyModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
@@ -103,8 +103,8 @@ function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
-  const [localPoints, setLocalPoints] = useState(null);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const localPoints = useSelector((state) => state.Points.points);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -140,7 +140,7 @@ function App() {
           );
 
           const data = response.data;
-          setLocalPoints(data.subscription.points);
+
           console.log(data);
           if (data.status === "active") {
             dispatch(setSubscription({ subscription: data.subscription }));
