@@ -201,8 +201,7 @@ const ModalPopup = ({ state, onClose }) => {
       formData.fullName &&
       formData.password &&
       formData.email &&
-      formData.username &&
-      formData.company
+      formData.username
     ) {
       if (!isEmail(formData.email)) {
         toast.error("Invalid Email", {

@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePoint } from "../slices/PointsSlice";
+import { Navigate, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Main({ onPress, HandleGPTResponse }) {
   const [selectedQuestion, setSelectedQuestion] = useState("");
@@ -28,8 +30,19 @@ function Main({ onPress, HandleGPTResponse }) {
 
   const email = useSelector((state) => state.User.email);
   const points = useSelector((state) => state.Points.points);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const navigateHome = () => {
+    navigate("/");
+    Swal.fire({
+      title: "Out of Credits. Upgrade your plan to Muse",
+      icon: "warning",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
+    });
+  };
 
   const addTextArea = () => {
     if (textArea) {
@@ -366,10 +379,24 @@ function Main({ onPress, HandleGPTResponse }) {
         </div>
       ) : (
         <div className="PostSubmit">
-          <button className="submit-button" style={{ position: "relative" }}>
-            MUSE
-            <FaPencilAlt className="Pencil" />
-          </button>
+          <ScrollLink
+            to="pricing"
+            spy={true}
+            smooth={true}
+            duration={80}
+            offset={30}
+            style={{ textDecoration: "none", color: "white" }}
+            className="FormLinks"
+          >
+            <button
+              className="submit-button"
+              onClick={navigateHome}
+              style={{ position: "relative" }}
+            >
+              MUSE
+              <FaPencilAlt className="Pencil" />
+            </button>
+          </ScrollLink>
         </div>
       )}
     </Container>
