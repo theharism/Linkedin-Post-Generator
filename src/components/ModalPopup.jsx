@@ -33,6 +33,7 @@ const ModalPopup = ({ state, onClose }) => {
     username: "",
     email: "",
     password: "",
+    company: "",
   });
 
   const [authState, setAuthState] = useState(state); //false for sign up | true for sign in
@@ -200,7 +201,8 @@ const ModalPopup = ({ state, onClose }) => {
       formData.fullName &&
       formData.password &&
       formData.email &&
-      formData.username
+      formData.username &&
+      formData.company
     ) {
       if (!isEmail(formData.email)) {
         toast.error("Invalid Email", {
@@ -219,6 +221,7 @@ const ModalPopup = ({ state, onClose }) => {
             fullName: formData.fullName,
             username: formData.username,
             email: formData.email,
+            company: formData.company,
           }
         );
 
@@ -504,6 +507,20 @@ const ModalPopup = ({ state, onClose }) => {
                         placeholder="Enter your username"
                         className="FormInput"
                         value={formData.username}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+
+                    <Form.Group className="Group">
+                      <Form.Label className="LeftAlignedLabel">
+                        Company (Optional)
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="company"
+                        placeholder="Enter your company"
+                        className="FormInput"
+                        value={formData.company}
                         onChange={handleChange}
                       />
                     </Form.Group>
