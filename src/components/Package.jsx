@@ -34,7 +34,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
             className="btn btn-primary plan"
             onClick={() =>
               handlePayment(
-                `https://buy.stripe.com/test_9AQaGEbqJ08Z2ze9AA?prefilled_email=${email}`
+                `https://buy.stripe.com/aEUeWr8wB71SaBOaEE?prefilled_email=${email}`
               )
             }
           >
@@ -136,7 +136,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
     </div>
   );
 };
-export const YearlyStarter = ({ handlePayment, cancel }) => {
+export const YearlyStarter = ({ handlePayment, cancel, email }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -164,7 +164,11 @@ export const YearlyStarter = ({ handlePayment, cancel }) => {
 
         {!cancel ? (
           <button
-            onClick={() => handlePayment()}
+            onClick={() =>
+              handlePayment(
+                `https://buy.stripe.com/9AQdSn005gCsfW8eUW?prefilled_email=${email}`
+              )
+            }
             className="btn btn-primary plan"
           >
             Choose Plan
@@ -272,7 +276,7 @@ export const YearlyStarter = ({ handlePayment, cancel }) => {
     </div>
   );
 };
-export const MonthlyPro = ({ handlePayment, cancel }) => {
+export const MonthlyPro = ({ handlePayment, cancel, email }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -297,7 +301,11 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
 
         {!cancel ? (
           <button
-            onClick={() => handlePayment()}
+            onClick={() =>
+              handlePayment(
+                `https://buy.stripe.com/5kAdSnbINdqg9xK8wz?prefilled_email=${email}`
+              )
+            }
             className="btn btn-primary plan"
           >
             Choose Plan
@@ -405,7 +413,7 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
     </div>
   );
 };
-export const YearlyPro = ({ handlePayment, cancel }) => {
+export const YearlyPro = ({ handlePayment, cancel, email }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -434,7 +442,9 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
           <button
             className="btn btn-primary plan"
             onClick={() =>
-              handlePayment("https://buy.stripe.com/28og0v28dfyo11efYZ")
+              handlePayment(
+                `https://buy.stripe.com/28og0v28dfyo11efYZ?prefilled_email=${email}`
+              )
             }
           >
             Choose Plan

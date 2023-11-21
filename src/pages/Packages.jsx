@@ -29,6 +29,7 @@ const Packages = () => {
   const [showPostModal, setShowPostModal] = useState(false);
 
   const authState = useSelector((state) => state.Auth.authState);
+  const email = useSelector((state) => state.User.email);
 
   const hideModal = () => {
     setShowPostModal(false);
@@ -93,15 +94,31 @@ const Packages = () => {
 
       {activePlan === "Monthly" && (
         <div className="row d-flex flex-row justify-content-center w-100 ">
-          <MonthlyStarter handlePayment={handlePayment} cancel={false} />
-          <MonthlyPro handlePayment={handlePayment} cancel={false} />
+          <MonthlyStarter
+            handlePayment={handlePayment}
+            cancel={false}
+            email={email}
+          />
+          <MonthlyPro
+            handlePayment={handlePayment}
+            cancel={false}
+            email={email}
+          />
         </div>
       )}
 
       {activePlan === "Yearly" && (
         <div className="row d-flex flex-row justify-content-center w-100">
-          <YearlyStarter handlePayment={handlePayment} cancel={false} />
-          <YearlyPro handlePayment={handlePayment} cancel={false} />
+          <YearlyStarter
+            handlePayment={handlePayment}
+            cancel={false}
+            email={email}
+          />
+          <YearlyPro
+            handlePayment={handlePayment}
+            cancel={false}
+            email={email}
+          />
         </div>
       )}
 

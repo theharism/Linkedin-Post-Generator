@@ -74,13 +74,37 @@ const MyPlans = ({ type, onClose }) => {
   const ShowCurrentSubscription = () => {
     switch (type) {
       case "Starter (Monthly)":
-        return <MonthlyStarter handlePayment={handlePayment} cancel={true} />;
+        return (
+          <MonthlyStarter
+            handlePayment={handlePayment}
+            cancel={true}
+            email={email}
+          />
+        );
       case "Pro (Monthly)":
-        return <MonthlyPro handlePayment={handlePayment} cancel={true} />;
+        return (
+          <MonthlyPro
+            handlePayment={handlePayment}
+            cancel={true}
+            email={email}
+          />
+        );
       case "Starter (Yearly)":
-        return <YearlyStarter handlePayment={handlePayment} cancel={true} />;
+        return (
+          <YearlyStarter
+            handlePayment={handlePayment}
+            cancel={true}
+            email={email}
+          />
+        );
       case "Pro (Yearly)":
-        return <YearlyPro handlePayment={handlePayment} cancel={true} />;
+        return (
+          <YearlyPro
+            handlePayment={handlePayment}
+            cancel={true}
+            email={email}
+          />
+        );
       default:
         break;
     }

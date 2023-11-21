@@ -104,7 +104,6 @@ function App() {
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
-  const localPoints = useSelector((state) => state.Points.points);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -189,18 +188,17 @@ function App() {
           />
           {localAuth && (
             <>
-              {localPoints > 0 && (
-                <Route
-                  path="/post"
-                  element={
-                    <div>
-                      <SubNavbar />
-                      <RenderPost />
-                      <Footer />
-                    </div>
-                  }
-                />
-              )}
+              <Route
+                path="/post"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <RenderPost />
+                    <Footer />
+                  </div>
+                }
+              />
+
               <Route
                 path="/myposts"
                 element={

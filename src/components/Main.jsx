@@ -4,6 +4,7 @@ import "../style/Main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { Container } from "react-bootstrap";
+import { Link as ScrollLink } from "react-scroll";
 import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +27,7 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textareaAccordions, setTextareaAccordions] = useState([]);
 
   const email = useSelector((state) => state.User.email);
+  const points = useSelector((state) => state.Points.points);
 
   const dispatch = useDispatch();
 
@@ -350,16 +352,26 @@ function Main({ onPress, HandleGPTResponse }) {
           </div>
         </div>
       </div>
-      <div className="PostSubmit">
-        <button
-          className="submit-button"
-          onClick={submitData}
-          style={{ position: "relative" }}
-        >
-          MUSE
-          <FaPencilAlt className="Pencil" />
-        </button>
-      </div>
+
+      {points > 0 ? (
+        <div className="PostSubmit">
+          <button
+            className="submit-button"
+            onClick={submitData}
+            style={{ position: "relative" }}
+          >
+            MUSE
+            <FaPencilAlt className="Pencil" />
+          </button>
+        </div>
+      ) : (
+        <div className="PostSubmit">
+          <button className="submit-button" style={{ position: "relative" }}>
+            MUSE
+            <FaPencilAlt className="Pencil" />
+          </button>
+        </div>
+      )}
     </Container>
   );
 }
