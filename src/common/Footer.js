@@ -45,7 +45,7 @@ const Footer = () => {
       >
         <a
           style={linkStyle}
-          href="https://www.linkedin.com/company/themusetool/about/?viewAsMember=true"
+          href="http://www.linkedin.com/company/musetool"
           target="_blank"
         >
           <LinkedInIcon />

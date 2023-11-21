@@ -161,6 +161,7 @@ function Main({ onPress, HandleGPTResponse }) {
       );
 
       if (response.data.message) {
+        localStorage.setItem("response", response.data.message.content);
         HandleGPTResponse(response.data.message.content, userData.description);
         dispatch(deletePoint());
         console.log("Prompt", response.data.prompt);
