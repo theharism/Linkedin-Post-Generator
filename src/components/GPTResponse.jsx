@@ -156,7 +156,7 @@ function GPTResponse({ message, query, ifEdited }) {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/savepost`,
-        { content: Text, username: username, question: query }
+        { content: message, username: username, question: query }
       );
 
       if (response.data.message) {
@@ -289,7 +289,7 @@ function GPTResponse({ message, query, ifEdited }) {
               </div>
             )}
             {copiedText && <div className="copiedMessage">Copied!</div>}
-            {editPost && <EditPostModal message={Text} onClose={onClose} />}
+            {editPost && <EditPostModal message={message} onClose={onClose} />}
           </div>
         </div>
       </div>
