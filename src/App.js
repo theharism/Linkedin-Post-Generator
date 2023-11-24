@@ -98,12 +98,14 @@ import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
 import { resetPoints, setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
 import axios from "axios";
+import BlockUser from "./components/BlockUser";
 
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const [localAuth, setAuth] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [showBlockUser, setShowShowBlockuser] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -130,7 +132,7 @@ function App() {
       async function fetchSubscriptionStatus() {
         try {
           const response = await axios.get(
-            `${process.env.REACT_APP_BASE_URL}/api/subscriptionstatus`,
+            `${process.env.REACT_APP_BASE_URL}/api/userstatus`,
             {
               params: {
                 email: user.email,
@@ -140,8 +142,13 @@ function App() {
 
           const data = response.data;
 
+          if (data.userstatus === "blocked") {
+            // Render an <h1> element with the text "Loading" when status is "active"
+            setShowShowBlockuser(true);
+          }
+
           console.log(data);
-          if (data.status === "active") {
+          if (data.subscriptionstatus === "active") {
             dispatch(setSubscription({ subscription: data.subscription }));
             dispatch(setPoints({ points: data.subscription.points }));
           } else {
@@ -223,6 +230,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       {showEmailVerification && <EmailVerifyModal onClose={onClose} />}
+      {showBlockUser && <BlockUser />}
       <ToastContainer />
     </div>
   );
