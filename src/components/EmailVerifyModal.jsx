@@ -16,36 +16,8 @@ const EmailVerifyModal = ({ onClose }) => {
 
   const [verified, setVerified] = useState(false);
 
-  // useEffect(() => {
-  //   function checkVerification() {
-  //     auth.currentUser.reload();
-  //     console.log(auth);
-  //     if (!verified && auth.currentUser && auth.currentUser.emailVerified) {
-  //       setVerified(true);
-  //       try {
-  //         axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
-  //           fullName,
-  //           email,
-  //           type: "new", // new user
-  //         });
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   }
-  //   if (!verified) {
-  //     const intervalId = setInterval(() => {
-  //       checkVerification();
-  //     }, 3000);
-  //     return () => {
-  //       clearInterval(intervalId);
-  //     };
-  //   }
-  // }, []);
-
   const checkVerification = useCallback(async () => {
     await auth.currentUser.reload();
-    console.log(auth);
     if (!verified && auth.currentUser && auth.currentUser.emailVerified) {
       setVerified(true);
       try {

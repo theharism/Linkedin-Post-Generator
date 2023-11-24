@@ -27,13 +27,7 @@ function Affiliates() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Form data:", formData);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/contactUs`,
-        formData
-      );
-
-      console.log(response);
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/contactUs`, formData);
     } catch (eror) {
       console.log(eror);
     }

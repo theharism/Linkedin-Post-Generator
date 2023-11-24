@@ -82,7 +82,6 @@ const ModalPopup = ({ state, onClose }) => {
         });
 
         onClose();
-        console.log(user);
 
         if (!user.emailVerified) {
           sendEmailVerification(auth.currentUser)

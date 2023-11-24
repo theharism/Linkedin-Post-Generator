@@ -26,7 +26,6 @@ function ModelContent({ closeModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Form data:", formData);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/sendMail`,
         formData

@@ -96,7 +96,6 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         .post(`${process.env.REACT_APP_BASE_URL}/api/updateName`, requestData)
         .then((response) => {
           // Handle a successful response
-          console.log("User's full name updated:", response.data);
           dispatch(
             setUser({
               user: { ...response.data.user, authType: "emailPassword" },

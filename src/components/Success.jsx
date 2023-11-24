@@ -28,7 +28,6 @@ const Success = () => {
           },
         })
         .then(async (response) => {
-          console.log(response.data);
           setStatus(true);
           const points = response.data.points;
           const subscription = {

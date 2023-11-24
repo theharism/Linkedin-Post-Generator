@@ -25,7 +25,6 @@ const MyPosts = () => {
       axios
         .get(endpointURL)
         .then((response) => {
-          console.log("Posts:", response.data);
           setPosts(response.data);
         })
         .catch((error) => {

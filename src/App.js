@@ -147,7 +147,6 @@ function App() {
             setShowShowBlockuser(true);
           }
 
-          console.log(data);
           if (data.subscriptionstatus === "active") {
             dispatch(setSubscription({ subscription: data.subscription }));
             dispatch(setPoints({ points: data.subscription.points }));

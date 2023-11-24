@@ -30,8 +30,6 @@ function GPTResponse({ message, query, ifEdited }) {
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Break It Up - prompt --> ", response.data.prompt);
         setText(response.data.message.content);
       }
     } catch (error) {
@@ -50,8 +48,6 @@ function GPTResponse({ message, query, ifEdited }) {
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Make it shorter --> ", response.data.prompt);
         setText(response.data.message.content);
       }
     } catch (error) {
@@ -64,18 +60,13 @@ function GPTResponse({ message, query, ifEdited }) {
   const handleChangeHook = async () => {
     setLoading(true);
     try {
-      console.log("loading...");
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/changeHook`,
         { content: Text }
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Change Hook - prompt --> ", response.data.prompt);
         setText(response.data.message.content);
-        // HandleGPTResponse(response.data.message.content);
-        // console.log("Prompt" , response.data.prompt);
       }
     } catch (error) {
       console.log(error);
@@ -87,18 +78,13 @@ function GPTResponse({ message, query, ifEdited }) {
   const handleChangeTease = async () => {
     setLoading(true);
     try {
-      console.log("loading...");
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/changeTease`,
         { content: Text }
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Change Tease - prompt --> ", response.data.prompt);
         setText(response.data.message.content);
-        // HandleGPTResponse(response.data.message.content);
-        // console.log("Prompt" , response.data.prompt);
       }
     } catch (error) {
       console.log(error);
@@ -109,18 +95,13 @@ function GPTResponse({ message, query, ifEdited }) {
   const handleChangeValue = async () => {
     setLoading(true);
     try {
-      console.log("loading...");
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/changeValue`,
         { content: Text }
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Change Value - prompt --> ", response.data.prompt);
         setText(response.data.message.content);
-        // HandleGPTResponse(response.data.message.content);
-        // console.log("Prompt" , response.data.prompt);
       }
     } catch (error) {
       console.log(error);
@@ -132,18 +113,13 @@ function GPTResponse({ message, query, ifEdited }) {
   const handleChangeCTA = async () => {
     setLoading(true);
     try {
-      console.log("loading...");
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/changeCTA`,
         { content: Text }
       );
 
       if (response.data.message) {
-        console.log(response.data);
-        console.log("Change CTA - prompt --> ", response.data.prompt);
         setText(response.data.message.content);
-        // HandleGPTResponse(response.data.message.content);
-        // console.log("Prompt" , response.data.prompt);
       }
     } catch (error) {
       console.log(error);

@@ -151,8 +151,6 @@ function Main({ onPress, HandleGPTResponse }) {
         return;
       }
 
-      console.log(userData);
-
       onPress();
 
       const response = await axios.post(
@@ -164,7 +162,6 @@ function Main({ onPress, HandleGPTResponse }) {
         localStorage.setItem("response", response.data.message.content);
         HandleGPTResponse(response.data.message.content, userData.description);
         dispatch(deletePoint());
-        console.log("Prompt", response.data.prompt);
       }
     } catch (error) {
       console.error("Error submitting data:", error);
