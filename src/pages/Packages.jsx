@@ -69,9 +69,7 @@ const Packages = () => {
         <p>Pricing</p>
         <h4>Pricing for all your content needs</h4>
         <p>It doesn't cost. It pays. Cancel anytime (monthly)</p>
-        <p style={{ fontWeight: "bold" }}>
-          Use code "FIRSTMONTH30" for 30% your subscription. Active until 1/1/24
-        </p>
+
         {/* <div className="coming-soon">
           <span>Coming Soon....</span>
         </div> */}

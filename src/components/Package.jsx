@@ -15,10 +15,10 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
         {!cancel ? (
           <>
             <h2>
-              $49 <span style={{ color: "#6B7280" }}>/mo</span>
+              $24.99 <span style={{ color: "#6B7280" }}>/mo</span>
             </h2>
             <p style={{ color: "#6B7280" }}>
-              $39 / month if you sign up for a year
+              $20.83 / month if you sign up for a year
             </p>{" "}
           </>
         ) : null}
@@ -34,7 +34,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
             className="btn btn-primary plan"
             onClick={() =>
               handlePayment(
-                `https://buy.stripe.com/aEUeWr8wB71SaBOaEE?prefilled_email=${email}`
+                `https://buy.stripe.com/3cs6pV4glae4bFS004?prefilled_email=${email}`
               )
             }
           >
@@ -148,8 +148,8 @@ export const YearlyStarter = ({ handlePayment, cancel, email }) => {
         <h4>Starter Package</h4>
         <p style={{ color: "#6B7280" }}>To help you grow</p>
         {!cancel ? (
-          <h2>
-            $468 <span style={{ color: "#6B7280" }}>/year</span>
+          <h3>
+            $249.99 <span style={{ color: "#6B7280" }}>/year</span>
             <span
               style={{
                 color: "#d40000",
@@ -157,16 +157,16 @@ export const YearlyStarter = ({ handlePayment, cancel, email }) => {
                 textDecoration: "line-through",
               }}
             >
-              $588
+              $299.99
             </span>
-          </h2>
+          </h3>
         ) : null}
 
         {!cancel ? (
           <button
             onClick={() =>
               handlePayment(
-                `https://buy.stripe.com/9AQdSn005gCsfW8eUW?prefilled_email=${email}`
+                `https://buy.stripe.com/bIYg0v8wB85Wh0c6ot?prefilled_email=${email}`
               )
             }
             className="btn btn-primary plan"
@@ -290,11 +290,11 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
         {!cancel ? (
           <>
             <h2>
-              $99 <span style={{ color: "#6B7280" }}>/mo</span>
+              $49.99 <span style={{ color: "#6B7280" }}>/mo</span>
             </h2>
 
             <p style={{ color: "#6B7280" }}>
-              $88 / month if you sign up for a year
+              $41.66 / month if you sign up for a year
             </p>
           </>
         ) : null}
@@ -303,7 +303,7 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
           <button
             onClick={() =>
               handlePayment(
-                `https://buy.stripe.com/5kAdSnbINdqg9xK8wz?prefilled_email=${email}`
+                `https://buy.stripe.com/8wM7tZaEJ2LC25ifZ4?prefilled_email=${email}`
               )
             }
             className="btn btn-primary plan"
@@ -425,8 +425,8 @@ export const YearlyPro = ({ handlePayment, cancel, email }) => {
         <h4>Pro Package</h4>
         <p style={{ color: "#6B7280" }}>To help you grow</p>
         {!cancel ? (
-          <h2>
-            $1056 <span style={{ color: "#6B7280" }}>/year</span>
+          <h3>
+            $499.99 <span style={{ color: "#6B7280" }}>/year</span>
             <span
               style={{
                 color: "#d40000",
@@ -434,16 +434,16 @@ export const YearlyPro = ({ handlePayment, cancel, email }) => {
                 textDecoration: "line-through",
               }}
             >
-              $1188
+              $599.99
             </span>
-          </h2>
+          </h3>
         ) : null}
         {!cancel ? (
           <button
             className="btn btn-primary plan"
             onClick={() =>
               handlePayment(
-                `https://buy.stripe.com/28og0v28dfyo11efYZ?prefilled_email=${email}`
+                `https://buy.stripe.com/cN24hN7sx3PGfW8cMT?prefilled_email=${email}`
               )
             }
           >
