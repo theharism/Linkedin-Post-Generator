@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
+import LinkedInPost from "./LinkedInPost";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
@@ -195,101 +196,105 @@ function GPTResponse({ message, query, ifEdited }) {
     <div className="ModiContainer">
       <div className="GPTcontainer">
         <h2 className="RepsonseText">GENERATED POST</h2>
-        <div className="responseCardContainer">
-          <div className="responseCard">
-            <pre className="responseText" ref={pRef}>
-              {Text ? Text : message}
-            </pre>
-            <button className="btn copy" onClick={handleCopyClick}>
-              Copy
-            </button>
 
-            {loading ? (
-              <div className="loading-spinner-container">
-                <ClipLoader color={"#123abc"} loading={loading} size={50} />
-              </div>
-            ) : (
-              <div>
-                {Text && (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-around",
-                      width: "100%",
-                      marginTop: "1rem",
-                    }}
-                    className="ChangeDiv"
-                  >
-                    <button
-                      className="btn btn-primary change"
-                      onClick={handleChangeHook}
-                    >
-                      Change Hook
-                    </button>
-                    <button
-                      className="btn btn-primary change"
-                      onClick={handleChangeTease}
-                    >
-                      Change Tease
-                    </button>
-                    <button
-                      className="btn btn-primary change"
-                      onClick={handleChangeValue}
-                    >
-                      Change Value
-                    </button>
-                    <button
-                      className="btn btn-primary change"
-                      onClick={handleChangeCTA}
-                    >
-                      Change CTA
-                    </button>
-                  </div>
-                )}
-                <div className="GPTButtons">
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handleTryNowClick}
-                  >
-                    Generate More
-                  </button>
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handleBreakItUp}
-                  >
-                    Break It Up
-                  </button>
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handleMakeItShorter}
-                  >
-                    Make It Shorter
-                  </button>
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handleEditPost}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handleSavePost}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-primary kuchbi"
-                    onClick={handlRevertPost}
-                  >
-                    Revert
-                  </button>
-                </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <LinkedInPost message={Text ? Text : message} />
+        </div>
+
+        <button className="btn copy" onClick={handleCopyClick}>
+          Copy
+        </button>
+
+        {loading ? (
+          <div className="loading-spinner-container">
+            <ClipLoader color={"#123abc"} loading={loading} size={50} />
+          </div>
+        ) : (
+          <div>
+            {Text && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  width: "100%",
+                  marginTop: "1rem",
+                }}
+                className="ChangeDiv"
+              >
+                <button
+                  className="btn btn-primary change"
+                  onClick={handleChangeHook}
+                >
+                  Change Hook
+                </button>
+                <button
+                  className="btn btn-primary change"
+                  onClick={handleChangeTease}
+                >
+                  Change Tease
+                </button>
+                <button
+                  className="btn btn-primary change"
+                  onClick={handleChangeValue}
+                >
+                  Change Value
+                </button>
+                <button
+                  className="btn btn-primary change"
+                  onClick={handleChangeCTA}
+                >
+                  Change CTA
+                </button>
               </div>
             )}
-            {copiedText && <div className="copiedMessage">Copied!</div>}
-            {editPost && <EditPostModal message={message} onClose={onClose} />}
+            <div className="GPTButtons">
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handleTryNowClick}
+              >
+                Generate More
+              </button>
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handleBreakItUp}
+              >
+                Break It Up
+              </button>
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handleMakeItShorter}
+              >
+                Make It Shorter
+              </button>
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handleEditPost}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handleSavePost}
+              >
+                Save
+              </button>
+              <button
+                className="btn btn-primary kuchbi"
+                onClick={handlRevertPost}
+              >
+                Revert
+              </button>
+            </div>
           </div>
-        </div>
+        )}
+        {copiedText && <div className="copiedMessage">Copied!</div>}
+        {editPost && <EditPostModal message={message} onClose={onClose} />}
       </div>
     </div>
   );

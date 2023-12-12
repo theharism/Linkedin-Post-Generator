@@ -31,40 +31,55 @@ const GeneratePost = () => {
     });
   };
 
+  const showEditor = () => {
+    navigate("/editor");
+  };
+
   return (
     <>
       {authState ? (
         <div className="formHero">
           {points > 0 ? (
-            <Link
-              to={"/post"}
-              style={{ textDecoration: "none", color: "white" }}
-              className="FormLinks"
-            >
-              <button style={{ position: "relative" }}>
-                Create Your First Post
-                <FaPencilAlt className="Pencil" />
-              </button>
-            </Link>
+            <>
+              <Link
+                to={"/post"}
+                style={{ textDecoration: "none", color: "white" }}
+                className="FormLinks"
+              >
+                <button style={{ position: "relative" }}>
+                  Create Your First Post
+                  <FaPencilAlt className="Pencil" />
+                </button>
+              </Link>
+              <p className="looksOnLinkedIn" onClick={showEditor}>
+                See how it looks on LinkedIn
+              </p>
+            </>
           ) : (
-            <ScrollLink
-              onClick={showError}
-              spy={true}
-              smooth={true}
-              duration={80}
-              offset={30}
-              style={{ textDecoration: "none", color: "white" }}
-              className="FormLinks"
-            >
-              <button style={{ position: "relative" }}>
-                Create Your First Post
-                <FaPencilAlt className="Pencil" />
-              </button>
-            </ScrollLink>
+            <>
+              <ScrollLink
+                onClick={showError}
+                spy={true}
+                smooth={true}
+                duration={80}
+                offset={30}
+                style={{ textDecoration: "none", color: "white" }}
+                className="FormLinks"
+              >
+                <button style={{ position: "relative" }}>
+                  Create Your First Post
+                  <FaPencilAlt className="Pencil" />
+                </button>
+                <p className="looksOnLinkedIn" onClick={showError}>
+                  See how it looks on LinkedIn
+                </p>
+              </ScrollLink>
+            </>
           )}
         </div>
       ) : (
         <div className="formHero">
+          <br />
           <Link
             onClick={showModal}
             style={{ textDecoration: "none", color: "white" }}
@@ -75,6 +90,11 @@ const GeneratePost = () => {
               <FaPencilAlt className="Pencil" />
             </button>
           </Link>
+
+          <p className="looksOnLinkedIn" onClick={showModal}>
+            {" "}
+            See how it looks on LinkedIn
+          </p>
         </div>
       )}
 

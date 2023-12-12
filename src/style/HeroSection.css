@@ -22,7 +22,6 @@
   flex-direction: row;
   padding: 0.5rem 0;
 }
-
 .CheckSection span {
   margin-right: 1rem;
 }
@@ -52,6 +51,15 @@
   font-size: 2rem;
   color: black;
 }
+
+.looksOnLinkedIn {
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
+}
+
+.looksOnLinkedIn:hover {
+  color: #034694; /* Change the color on hover for a visual effect */
+}
+
 
 @media (min-width: 768px) {
   .Pencil {
