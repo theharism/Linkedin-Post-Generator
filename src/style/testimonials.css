@@ -1,0 +1,74 @@
+.testimonialsContainer {
+    padding: 20px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    white-space: nowrap; /* Prevent text from wrapping */
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+  
+.testimonialsContent{
+    max-width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.slide{
+    animation: 15s slide infinite linear;
+    display: flex;
+    flex-direction: row;
+}   
+
+.testiContainer {
+    margin: 5px;
+    padding: 30px;
+    border: 1px solid "#d3d3d3";
+    border-radius: 10px;
+    width: 300px; /* Set a fixed width for all containers */
+    height: 400px;
+    box-shadow: 0 0 5px rgba(21,2,97,0.5); /* Bluish shadow */
+}
+
+  
+@keyframes slide{
+    from {
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+}
+
+.testimonialsContainer:hover .slide{
+    animation-play-state: paused;
+}
+
+.testimonialsContainer::before,.testimonialsContainer::after{
+    position: absolute;
+    top:0;
+    width: 100px;
+    height: 100%;
+    content: "";
+    z-index: 2;
+}
+
+.testimonialsContainer::before{
+    left:0;
+    background: linear-gradient(to left,rgba(255,255,255,0),white);
+}
+
+.testimonialsContainer::after{
+    right:0;
+    background: linear-gradient(to right,rgba(255,255,255,0),white);
+}
+  
+  p {
+    text-wrap: wrap; /* This property is invalid, you may want to remove it */
+  }
+  
+  span {
+    text-wrap: wrap; /* This property is invalid, you may want to remove it */
+  }
+  
