@@ -1,83 +1,5 @@
-// import React, { useState, useEffect } from "react";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import ModalPopup from "./components/ModalPopup";
-// import Navbar from "./common/Navbar";
-// import SubNavbar from "./common/SubNav";
-// import RenderPost from "./components/RenderPost";
-// import "react-toastify/dist/ReactToastify.css";
-// import "react-toastify/dist/ReactToastify.css";
-// import Packages from "./pages/Packages";
-// import Video from "./pages/Video";
-// import HeroSection from "./pages/HeroSection";
-// import { ToastContainer } from "react-toastify";
-
-// function App() {
-//   const [showPostModal, setShowPostModal] = useState(false);
-
-//   useEffect(() => {
-//     const hasVisitedPostRoute = localStorage.getItem("visitedPostRoute");
-//     if (!hasVisitedPostRoute) {
-//       setShowPostModal(true);
-//     }
-//   }, []);
-
-//   const closeModal = () => {
-//     setShowPostModal(false);
-//   };
-
-//   return (
-//     <div>
-//       <BrowserRouter>
-//         <Routes>
-//           <Route
-//             path="/"
-//             element={
-//               <div>
-//                 <Navbar />
-//                 <section id="hero">
-//                   <HeroSection />
-//                 </section>
-
-//                 <section id="video">
-//                   <Video />
-//                 </section>
-
-//                 <section id="pricing">
-//                   <Packages />
-//                 </section>
-//               </div>
-//             }
-//           />
-//           <Route
-//             path="/post"
-//             element={
-//               <div>
-//                 <SubNavbar />
-//                 <RenderPost />
-//               </div>
-//             }
-//           />
-//         </Routes>
-//       </BrowserRouter>
-
-//       {showPostModal && <ModalPopup onClose={closeModal} />}
-
-//       <ToastContainer />
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
-import ModalPopup from "./components/ModalPopup";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./common/Navbar";
 import SubNavbar from "./common/SubNav";
 import RenderPost from "./components/RenderPost";
@@ -89,16 +11,19 @@ import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailVerifyModal from "./components/EmailVerifyModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
 import Success from "./components/Success";
 import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
-import { resetPoints, setPoints } from "./slices/PointsSlice";
+import { setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
 import axios from "axios";
 import BlockUser from "./components/BlockUser";
+import UseCases from "./pages/UseCases";
+import PostEditor from "./components/PostEditor";
+import Testimonials from "./pages/Testimonials";
 
 function App() {
   const auth = getAuth();
@@ -188,6 +113,12 @@ function App() {
                 <section id="pricing">
                   <Packages />
                 </section>
+                <section id="Use Cases">
+                  <UseCases />
+                </section>
+                <section id="testimonials">
+                  <Testimonials />
+                </section>
                 <Footer />
               </div>
             }
@@ -221,6 +152,16 @@ function App() {
                   <div>
                     <SubNavbar />
                     <Success />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/editor"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <PostEditor />
                   </div>
                 }
               />

@@ -1,0 +1,119 @@
+* {
+  background: transparent;
+}
+
+
+.useCases {
+    margin-top: 5rem;
+    max-width: 100vw;
+    display: flex;
+    max-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+    background-color: #150261;
+    height: 100%;
+  }
+  .plan {
+    margin: 1rem;
+  }
+  .card {
+    text-align: left;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+  .useCasesContent {
+    max-width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .useCasesContent h4 {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
+  .useCasesContent p {
+    margin: 10px 0;
+  }
+  .modal-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .useCasesMainContent{
+    max-width: 100%;
+    padding: 40px;
+  }
+
+.mainContentColor{
+  background-color: #f2f2f2;
+
+}
+
+  .useCasesMainContent h4 {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: left;
+  }
+
+  .Row{
+    justify-content: center;
+   align-items: center;
+   padding-left: 100px;
+   padding-right: 100px;
+  }
+
+  .useCasesMainContent p {
+    text-align: justify;
+    font-size: 13px;
+    max-width: 400px; /* Set your preferred maximum width */
+    overflow: hidden; /* Optional: Hide any content that exceeds the max-width */
+    white-space: wrap; /* Optional: Prevent text from wrapping */
+}
+
+  
+
+  .image{
+    max-width:350px;
+    max-height: 350px;
+  }
+
+  .button {
+    padding: 15px 30px; /* Adjust padding to increase button size */
+    font-size: 16px; /* Adjust font size */
+    background-color: #fff; /* Set background color to white */
+    border: 2px solid #000; /* Add a black border (adjust as needed) */
+    color: #000; /* Set text color to black */
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+  }
+
+  /* Optional: Add hover effect */
+  .button:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+  }
+
+  @media (max-width: 760px) {
+    .useCasesContent h4 {
+      padding: 1rem 0;
+      font-size: 2rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  }
+  /* Increase the width of the iframe on larger screens */
+  @media (min-width: 768px) {
+    .useCasesContent h4 {
+      padding: 1rem 0;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  }
+  

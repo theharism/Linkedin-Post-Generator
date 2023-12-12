@@ -97,6 +97,28 @@ const NavbarComponent = () => {
           >
             Pricing
           </ScrollLink>
+          <ScrollLink
+            to="Use Cases"
+            spy={true}
+            smooth={true}
+            duration={80}
+            offset={30}
+            onClick={closeMobileMenu}
+            className="Link"
+          >
+            Use Cases
+          </ScrollLink>
+          <ScrollLink
+            to="testimonials"
+            spy={true}
+            smooth={true}
+            duration={80}
+            offset={30}
+            onClick={closeMobileMenu}
+            className="Link"
+          >
+            Testimonials
+          </ScrollLink>
         </div>
         <div className="right-nav-items">
           {authState ? (
