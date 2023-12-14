@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePoint } from "../slices/PointsSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Main({ onPress, HandleGPTResponse }) {
@@ -133,7 +133,9 @@ function Main({ onPress, HandleGPTResponse }) {
     }
   };
 
-  const submitData = async () => {
+  const submitData = async (e) => {
+    e.preventDefault();
+
     try {
       const userData = {
         description,
