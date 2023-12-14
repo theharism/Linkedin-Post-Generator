@@ -21,6 +21,11 @@
     flex-direction: row;
 }   
 
+.testiContainer h6{
+    font-size: large;
+    text-wrap: balance;
+}
+
 .testiContainer {
     margin: 5px;
     padding: 30px;
@@ -64,11 +69,12 @@
     background: linear-gradient(to right,rgba(255,255,255,0),white);
 }
   
-  p {
+.testiContainer  p {
     text-wrap: wrap; /* This property is invalid, you may want to remove it */
+    text-align: justify;
   }
   
-  span {
+.testiContainer  span {
     text-wrap: wrap; /* This property is invalid, you may want to remove it */
   }
   
