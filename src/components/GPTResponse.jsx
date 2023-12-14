@@ -181,15 +181,23 @@ function GPTResponse({ message, query, ifEdited }) {
   };
 
   const handleCopyClick = () => {
-    if (pRef.current) {
-      const textToCopy = pRef.current.textContent;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        setCopiedText(textToCopy);
-        setTimeout(() => {
-          setCopiedText("");
-        }, 2000);
-      });
-    }
+    const textToCopy = Text ? Text : message;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setCopiedText(textToCopy);
+      setTimeout(() => {
+        setCopiedText("");
+      }, 2000);
+    });
+
+    // if (pRef.current) {
+    //   const textToCopy = pRef.current.textContent;
+    //   navigator.clipboard.writeText(textToCopy).then(() => {
+    //     setCopiedText(textToCopy);
+    //     setTimeout(() => {
+    //       setCopiedText("");
+    //     }, 2000);
+    //   });
+    // }
   };
 
   return (
