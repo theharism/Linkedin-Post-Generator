@@ -33,7 +33,7 @@ const UseCases = () => {
         </Row>
         <br />
         <br />
-        <button className="button">Try it out</button>
+        <button className="button buttonColorIn">Try it out</button>
       </div>
     );
   };
@@ -51,7 +51,7 @@ const UseCases = () => {
           </h4>
           <br />
           <br />
-          <button className="button">Get Started</button>
+          <button className="button buttonColorOut">Get Started</button>
           <br />
           <br />
         </div>
@@ -60,10 +60,15 @@ const UseCases = () => {
         {usecases.map((item, index) => (
           <UseCaseContent item={item} index={index} />
         ))}
-        <h4>Ready to Simplify your Linkedin content creation?</h4>
-        <button className="button">Get Started</button>
-        <br />
-        <br />
+      </div>
+      <div className="useCases">
+        <div className="useCasesContent">
+          <h4>Ready to Simplify your Linkedin content creation?</h4>
+          <br />
+          <button className="button buttonColorOut">Get Started</button>
+
+          <br />
+        </div>
       </div>
     </>
   );

@@ -49,7 +49,7 @@
   }
 
 .mainContentColor{
-  background-color: #f2f2f2;
+  background-color: #fff;
 
 }
 
@@ -69,8 +69,8 @@
 
   .useCasesMainContent p {
     text-align: justify;
-    font-size: 13px;
-    max-width: 400px; /* Set your preferred maximum width */
+    font-size: 16px;
+    max-width: 500px; /* Set your preferred maximum width */
     overflow: hidden; /* Optional: Hide any content that exceeds the max-width */
     white-space: wrap; /* Optional: Prevent text from wrapping */
 }
@@ -85,19 +85,23 @@
   .button {
     padding: 15px 30px; /* Adjust padding to increase button size */
     font-size: 16px; /* Adjust font size */
-    background-color: #fff; /* Set background color to white */
     border: 2px solid #000; /* Add a black border (adjust as needed) */
-    color: #000; /* Set text color to black */
     cursor: pointer;
     border-radius: 5px;
     border: none;
     margin-top: 20px;
+    background-color: #2494f8;
+    color: #fff;
   }
 
   /* Optional: Add hover effect */
-  .button:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
+  .buttonColorOut:hover {
+    background-color: #6848f2; /* Change background color on hover */
   }
+
+  .buttonColorIn:hover {
+    background-color: #6848f2; /* Change background color on hover */
+  } 
 
   @media (max-width: 760px) {
     .useCasesContent h4 {
