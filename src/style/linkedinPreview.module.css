@@ -1,0 +1,87 @@
+.LinkdIn_Post {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "inter";
+  height: auto;
+  min-height: 100vh;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  background-color: rgba(173, 216, 230, 0.341);
+}
+
+.Devices{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 200px;
+  justify-content: space-evenly;
+}
+
+.Devices p{
+  color: gray;
+  overflow: hidden;
+}
+
+.LinkdIn_Post>.Container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  height: auto;
+}
+
+.LinkdIn_Post>.Container>.header>.headercontent {
+  display: flex;
+  align-items: 'center'a
+}
+
+.LinkdIn_Post>.Container>.header>.headercontent>div>img {
+  height: 50px;
+  border-radius: 50px;
+}
+
+.LinkdIn_Post>.Container>.header>.headercontent>.Following {
+  padding-left: 10px;
+  margin-top: -1rem;
+}
+
+.LinkdIn_Post>.Container>.header>.headercontent>.Following>p>span {
+  font-size: 0.9rem;
+  color: gray;
+  overflow: hidden;
+}
+
+.LinkdIn_Post>.Container>.header>.headercontent>.Following>p>span:nth-child(1) {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.766);
+  text-wrap: wrap;
+
+}
+
+.content p{
+  text-wrap: wrap;
+}
+
+.LinkdIn_Post>.Container>.content>p>span {
+  color: #0A66C2;
+  font-weight: bold;
+}
+
+.LinkdIn_Post>.Container>.content>.seemore {
+  color: #0A66C2;
+  text-align: end;
+}
+
+.LinkdIn_Post>.Container>.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 0  rem 0;
+}
+
+.LinkdIn_Post>.Container>.footer>div>span {
+  color: gray;
+  margin: 0 5px;
+}
