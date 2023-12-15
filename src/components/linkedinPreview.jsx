@@ -9,6 +9,12 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import TabletMacIcon from "@mui/icons-material/TabletMac";
 import DesktopMacOutlinedIcon from "@mui/icons-material/DesktopMacOutlined";
 import { IconButton } from "@mui/material";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+const like = '/svgexport-14.svg';
+const comment = '/svgexport-15.svg';
+const repost = '/svgexport-16.svg';
+const send = '/svgexport-17.svg';
+const world = '/svgexport-54.svg';
 
 function Fahad({ content }) {
   const initialDisplayLines = Math.floor(Math.random() * (5 - 2 + 1)) + 2;
@@ -62,22 +68,30 @@ function Fahad({ content }) {
           selectedDevice === 1
             ? { width: 399 }
             : selectedDevice === 2
-            ? { width: 493 }
-            : { width: 540 }
+              ? { width: 493 }
+              : { width: 540 }
         }
       >
         <div className={style.header}>
           <div className={style.headercontent}>
             <div>
-              <img src={require("../images/M.png")} alt="#" />
+              <div>
+                <img src={require("../images/M.png")} alt="#" />
+              </div>
+              <div className={style.Following}>
+                <p className={style.title}>
+                  <span >{fullName}</span> Josh Cons <span className={style.you}>• You</span>
+                  {/* <br /> */}
+                  <span className={style.muse}>Muse</span>
+                  {/* <br /> */}
+                  <span className={style.muse}>9h •&nbsp;<img src={world} alt="world" /></span>
+                </p>
+              </div>
             </div>
-            <div className={style.Following}>
-              <p>
-                <span>{fullName}</span> . <span>You</span>
-                <br />
-                <span>???</span>
-              </p>
-            </div>
+            <svg role="none" aria-hidden="true" class="artdeco-button__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-supported-dps="24x24" data-test-icon="thumbs-up-outline-medium">
+
+              <use href="#thumbs-up-outline-medium" width="24" height="24"></use>
+            </svg>
           </div>
         </div>
         <div className={style.content}>
@@ -94,23 +108,32 @@ function Fahad({ content }) {
           <div dangerouslySetInnerHTML={sanitizedHTML} />
           {contentLines[0].length === 0 && <br />}
         </div>
+        <div className={style.aboveHR}>
+          <div>
+            <img src='https://static.licdn.com/aero-v1/sc/h/cpho5fghnpme8epox8rdcds22' alt="#" />
+            <span className={style.spanLikesNo}>6</span>
+          </div>
+          <div>
+            <span className={style.spanLikesNo}>4 comments</span>
+          </div>
+        </div>
         <hr />
         <div className={style.footer}>
           <div>
-            <SlLike />
-            <span>Like</span>
+            <img  src={like} alt="like" />
+            <span className={style.iconX}>Like</span>
           </div>
           <div>
-            <FaRegComments />
-            <span>Comments</span>
+          <img  src={comment} alt="comment" />
+            <span className={style.iconX}>Comments</span>
           </div>
           <div>
-            <RiRepeatLine />
-            <span>Repost</span>
+          <img  src={repost} alt="repost" />
+            <span className={style.iconX}>Repost</span>
           </div>
           <div>
-            <LuSend />
-            <span>Send</span>
+          <img  src={send} alt="send" />
+            <span className={style.iconX}>Send</span>
           </div>
         </div>
       </div>
