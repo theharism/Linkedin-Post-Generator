@@ -8,13 +8,13 @@ import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
 import LinkedInPost from "./LinkedInPost";
+import { Row } from "react-bootstrap";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
   const [copiedText, setCopiedText] = useState("");
   const [editPost, setEditPost] = useState(false);
   const [Text, setText] = useState("");
-  const pRef = useRef(null);
 
   const username = useSelector((state) => state.User.username);
 
@@ -188,16 +188,23 @@ function GPTResponse({ message, query, ifEdited }) {
         setCopiedText("");
       }, 2000);
     });
+  };
 
-    // if (pRef.current) {
-    //   const textToCopy = pRef.current.textContent;
-    //   navigator.clipboard.writeText(textToCopy).then(() => {
-    //     setCopiedText(textToCopy);
-    //     setTimeout(() => {
-    //       setCopiedText("");
-    //     }, 2000);
-    //   });
-    // }
+  const handleSharePress = () => {
+    const authorizationUrl = "https://www.linkedin.com/oauth/v2/authorization";
+    const clientId = "77en64fxw71b3d"; // Replace with your LinkedIn OAuth client ID
+    const redirectUri = "https://themusetool.com/post"; // Replace with your callback URL
+    const state = "rdvufvtygbuknutn";
+    const scope = "w_member_social";
+
+    // Construct the URL with query parameters
+    const url = `${authorizationUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+
+    try {
+      window.location.href = url;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -215,9 +222,27 @@ function GPTResponse({ message, query, ifEdited }) {
           <LinkedInPost message={Text ? Text : message} />
         </div>
 
-        <button className="btn copy" onClick={handleCopyClick}>
-          Copy
-        </button>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexDirection: "row",
+            width: 200,
+          }}
+        >
+          <button className="btn copy" onClick={handleCopyClick}>
+            Copy
+          </button>
+
+          <button className="share-button" onClick={handleSharePress}>
+            <img
+              src={require("../images/share.png")}
+              alt="share button"
+              className="share"
+            />
+          </button>
+        </div>
 
         {loading ? (
           <div className="loading-spinner-container">

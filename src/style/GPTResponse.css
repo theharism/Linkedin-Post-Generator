@@ -13,6 +13,20 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
+.share{
+  height: 120px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.share-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .responseText {
   white-space: pre-wrap;
   max-width: 100%;
