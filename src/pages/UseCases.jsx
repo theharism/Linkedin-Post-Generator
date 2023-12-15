@@ -61,14 +61,12 @@ const UseCases = () => {
           <UseCaseContent item={item} index={index} />
         ))}
       </div>
-      <div className="useCases">
-        <div className="useCasesContent">
-          <h4>Ready to Simplify your Linkedin content creation?</h4>
-          <br />
-          <button className="button buttonColorOut">Get Started</button>
 
-          <br />
-        </div>
+      <div className="useCasesContent">
+        <h4>Ready to Simplify your Linkedin content creation?</h4>
+        <br />
+        <button className="button buttonColorOut">Get Started</button>
+        <br /> <br />
       </div>
     </>
   );
