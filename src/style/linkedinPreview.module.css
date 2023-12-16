@@ -10,6 +10,7 @@
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 30px;
+  padding-bottom: 30px;
   background-color: rgba(173, 216, 230, 0.341);
 }
 .title{
@@ -89,10 +90,20 @@
 
 }
 
-.content p{
-  text-wrap: wrap;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.innerhtml{
+text-overflow: clip;
+flex-wrap: wrap;
+overflow: hidden;
+
 }
+
+.content p {
+  white-space: pre-wrap;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  font-family: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 
 .LinkdIn_Post>.Container>.content>p>span {
   color: #0A66C2;

@@ -10,7 +10,7 @@ const PostEditor = () => {
   const [message, setMessage] = useState("");
 
   return (
-    <>
+    <div style={{ overflow: "scroll" }}>
       <div className="PostEditorContainer container">
         <h2>How your post will look like on LinkedIn</h2>
       </div>
@@ -20,36 +20,30 @@ const PostEditor = () => {
           flexDirection: "row",
           flex: 1,
           justifyContent: "space-around",
+          paddingLeft: 10,
+          paddingRight: 10,
         }}
       >
-        {/* <textarea
+        <div
           style={{
-            width: "40%", // Adjust the width as needed
-            height: "230px", // Adjust the height as needed
-            padding: "8px", // Add padding for better visualization
-            borderRadius: "8px", // Add rounded corners
-            border: "1px solid #ccc", // Add a border
-            marginTop: 5,
+            maxWidth: "500px",
           }}
-          placeholder="Type your post here..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        /> */}
-        <CKEditor
-          editor={ClassicEditor}
-          data={message}
-          onReady={(editor) => {
-            console.log("Type your post here...", editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            setMessage(data);
-            console.log({ event, editor, data });
-          }}
-        />
+        >
+          <CKEditor
+            editor={ClassicEditor}
+            data={message}
+            onReady={(editor) => {
+              console.log("Type your post here...", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setMessage(data);
+            }}
+          />
+        </div>
         <Fahad content={message} />
       </div>
-    </>
+    </div>
   );
 };
 
