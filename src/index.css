@@ -17,3 +17,8 @@ body {
 .Toastify__toast-body {
   color: #ffffff !important;
 }
+
+@font-face {
+  font-family: "Helvetica";
+  src: url(../public/helveticaBold.ttf);
+}
