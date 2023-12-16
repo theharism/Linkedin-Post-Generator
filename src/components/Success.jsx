@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubscription } from "../slices/SubscriptionSlice";
-import { addPoints, setPoints } from "../slices/PointsSlice";
+import { setPoints } from "../slices/PointsSlice";
 
 const Success = () => {
   const location = useLocation();

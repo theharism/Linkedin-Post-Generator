@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorIcon from "@mui/icons-material/Error";
 import { getAuth } from "firebase/auth";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
