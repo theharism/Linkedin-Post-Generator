@@ -10,16 +10,18 @@ import TabletMacIcon from "@mui/icons-material/TabletMac";
 import DesktopMacOutlinedIcon from "@mui/icons-material/DesktopMacOutlined";
 import { IconButton } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import useCheckMobileScreen from "../hooks/useCheckMobileScreen";
 const like = "/svgexport-14.svg";
 const comment = "/svgexport-15.svg";
 const repost = "/svgexport-16.svg";
 const send = "/svgexport-17.svg";
 const world = "/svgexport-54.svg";
 
-function Fahad({ content }) {
+const LinkedinPreview = ({ content }) => {
   const initialDisplayLines = 2;
   const [displayAll, setDisplayAll] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(1);
+  const isMobile = useCheckMobileScreen();
 
   const fullName = useSelector((state) => state.User.fullName);
 
@@ -44,20 +46,24 @@ function Fahad({ content }) {
         >
           <PhoneIphoneIcon />
         </IconButton>
-        <IconButton
-          color={selectedDevice === 2 ? "primary" : "default"}
-          size="small"
-          onClick={() => changeDevice(2)}
-        >
-          <TabletMacIcon />
-        </IconButton>
-        <IconButton
-          color={selectedDevice === 3 ? "primary" : "default"}
-          size="small"
-          onClick={() => changeDevice(3)}
-        >
-          <DesktopMacOutlinedIcon />
-        </IconButton>
+        {!isMobile && (
+          <>
+            <IconButton
+              color={selectedDevice === 2 ? "primary" : "default"}
+              size="small"
+              onClick={() => changeDevice(2)}
+            >
+              <TabletMacIcon />
+            </IconButton>
+            <IconButton
+              color={selectedDevice === 3 ? "primary" : "default"}
+              size="small"
+              onClick={() => changeDevice(3)}
+            >
+              <DesktopMacOutlinedIcon />
+            </IconButton>
+          </>
+        )}
       </div>
 
       <div
@@ -161,6 +167,6 @@ function Fahad({ content }) {
       </div>
     </div>
   );
-}
+};
 
-export default Fahad;
+export default LinkedinPreview;

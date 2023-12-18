@@ -1,0 +1,24 @@
+.footerStyle {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #150261;
+    height: 60px;
+    padding: 0 20px;
+}
+
+.linkStyle {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap between icon and text */
+    text-decoration: none;
+    color: white;
+}
+
+@media (max-width: 760px) {
+    .footerStyle {
+        height: 60px;
+        font-size: 10px;
+    }
+}

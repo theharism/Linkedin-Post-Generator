@@ -1,7 +1,7 @@
 import React from "react";
 import "../style/UseCases.css";
 import { Col, Row } from "react-bootstrap";
-
+import { Link as ScrollLink } from "react-scroll";
 import { usecases } from "../constants/UseCases";
 
 const UseCases = () => {
@@ -33,7 +33,17 @@ const UseCases = () => {
         </Row>
         <br />
         <br />
-        <button className="button buttonColorIn">Try it out</button>
+        <ScrollLink
+          to="hero"
+          spy={true}
+          smooth={true}
+          duration={80}
+          offset={30}
+          style={{ textDecoration: "none", color: "white" }}
+          className="FormLinks"
+        >
+          <button className="button buttonColorIn">Try it out</button>
+        </ScrollLink>
       </div>
     );
   };
@@ -51,7 +61,17 @@ const UseCases = () => {
           </h4>
           <br />
           <br />
-          <button className="button buttonColorOut">Get Started</button>
+          <ScrollLink
+            to="hero"
+            spy={true}
+            smooth={true}
+            duration={80}
+            offset={30}
+            style={{ textDecoration: "none", color: "white" }}
+            className="FormLinks"
+          >
+            <button className="button buttonColorOut">Get Started</button>
+          </ScrollLink>
           <br />
           <br />
         </div>
@@ -65,7 +85,17 @@ const UseCases = () => {
       <div className="useCasesContent">
         <h4>Ready to Simplify your Linkedin content creation?</h4>
         <br />
-        <button className="button buttonColorOut">Get Started</button>
+        <ScrollLink
+          to="hero"
+          spy={true}
+          smooth={true}
+          duration={80}
+          offset={30}
+          style={{ textDecoration: "none", color: "white" }}
+          className="FormLinks"
+        >
+          <button className="button buttonColorOut">Get Started</button>
+        </ScrollLink>
         <br /> <br />
       </div>
     </>

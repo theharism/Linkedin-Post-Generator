@@ -11,13 +11,15 @@ import LinkedInPost from "./LinkedInPost";
 import { Row } from "react-bootstrap";
 import { LinkedinAuthorization, generateLocalState } from "../constants/helper";
 import { generateState } from "../slices/AuthSlice";
-import Fahad from "./linkedinPreview";
+import LinkedinPreview from "./linkedinPreview";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
   const [copiedText, setCopiedText] = useState("");
   const [editPost, setEditPost] = useState(false);
   const [Text, setText] = useState("");
+  const pRef = useRef(null);
+  const type = useSelector((state) => state.Subscription.type);
 
   const username = useSelector((state) => state.User.username);
 
@@ -204,37 +206,50 @@ function GPTResponse({ message, query, ifEdited }) {
       <div className="GPTcontainer">
         <h2 className="RepsonseText">GENERATED POST</h2>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Fahad content={Text ? Text : message} />
-        </div>
+        {type.startsWith("Pro") ? (
+          <>
+            {" "}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <LinkedinPreview content={Text ? Text : message} />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: "row",
+                width: 200,
+              }}
+            >
+              <button className="btn copy" onClick={handleCopyClick}>
+                Copy
+              </button>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            width: 200,
-          }}
-        >
-          <button className="btn copy" onClick={handleCopyClick}>
-            Copy
-          </button>
-
-          <button className="share-button" onClick={handleSharePress}>
-            <img
-              src={require("../images/share.png")}
-              alt="share button"
-              className="share"
-            />
-          </button>
-        </div>
+              <button className="share-button" onClick={handleSharePress}>
+                <img
+                  src={require("../images/share.png")}
+                  alt="share button"
+                  className="share"
+                />
+              </button>
+            </div>{" "}
+          </>
+        ) : (
+          <>
+            <pre className="responseText" ref={pRef}>
+              {Text ? Text : message}
+            </pre>
+            <button className="btn copy" onClick={handleCopyClick}>
+              Copy
+            </button>
+          </>
+        )}
 
         {loading ? (
           <div className="loading-spinner-container">

@@ -3,29 +3,33 @@
     text-align: center;
     max-width: 100%;
   }
-  
-  .linkedin {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    border-color: black;
-    border-width: 1px;
-    background-color: white;
-    width: 600px;
-  }
-  
-  .header {
-    justify-content: space-between;
-    flex-direction: row;
+ 
+
+  .PostEditorSubContainer {
     display: flex;
-    width: 100%;
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-around;
+    padding-left: 10px;
+    padding-right: 10px;
+  }  
+
+.CKEditor{
+  max-Width: 500px
+}
+
+@media (max-width: 760px) {
+
+  .PostEditorSubContainer{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
-  
-  .linkedin body {
-    /* Your body styles go here */
+
+  .CKEditor{
+    max-Width: 100%;
+    margin-bottom: 20px;
   }
-  
-  .linkedin footer {
-    /* Your footer styles go here */
-  }
-  
+
+}
