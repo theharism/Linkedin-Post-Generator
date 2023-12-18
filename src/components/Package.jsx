@@ -344,6 +344,35 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
                 <span>
                   <FaCheck className="check" size={20} />
                 </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  LinkedIn Post Preview{" "}
+                  <span
+                    style={{
+                      color: "red",
+                      bottom: 315,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
                 <p style={{ margin: "0", color: "#6B7280" }}>
                   Instant, well-formatted LinkedIn content in your desired tone
                 </p>
@@ -473,6 +502,35 @@ export const YearlyPro = ({ handlePayment, cancel, email }) => {
                   style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
                 >
                   Unlimited posts / Year
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  LinkedIn Post Preview{" "}
+                  <span
+                    style={{
+                      color: "red",
+                      bottom: 315,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
                 </p>
               </div>
 

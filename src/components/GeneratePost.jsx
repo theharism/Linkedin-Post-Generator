@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ModalPopup from "./ModalPopup";
 import { FaPencilAlt } from "react-icons/fa";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import "../style/HeroSection.css";
@@ -41,10 +42,6 @@ const GeneratePost = () => {
     });
   };
 
-  const showEditor = () => {
-    navigate("/editor");
-  };
-
   return (
     <>
       {authState ? (
@@ -62,19 +59,34 @@ const GeneratePost = () => {
                 </button>
               </Link>
               {type.startsWith("Pro") ? (
-                <p className="looksOnLinkedIn" onClick={showEditor}>
-                  LinkedIn Post Preview
-                </p>
+                <Link
+                  to={"/editor"}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                  }}
+                  className="FormLinks"
+                >
+                  <button style={{ position: "relative", marginTop: 15 }}>
+                    LinkedIn Post Preview
+                    <FaMagnifyingGlass className="Pencil" />
+                  </button>
+                </Link>
               ) : (
                 <ScrollLink
                   to="pricing"
                   smooth={true}
                   duration={1000}
                   offset={30}
+                  className="FormLinks"
                 >
-                  <p className="looksOnLinkedIn" onClick={showUpgrade}>
+                  <button
+                    style={{ position: "relative", marginTop: 15 }}
+                    onClick={showUpgrade}
+                  >
                     LinkedIn Post Preview
-                  </p>
+                    <FaMagnifyingGlass className="Pencil" />
+                  </button>
                 </ScrollLink>
               )}
             </>
@@ -93,9 +105,21 @@ const GeneratePost = () => {
                   Create Your First Post
                   <FaPencilAlt className="Pencil" />
                 </button>
-                <p className="looksOnLinkedIn" onClick={showError}>
+              </ScrollLink>
+
+              <ScrollLink
+                smooth={true}
+                duration={1000}
+                offset={30}
+                className="FormLinks"
+              >
+                <button
+                  style={{ position: "relative", marginTop: 15 }}
+                  onClick={showError}
+                >
                   LinkedIn Post Preview
-                </p>
+                  <FaMagnifyingGlass className="Pencil" />
+                </button>
               </ScrollLink>
             </>
           )}
@@ -114,9 +138,21 @@ const GeneratePost = () => {
             </button>
           </Link>
 
-          <p className="looksOnLinkedIn" onClick={showModal}>
-            LinkedIn Post Preview
-          </p>
+          <ScrollLink
+            smooth={true}
+            duration={1000}
+            offset={30}
+            className="FormLinks"
+          >
+            <button
+              style={{ position: "relative", marginTop: 15 }}
+              onClick={showModal}
+              className="FormLinks"
+            >
+              LinkedIn Post Preview
+              <FaMagnifyingGlass className="Pencil" />
+            </button>
+          </ScrollLink>
         </div>
       )}
 

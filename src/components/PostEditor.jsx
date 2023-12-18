@@ -12,7 +12,7 @@ const PostEditor = () => {
   return (
     <div>
       <div className="PostEditorContainer container">
-        <h2>How your post will look like on LinkedIn</h2>
+        <h2>LinkedIn Post Preview</h2>
       </div>
       <div className="PostEditorSubContainer">
         <div className="CKEditor">
