@@ -27,6 +27,17 @@
   cursor: pointer;
 }
 
+.responseCard {
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: transparent;
+  box-shadow: #214055 0px 2px 7px;
+  margin-bottom: 1rem; /* Add some space between the card and "Try Now" button */
+  text-align: left; /* Align the text inside the card to the left */
+  position: relative;
+  overflow: hidden;
+}
+
 .responseText {
   white-space: pre-wrap;
   max-width: 100%;

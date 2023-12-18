@@ -3,14 +3,11 @@ import "../style/GPTResponse.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
-import LinkedInPost from "./LinkedInPost";
-import { Row } from "react-bootstrap";
 import { LinkedinAuthorization, generateLocalState } from "../constants/helper";
-import { generateState } from "../slices/AuthSlice";
 import LinkedinPreview from "./linkedinPreview";
 
 function GPTResponse({ message, query, ifEdited }) {
@@ -208,7 +205,6 @@ function GPTResponse({ message, query, ifEdited }) {
 
         {type.startsWith("Pro") ? (
           <>
-            {" "}
             <div
               style={{
                 display: "flex",
@@ -238,16 +234,20 @@ function GPTResponse({ message, query, ifEdited }) {
                   className="share"
                 />
               </button>
-            </div>{" "}
+            </div>
           </>
         ) : (
           <>
-            <pre className="responseText" ref={pRef}>
-              {Text ? Text : message}
-            </pre>
-            <button className="btn copy" onClick={handleCopyClick}>
-              Copy
-            </button>
+            <div className="responseCardContainer">
+              <div className="responseCard">
+                <pre className="responseText" ref={pRef}>
+                  {Text ? Text : message}
+                </pre>
+                <button className="btn copy" onClick={handleCopyClick}>
+                  Copy
+                </button>
+              </div>
+            </div>
           </>
         )}
 
