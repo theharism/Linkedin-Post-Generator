@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../style/PostEditor.css";
-import LinkedInPost from "./LinkedInPost";
 import Footer from "../common/Footer";
 import LinkedinPreview from "./linkedinPreview";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -15,8 +14,8 @@ const PostEditor = () => {
         <h2>LinkedIn Post Preview</h2>
       </div>
       <div className="PostEditorSubContainer">
-        <div className="CKEditor">
-          <CKEditor
+        {/* <div className="CKEditor"> */}
+        {/* <CKEditor
             editor={ClassicEditor}
             data={message}
             onReady={(editor) => {
@@ -26,8 +25,14 @@ const PostEditor = () => {
               const data = editor.getData();
               setMessage(data);
             }}
-          />
-        </div>
+          /> */}
+        <textarea
+          className="TextArea"
+          placeholder="Type your post here..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+
         <LinkedinPreview content={message} />
       </div>
     </div>

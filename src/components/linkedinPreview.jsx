@@ -1,15 +1,10 @@
 import style from "../style/linkedinPreview.module.css";
 import React, { useState } from "react";
-import { SlLike } from "react-icons/sl";
-import { FaRegComments } from "react-icons/fa6";
-import { LuSend } from "react-icons/lu";
-import { RiRepeatLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import TabletMacIcon from "@mui/icons-material/TabletMac";
 import DesktopMacOutlinedIcon from "@mui/icons-material/DesktopMacOutlined";
 import { IconButton } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import useCheckMobileScreen from "../hooks/useCheckMobileScreen";
 const like = "/svgexport-14.svg";
 const comment = "/svgexport-15.svg";
@@ -18,7 +13,7 @@ const send = "/svgexport-17.svg";
 const world = "/svgexport-54.svg";
 
 const LinkedinPreview = ({ content }) => {
-  const initialDisplayLines = 2;
+  let initialDisplayLines = 2;
   const [displayAll, setDisplayAll] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(1);
   const isMobile = useCheckMobileScreen();
@@ -33,7 +28,16 @@ const LinkedinPreview = ({ content }) => {
     setSelectedDevice(device);
   };
 
-  const contentLines = content.split("</p>");
+  let contentLines = content.split("\n");
+
+  if (content.length > 245 && contentLines.length === 1) {
+    const truncatedContent =
+      content.substring(0, 245) + "\n" + content.substring(245);
+    contentLines = truncatedContent.split("\n");
+    initialDisplayLines = 1;
+  }
+
+  console.log(contentLines);
 
   return (
     <div className={style.LinkdIn_Post}>
@@ -118,14 +122,13 @@ const LinkedinPreview = ({ content }) => {
         <div className={style.content}>
           {displayAll
             ? contentLines.map((line, index) => {
-                const lineHTML = { __html: line };
-                return <p key={index} dangerouslySetInnerHTML={lineHTML}></p>;
+                return <p key={index}>{line}</p>;
               })
             : contentLines.slice(0, initialDisplayLines).map((line, index) => {
-                const lineHTML = { __html: line };
-                return <p key={index} dangerouslySetInnerHTML={lineHTML}></p>;
+                return <p key={index}>{line}</p>;
               })}
-          {contentLines.length > initialDisplayLines && (
+          {(contentLines.length > initialDisplayLines ||
+            content.length > 245) && (
             <p className={style.seemore} onClick={toggleDisplay}>
               {displayAll ? "See less" : "See more"}
             </p>
