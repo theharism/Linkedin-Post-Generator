@@ -35,6 +35,10 @@
     font-weight: bold;
     font-size: 2rem;
   }
+
+  .useCasesContent h5 { 
+    margin-top: 30px;
+  }
   
   .useCasesContent p {
     margin: 10px 0;

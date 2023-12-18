@@ -54,12 +54,12 @@ const UseCases = () => {
         <div className="useCasesContent">
           <br />
           <br />
-          <p>Use Cases</p>
-          <h4>
+          <h3>Use Cases</h3>
+          <h5>
             Created by ghostwriters, for Linkedin Users, to make Linkedin
             content creation easier
-          </h4>
-          <br />
+          </h5>
+
           <br />
           <ScrollLink
             to="hero"
