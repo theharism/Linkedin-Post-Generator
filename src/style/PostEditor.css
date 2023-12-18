@@ -18,6 +18,15 @@
   max-Width: 500px
 }
 
+.TextArea{
+    width: 40%; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+    padding: 8px; /* Add padding for better visualization */
+    border-radius: 8px; /* Add rounded corners */
+    border: 1px solid #ccc; /* Add a border */
+    margin-top: 20px; /* Add margin at the top */  
+}
+
 @media (max-width: 760px) {
 
   .PostEditorSubContainer{
@@ -25,6 +34,11 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
+  }
+  
+  .TextArea{
+    Width: 100%;
+    margin-bottom: 20px;
   }
 
   .CKEditor{

@@ -26,7 +26,6 @@
 
 .testiContainer h6{
     font-size: large;
-    text-wrap: balance;
 }
 
 .testiContainer {
@@ -65,7 +64,7 @@
   
 .testiContainer  p {
     text-wrap: wrap; /* This property is invalid, you may want to remove it */
-    text-align: justify;
+    text-align: start;
   }
   
 .testiContainer  span {

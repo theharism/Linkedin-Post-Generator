@@ -10,11 +10,14 @@ const TestimonialComponent = ({ item }) => {
         style={{
           display: "flex",
           flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: "flex-start",
         }}
       >
-        <img src={imageURI} alt="img" className="rounded-image" />
+        {/* <img
+          src={require("../images/person.png")}
+          alt="img"
+          className="rounded-image"
+        /> */}
 
         <h6>
           {item.name},{" "}
