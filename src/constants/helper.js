@@ -36,7 +36,7 @@ const generateLocalState = () => {
 const LinkedinAuthorization = (state) => {
   const authorizationUrl = "https://www.linkedin.com/oauth/v2/authorization";
   const clientId = "77en64fxw71b3d"; // Replace with your LinkedIn OAuth client ID
-  const redirectUri = "https://1e46-39-34-184-150.ngrok-free.app/verify"; // Replace with your callback URL
+  const redirectUri = "https://themusetool.com/verify"; // Replace with your callback URL
   const scope = "w_member_social";
 
   // Construct the URL with query parameters
@@ -55,7 +55,7 @@ const LinkedinAuthentication = (code, email) => {
     code: `${code}`,
     client_id: "77en64fxw71b3d",
     client_secret: "vINnSBD6pqS0Wj81",
-    redirect_uri: "https://1e46-39-34-184-150.ngrok-free.app/verify",
+    redirect_uri: "https://themusetool.com/verify",
   });
 
   fetch("https://www.linkedin.com/oauth/v2/accessToken", {
