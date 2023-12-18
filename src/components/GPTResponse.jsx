@@ -227,13 +227,13 @@ function GPTResponse({ message, query, ifEdited }) {
                 Copy
               </button>
 
-              <button className="share-button" onClick={handleSharePress}>
+              {/* <button className="share-button" onClick={handleSharePress}>
                 <img
                   src={require("../images/share.png")}
                   alt="share button"
                   className="share"
                 />
-              </button>
+              </button> */}
             </div>
           </>
         ) : (
