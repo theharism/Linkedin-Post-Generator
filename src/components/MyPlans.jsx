@@ -32,6 +32,12 @@ const MyPlans = ({ type, onClose }) => {
     }
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose(); // Close the modal when clicking on the overlay
+    }
+  };
+
   const handlePayment = async () => {
     Swal.fire({
       title: "Are you sure?",
@@ -111,7 +117,7 @@ const MyPlans = ({ type, onClose }) => {
   };
 
   return (
-    <div className="modal">
+    <div className="modal" onClick={handleOverlayClick}>
       <div className="modal-content">
         <div className="containerForm ">
           <Col className="row d-flex flex-row justify-content-evenly w-100">
