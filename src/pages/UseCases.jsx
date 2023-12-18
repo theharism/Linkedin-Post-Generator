@@ -5,7 +5,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { usecases } from "../constants/UseCases";
 
 const UseCases = () => {
-  const UseCaseContent = ({ item, index }) => {
+  const UseCaseContent = ({ item, index }, key) => {
     return (
       <div className="useCasesMainContent">
         <Row>
@@ -78,7 +78,7 @@ const UseCases = () => {
       </div>
       <div className="useCasesContent mainContentColor">
         {usecases.map((item, index) => (
-          <UseCaseContent item={item} index={index} />
+          <UseCaseContent item={item} index={index} key={index} />
         ))}
       </div>
 
