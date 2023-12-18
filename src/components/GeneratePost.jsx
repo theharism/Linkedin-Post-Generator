@@ -74,7 +74,6 @@ const GeneratePost = () => {
                 </Link>
               ) : (
                 <ScrollLink
-                  to="pricing"
                   smooth={true}
                   duration={1000}
                   offset={30}
@@ -108,15 +107,13 @@ const GeneratePost = () => {
               </ScrollLink>
 
               <ScrollLink
+                onClick={showError}
                 smooth={true}
                 duration={1000}
                 offset={30}
                 className="FormLinks"
               >
-                <button
-                  style={{ position: "relative", marginTop: 15 }}
-                  onClick={showError}
-                >
+                <button style={{ position: "relative", marginTop: 15 }}>
                   LinkedIn Post Preview
                   <FaMagnifyingGlass className="Pencil" />
                 </button>
