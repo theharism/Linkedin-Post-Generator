@@ -22,17 +22,14 @@ const TestimonialComponent = ({ item }) => {
         </h6>
       </div>
       <p>"{item.review}"</p>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 10,
-          left: 75,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Rating name="read-only" value={5} readOnly size="large" />
-      </div>
+
+      <Rating
+        name="read-only"
+        value={5}
+        readOnly
+        size="large"
+        style={{ position: "absolute", bottom: 15, marginLeft: 45 }}
+      />
     </div>
   );
 };

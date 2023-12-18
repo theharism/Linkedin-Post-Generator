@@ -32,13 +32,13 @@ const Testimonials = () => {
       </div>
       <div className="testimonialsContainer">
         <div className="slide">
-          {data.map((item) => {
-            return <TestimonialComponent item={item} />;
+          {data.map((item, index) => {
+            return <TestimonialComponent key={index} item={item} />;
           })}
         </div>
         <div className="slide">
-          {data.map((item) => {
-            return <TestimonialComponent item={item} />;
+          {data.map((item, index) => {
+            return <TestimonialComponent key={index} item={item} />;
           })}
         </div>
       </div>
