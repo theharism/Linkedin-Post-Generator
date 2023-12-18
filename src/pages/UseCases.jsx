@@ -10,7 +10,7 @@ const UseCases = () => {
       <div className="useCasesMainContent">
         <Row>
           {index % 2 !== 0 ? (
-            <Row className="Row">
+            <Row>
               <Col>
                 <img src={item.src} alt={item.alt} className="image" />
               </Col>
@@ -20,7 +20,7 @@ const UseCases = () => {
               </Col>
             </Row>
           ) : (
-            <Row className="Row">
+            <Row>
               <Col>
                 <h4>{item.heading}</h4>
                 <p>{item.content}</p>

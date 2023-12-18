@@ -116,6 +116,7 @@ header .nav-btn {
   header .responsive_nav {
     transform: none;
     z-index: 1;
+    height: 100%;
     background-color: #150261;
   }
 
@@ -123,12 +124,44 @@ header .nav-btn {
     position: absolute;
     top: 1rem;
     right: 2rem;
+    height: 100%;
     color: white;
   }
 
   nav .Link {
     color: white;
-
+    height: 100%;
     font-size: 1.2rem;
+  }
+
+  .left-nav-items {
+    display: flex; /* Display children in a row */
+    align-items: center; /* Vertically center items */
+    flex-direction: column;
+    height: 400px;
+  }
+  
+  /* Style for the right items */
+  .right-nav-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* You can adjust the width as needed */
+    flex-direction: column;
+    height: 100px;
+  }
+
+  .right-nav-items a{
+  align-self: center;
+  }
+
+  .nav{
+    justify-content: center;
+    align-items: center;
+  }
+
+  .account-icon {
+    cursor: pointer;
+    color: white;
   }
 }

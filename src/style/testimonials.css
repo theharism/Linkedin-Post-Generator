@@ -7,7 +7,6 @@
     flex-direction: row;
     position: relative;
     background-color: #150261;
-    
 }
   
 .testimonialsContent{
@@ -73,3 +72,9 @@
     text-wrap: wrap; /* This property is invalid, you may want to remove it */
   }
   
+  @media (max-width: 760px) {
+
+.testimonialsContainer{
+    height: 65vh;
+}
+}

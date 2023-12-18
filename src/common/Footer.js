@@ -16,6 +16,11 @@ const Footer = () => {
     padding: "0 20px",
   };
 
+  const mobileFooterStyle = {
+    height: "60px",
+    fontSize: 10,
+  };
+
   const linkStyle = {
     display: "flex",
     alignItems: "center",
@@ -33,7 +38,7 @@ const Footer = () => {
   };
 
   return (
-    <div style={footerStyle}>
+    <div style={{ ...footerStyle, ...mobileFooterStyle }} className="footer">
       <div style={{ color: "white" }}>
         &#169; 2023 The Muse Tool - All Rights Reserved
       </div>
