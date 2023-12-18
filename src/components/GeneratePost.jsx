@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 const GeneratePost = () => {
   const authState = useSelector((state) => state.Auth.authState);
   const points = useSelector((state) => state.Points.points);
+  const type = useSelector((state) => state.Subscription.type);
   const [showPostModal, setShowPostModal] = useState(false);
   const navigate = useNavigate();
 
@@ -51,9 +52,11 @@ const GeneratePost = () => {
                   <FaPencilAlt className="Pencil" />
                 </button>
               </Link>
-              <p className="looksOnLinkedIn" onClick={showEditor}>
-                See how it looks on LinkedIn
-              </p>
+              {type.startsWith("Pro") && (
+                <p className="looksOnLinkedIn" onClick={showEditor}>
+                  See how it looks on LinkedIn
+                </p>
+              )}
             </>
           ) : (
             <>
@@ -70,9 +73,11 @@ const GeneratePost = () => {
                   Create Your First Post
                   <FaPencilAlt className="Pencil" />
                 </button>
-                <p className="looksOnLinkedIn" onClick={showError}>
-                  See how it looks on LinkedIn
-                </p>
+                {type.startsWith("Pro") && (
+                  <p className="looksOnLinkedIn" onClick={showError}>
+                    See how it looks on LinkedIn
+                  </p>
+                )}
               </ScrollLink>
             </>
           )}
@@ -91,10 +96,11 @@ const GeneratePost = () => {
             </button>
           </Link>
 
-          <p className="looksOnLinkedIn" onClick={showModal}>
-            {" "}
-            See how it looks on LinkedIn
-          </p>
+          {type.startsWith("Pro") && (
+            <p className="looksOnLinkedIn" onClick={showModal}>
+              See how it looks on LinkedIn
+            </p>
+          )}
         </div>
       )}
 
