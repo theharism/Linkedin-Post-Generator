@@ -32,6 +32,15 @@ const GeneratePost = () => {
     });
   };
 
+  const showUpgrade = () => {
+    Swal.fire({
+      title: "Please upgrade to Pro for access",
+      icon: "error",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
+    });
+  };
+
   const showEditor = () => {
     navigate("/editor");
   };
@@ -52,10 +61,21 @@ const GeneratePost = () => {
                   <FaPencilAlt className="Pencil" />
                 </button>
               </Link>
-              {type.startsWith("Pro") && (
+              {type.startsWith("Pro") ? (
                 <p className="looksOnLinkedIn" onClick={showEditor}>
-                  See how it looks on LinkedIn
+                  LinkedIn Post Preview
                 </p>
+              ) : (
+                <ScrollLink
+                  to="pricing"
+                  smooth={true}
+                  duration={1000}
+                  offset={30}
+                >
+                  <p className="looksOnLinkedIn" onClick={showUpgrade}>
+                    LinkedIn Post Preview
+                  </p>
+                </ScrollLink>
               )}
             </>
           ) : (
@@ -73,11 +93,9 @@ const GeneratePost = () => {
                   Create Your First Post
                   <FaPencilAlt className="Pencil" />
                 </button>
-                {type.startsWith("Pro") && (
-                  <p className="looksOnLinkedIn" onClick={showError}>
-                    See how it looks on LinkedIn
-                  </p>
-                )}
+                <p className="looksOnLinkedIn" onClick={showError}>
+                  LinkedIn Post Preview
+                </p>
               </ScrollLink>
             </>
           )}
@@ -96,11 +114,9 @@ const GeneratePost = () => {
             </button>
           </Link>
 
-          {type.startsWith("Pro") && (
-            <p className="looksOnLinkedIn" onClick={showModal}>
-              See how it looks on LinkedIn
-            </p>
-          )}
+          <p className="looksOnLinkedIn" onClick={showModal}>
+            LinkedIn Post Preview
+          </p>
         </div>
       )}
 
