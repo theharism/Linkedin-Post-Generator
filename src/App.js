@@ -11,7 +11,7 @@ import HeroSection from "./pages/HeroSection";
 import { ToastContainer } from "react-toastify";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailVerifyModal from "./components/EmailVerifyModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
@@ -24,6 +24,7 @@ import BlockUser from "./components/BlockUser";
 import UseCases from "./pages/UseCases";
 import PostEditor from "./components/PostEditor";
 import Testimonials from "./pages/Testimonials";
+import LinkedInVerification from "./components/LinkedInVerification";
 
 function App() {
   const auth = getAuth();
@@ -31,6 +32,7 @@ function App() {
   const [localAuth, setAuth] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [showBlockUser, setShowShowBlockuser] = useState(false);
+  const type = useSelector((state) => state.Subscription.type);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -156,15 +158,28 @@ function App() {
                 }
               />
 
-              <Route
-                path="/editor"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <PostEditor />
-                  </div>
-                }
-              />
+              {type.startsWith("Pro") && (
+                <>
+                  <Route
+                    path="/editor"
+                    element={
+                      <div>
+                        <SubNavbar />
+                        <PostEditor />
+                      </div>
+                    }
+                  />
+                  <Route
+                    path="/verify"
+                    element={
+                      <div>
+                        <SubNavbar />
+                        <LinkedInVerification />
+                      </div>
+                    }
+                  />
+                </>
+              )}
             </>
           )}
         </Routes>

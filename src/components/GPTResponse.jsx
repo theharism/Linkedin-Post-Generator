@@ -3,12 +3,15 @@ import "../style/GPTResponse.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
 import LinkedInPost from "./LinkedInPost";
 import { Row } from "react-bootstrap";
+import { LinkedinAuthorization, generateLocalState } from "../constants/helper";
+import { generateState } from "../slices/AuthSlice";
+import Fahad from "./linkedinPreview";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
@@ -191,20 +194,9 @@ function GPTResponse({ message, query, ifEdited }) {
   };
 
   const handleSharePress = () => {
-    const authorizationUrl = "https://www.linkedin.com/oauth/v2/authorization";
-    const clientId = "77en64fxw71b3d"; // Replace with your LinkedIn OAuth client ID
-    const redirectUri = "https://themusetool.com/post"; // Replace with your callback URL
-    const state = "rdvufvtygbuknutn";
-    const scope = "w_member_social";
-
-    // Construct the URL with query parameters
-    const url = `${authorizationUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
-
-    try {
-      window.location.href = url;
-    } catch (error) {
-      console.log(error);
-    }
+    const state = generateLocalState();
+    localStorage.setItem("state", state);
+    LinkedinAuthorization(state);
   };
 
   return (
@@ -219,7 +211,7 @@ function GPTResponse({ message, query, ifEdited }) {
             justifyContent: "center",
           }}
         >
-          <LinkedInPost message={Text ? Text : message} />
+          <Fahad content={Text ? Text : message} />
         </div>
 
         <div
