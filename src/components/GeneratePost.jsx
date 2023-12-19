@@ -69,7 +69,7 @@ const GeneratePost = () => {
                   <FaPencilAlt className="Pencil" />
                 </button>
               </Link>
-              {type.startsWith("S") ? (
+              {type.startsWith("Pro") ? (
                 <Link
                   to={"/editor"}
                   style={{

@@ -15,18 +15,20 @@ const ShowUpgrade = ({ onClose }) => {
           <div
             style={{
               height: 500,
-              width: 800,
+              width: 1200,
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
+              justifyContent: "center",
+              alignSelf: "center",
             }}
           >
             <img
               src={require("../images/preview.jpg")}
               alt="linkedin preview"
               style={{
-                height: 395,
-                width: 800,
+                maxHeight: 342,
+                width: "100%",
                 aspectRatio: 1,
               }}
             />
