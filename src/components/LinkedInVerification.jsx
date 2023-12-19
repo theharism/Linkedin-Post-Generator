@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/Success.css";
 import { useNavigate } from "react-router-dom";
-import { LinkedinAuthentication } from "../constants/helper";
+import { LinkedInPost, LinkedinAuthentication } from "../constants/helper";
 import { useSelector } from "react-redux";
 
 const LinkedInVerification = () => {
   const state = localStorage.getItem("state");
+  const text = localStorage.getItem("response");
   const [authorized, setAuthorized] = useState(false);
+  const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const email = useSelector((state) => state.User.email);
@@ -28,7 +30,24 @@ const LinkedInVerification = () => {
           navigate("/");
         }, [3000]);
       } else {
-        LinkedinAuthentication(code, email);
+        async function Move() {
+          const status = await LinkedinAuthentication(code, email);
+          if (status) {
+            setPosting(true);
+
+            const status2 = await LinkedInPost(state, text, email);
+            if (status2) {
+              navigate("/");
+            }
+          } else {
+            setError("There was an error authenticating");
+            setTimeout(() => {
+              navigate("/");
+            }, [3000]);
+          }
+        }
+
+        Move();
       }
     } else {
       setAuthorized(false);
@@ -49,7 +68,11 @@ const LinkedInVerification = () => {
           ) : (
             <>
               <h2 style={{ fontSize: 60 }}>Please Wait</h2>
-              <p className="email-msg">You are being authorized</p>
+              <p className="email-msg">
+                {posting
+                  ? "Creating post on Linkedin"
+                  : "You are being authorized"}
+              </p>
               <p className="description" style={{ color: "red" }}>
                 Redirecting in a few seconds
               </p>

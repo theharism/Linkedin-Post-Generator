@@ -37,8 +37,6 @@ const LinkedinPreview = ({ content }) => {
     initialDisplayLines = 1;
   }
 
-  console.log(contentLines);
-
   return (
     <div className={style.LinkdIn_Post}>
       <div className={style.Devices}>

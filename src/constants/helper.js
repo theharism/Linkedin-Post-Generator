@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function isEmail(input) {
   // Define a regular expression pattern for an email
@@ -33,79 +34,74 @@ const generateLocalState = () => {
   return state;
 };
 
-const LinkedinAuthorization = (state) => {
-  const authorizationUrl = "https://www.linkedin.com/oauth/v2/authorization";
-  const clientId = "77en64fxw71b3d"; // Replace with your LinkedIn OAuth client ID
-  const redirectUri = "https://themusetool.com/verify"; // Replace with your callback URL
-  const scope = "w_member_social";
-
-  // Construct the URL with query parameters
-  const url = `${authorizationUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+const LinkedinAuthentication = async (code, email) => {
+  console.log("Linkedin auth");
 
   try {
-    window.location.href = url;
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/linkedin-auth`,
+      { code, email }
+    );
+
+    if (response.data.message) {
+      return true;
+    }
   } catch (error) {
-    console.log(error);
+    console.log("Linkedin Auth Error", error);
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "success",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
+    });
   }
 };
 
-const LinkedinAuthentication = (code, email) => {
-  const requestData = new URLSearchParams({
-    grant_type: "authorization_code",
-    code: `${code}`,
-    client_id: "77en64fxw71b3d",
-    client_secret: "vINnSBD6pqS0Wj81",
-    redirect_uri: "https://themusetool.com/verify",
-  });
+const LinkedInPost = async (state, text, email) => {
+  console.log("Linkedin post");
 
-  fetch("https://www.linkedin.com/oauth/v2/accessToken", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: requestData,
-  })
-    .then((response) => response.json())
-    .then(async (data) => {
-      console.log(data);
-
-      const {
-        access_token,
-        expires_in,
-        refresh_token,
-        refresh_token_expires_in,
-      } = data;
-
-      const dataToSend = {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/linkedin-post`,
+      {
+        state,
+        text,
         email,
-        access_token,
-        expires_in, // expiration time in seconds
-        refresh_token,
-        refresh_token_expires_in, // expiration time in seconds for the refresh token
-      };
-
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/linkedindata`,
-          dataToSend
-        );
-
-        if (response.data.message) {
-          return access_token;
-        }
-      } catch (error) {
-        console.log(error);
       }
-    })
-    .catch((error) => {
-      console.error(error);
+    );
+
+    if (response.data.message) {
+      console.log(response.data.message);
+      Swal.fire({
+        title: "Post Created on Linkedin Sucessfully",
+        icon: "success",
+        showConfirmButton: false, // Hide the "OK" button in the success popup
+        timer: 1500,
+      });
+      return true;
+    } else if (response.data.url) {
+      console.log("url found");
+
+      window.location.href = response.data.url;
+
+      return false;
+    }
+  } catch (error) {
+    console.log("Linkedin Post error", error);
+
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "error",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
     });
+  }
 };
 
 export {
   isEmail,
   checkSubscriptionType,
-  LinkedinAuthorization,
   generateLocalState,
   LinkedinAuthentication,
+  LinkedInPost,
 };

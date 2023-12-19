@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
-import { LinkedinAuthorization, generateLocalState } from "../constants/helper";
+import { LinkedInPost, generateLocalState } from "../constants/helper";
 import LinkedinPreview from "./linkedinPreview";
 
 function GPTResponse({ message, query, ifEdited }) {
@@ -18,7 +18,7 @@ function GPTResponse({ message, query, ifEdited }) {
   const pRef = useRef(null);
   const type = useSelector((state) => state.Subscription.type);
 
-  const username = useSelector((state) => state.User.username);
+  const { username, email } = useSelector((state) => state.User);
 
   const handleTryNowClick = () => {
     window.location.reload();
@@ -192,10 +192,24 @@ function GPTResponse({ message, query, ifEdited }) {
     });
   };
 
-  const handleSharePress = () => {
+  const handleSharePress = async () => {
     const state = generateLocalState();
+    const textToSend = Text ? Text : message;
+    window.scrollTo(0, 0);
+
     localStorage.setItem("state", state);
-    LinkedinAuthorization(state);
+    localStorage.setItem("response", textToSend);
+
+    console.log("HaNDLE share press");
+
+    setLoading(true);
+
+    const status = await LinkedInPost(state, textToSend, email);
+    if (status) {
+      window.location.href = "/";
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -227,13 +241,13 @@ function GPTResponse({ message, query, ifEdited }) {
                 Copy
               </button>
 
-              {/* <button className="share-button" onClick={handleSharePress}>
+              <button className="share-button" onClick={handleSharePress}>
                 <img
                   src={require("../images/share.png")}
                   alt="share button"
                   className="share"
                 />
-              </button> */}
+              </button>
             </div>
           </>
         ) : (
