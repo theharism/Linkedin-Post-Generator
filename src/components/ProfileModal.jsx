@@ -10,6 +10,7 @@ import app from "../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -21,12 +22,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/ProfileModal.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../slices/UserSlice";
+import { resetUser, setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
-import { PointsSlice } from "../slices/PointsSlice";
+import { PointsSlice, resetPoints } from "../slices/PointsSlice";
 import Swal from "sweetalert2";
 import { checkSubscriptionType } from "../constants/helper";
 import MyPlans from "./MyPlans";
+import { resetSubscription } from "../slices/SubscriptionSlice";
+import MetadataModal from "./MetadataModal";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
@@ -34,6 +37,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const dispatch = useDispatch();
   const [state, setState] = useState("");
   const [showMyPlanModal, setShowMyPlanModal] = useState(false);
+  const [showMetadataModal, setShowMetadataModal] = useState(false);
 
   const user = useSelector((state) => state.User);
   const subscription = useSelector((state) => state.Subscription.type);
@@ -46,7 +50,9 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
       .then(() => {
         // Sign-out successful.
         navigate("/");
-        localStorage.removeItem("user");
+        resetUser();
+        resetPoints();
+        resetSubscription();
 
         Swal.fire({
           title: "Signed Out!",
@@ -80,6 +86,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     const closeModal = () => {
       setState("");
     };
+
     const handleOverlayClick = (e) => {
       if (e.target === e.currentTarget) {
         closeModal(); // Close the modal when clicking on the overlay
@@ -231,6 +238,14 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     setShowMyPlanModal(false);
   };
 
+  const closeMetadataModalfunc = () => {
+    setShowMetadataModal(false);
+  };
+
+  const showMetadataModalfunc = () => {
+    setShowMetadataModal(true);
+  };
+
   return (
     <React.Fragment>
       <Menu
@@ -318,12 +333,6 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           )}
         </MenuItem>
 
-        {/* <MenuItem sx={{ fontFamily: "inherit" }}>
-          <Typography sx={{ fontFamily: "inherit" }}>
-            Referral Code: {user.referalCode}
-          </Typography>
-        </MenuItem> */}
-
         {user.authType !== "google" && (
           <>
             <MenuItem
@@ -337,6 +346,15 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
             </MenuItem>
           </>
         )}
+        <MenuItem
+          sx={{ fontFamily: "inherit" }}
+          onClick={showMetadataModalfunc}
+        >
+          <ListItemIcon>
+            <AutoFixHighIcon fontSize="small" />
+          </ListItemIcon>
+          Personalization
+        </MenuItem>
         <MenuItem sx={{ fontFamily: "inherit" }} onClick={signout}>
           <ListItemIcon>
             <Logout fontSize="small" />
@@ -347,6 +365,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
       {state === "name" && <Modal />}
       {state === "password" && <Modal />}
       {showMyPlanModal && <MyPlans onClose={onClose} type={subscription} />}
+      {showMetadataModal && <MetadataModal onClose={closeMetadataModalfunc} />}
     </React.Fragment>
   );
 }

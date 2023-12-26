@@ -10,7 +10,7 @@ export const PointsSlice = createSlice({
       state.points = action.payload.points;
     },
     resetPoints: (state) => {
-      state.points = 3;
+      state.points = 0;
     },
     addPoints: (state, action) => {
       state.points += action.payload.points;
