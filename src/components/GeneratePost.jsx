@@ -8,13 +8,18 @@ import { Link as ScrollLink } from "react-scroll";
 import "../style/HeroSection.css";
 import Swal from "sweetalert2";
 import ShowUpgrade from "./ShowUpgrade";
+import MetadataModal from "./MetadataModal";
+import OptimizePostModal from "./OptimizePostModal";
 
 const GeneratePost = () => {
   const authState = useSelector((state) => state.Auth.authState);
   const points = useSelector((state) => state.Points.points);
   const type = useSelector((state) => state.Subscription.type);
+  const metadataAsked = useSelector((state) => state.User.metadataAsked);
   const [showPostModal, setShowPostModal] = useState(false);
+  const [optimizePost, setOptimizePost] = useState(false);
   const [showUpgradeModal, setshowUpgradeModal] = useState(false);
+  const [showMetadataModal, setShowMetadataModal] = useState(false);
   const navigate = useNavigate();
 
   const closeModal = () => {
@@ -43,14 +48,29 @@ const GeneratePost = () => {
     });
   };
 
-  const showUpgrade = () => {
-    Swal.fire({
-      title: "Please upgrade to Pro for access",
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/linkedin-post-generator-bcd8d.appspot.com/o/preview.jpg?alt=media&token=e2219e31-1be8-4527-97ab-e6e9684276db",
-      confirmButtonText: "Try now with your Pro Subscription",
-      confirmButtonColor: "#150261",
-    });
+  const closeMetadataModalfunc = () => {
+    window.location.href = "/post";
+    setShowMetadataModal(false);
+  };
+
+  const showMetadataModalfunc = () => {
+    setShowMetadataModal(true);
+  };
+
+  const handleOnClick = () => {
+    if (metadataAsked) {
+      window.location.href = "/post";
+    } else {
+      showMetadataModalfunc();
+    }
+  };
+
+  const handleOptimizeClick = () => {
+    setOptimizePost(true);
+  };
+
+  const closeOptimizePost = async () => {
+    setOptimizePost(false);
   };
 
   return (
@@ -60,7 +80,7 @@ const GeneratePost = () => {
           {points > 0 ? (
             <>
               <Link
-                to={"/post"}
+                onClick={handleOnClick}
                 style={{ textDecoration: "none", color: "white" }}
                 className="FormLinks"
               >
@@ -70,37 +90,71 @@ const GeneratePost = () => {
                 </button>
               </Link>
               {type.startsWith("Pro") ? (
-                <Link
-                  to={"/editor"}
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                  }}
-                  className="FormLinks"
-                >
-                  <button style={{ position: "relative", marginTop: 15 }}>
-                    LinkedIn Post Preview
-                    <FaMagnifyingGlass className="Pencil" />
-                  </button>
-                </Link>
-              ) : (
-                <ScrollLink
-                  to="pricing"
-                  spy={true}
-                  smooth={true}
-                  duration={2500}
-                  offset={0}
-                  style={{ textDecoration: "none", color: "white" }}
-                  className="FormLinks"
-                >
-                  <button
-                    style={{ position: "relative", marginTop: 15 }}
-                    onClick={showUpgradeModalfunc}
+                <>
+                  <Link
+                    to={"/editor"}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                    className="FormLinks"
                   >
-                    LinkedIn Post Preview
-                    <FaMagnifyingGlass className="Pencil" />
-                  </button>
-                </ScrollLink>
+                    <button style={{ position: "relative", marginTop: 15 }}>
+                      LinkedIn Post Preview
+                      <FaMagnifyingGlass className="Pencil" />
+                    </button>
+                  </Link>
+                  <Link
+                    onClick={handleOptimizeClick}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                    className="FormLinks"
+                  >
+                    <button style={{ position: "relative", marginTop: 15 }}>
+                      Optimize Your Post
+                      <FaMagnifyingGlass className="Pencil" />
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <ScrollLink
+                    to="pricing"
+                    spy={true}
+                    smooth={true}
+                    duration={2500}
+                    offset={0}
+                    style={{ textDecoration: "none", color: "white" }}
+                    className="FormLinks"
+                  >
+                    <button
+                      style={{ position: "relative", marginTop: 15 }}
+                      onClick={showUpgradeModalfunc}
+                    >
+                      LinkedIn Post Preview
+                      <FaMagnifyingGlass className="Pencil" />
+                    </button>
+                  </ScrollLink>
+                  <ScrollLink
+                    to="pricing"
+                    spy={true}
+                    smooth={true}
+                    duration={2500}
+                    offset={0}
+                    style={{ textDecoration: "none", color: "white" }}
+                    className="FormLinks"
+                  >
+                    <button
+                      style={{ position: "relative", marginTop: 15 }}
+                      onClick={showUpgradeModalfunc}
+                    >
+                      Optimize Your Post
+                      <FaMagnifyingGlass className="Pencil" />
+                    </button>
+                  </ScrollLink>
+                </>
               )}
             </>
           ) : (
@@ -129,6 +183,19 @@ const GeneratePost = () => {
               >
                 <button style={{ position: "relative", marginTop: 15 }}>
                   LinkedIn Post Preview
+                  <FaMagnifyingGlass className="Pencil" />
+                </button>
+              </ScrollLink>
+
+              <ScrollLink
+                onClick={showError}
+                smooth={true}
+                duration={80}
+                offset={30}
+                className="FormLinks"
+              >
+                <button style={{ position: "relative", marginTop: 15 }}>
+                  Optimize Your Post
                   <FaMagnifyingGlass className="Pencil" />
                 </button>
               </ScrollLink>
@@ -164,11 +231,29 @@ const GeneratePost = () => {
               <FaMagnifyingGlass className="Pencil" />
             </button>
           </ScrollLink>
+
+          <ScrollLink
+            smooth={true}
+            duration={1000}
+            offset={30}
+            className="FormLinks"
+          >
+            <button
+              style={{ position: "relative", marginTop: 15 }}
+              onClick={showModal}
+              className="FormLinks"
+            >
+              Optimize Your Post
+              <FaMagnifyingGlass className="Pencil" />
+            </button>
+          </ScrollLink>
         </div>
       )}
 
       {showPostModal && <ModalPopup state={true} onClose={closeModal} />}
       {showUpgradeModal && <ShowUpgrade onClose={closeUpgradeModalfunc} />}
+      {showMetadataModal && <MetadataModal onClose={closeMetadataModalfunc} />}
+      {optimizePost && <OptimizePostModal onClose={closeOptimizePost} />}
     </>
   );
 };
