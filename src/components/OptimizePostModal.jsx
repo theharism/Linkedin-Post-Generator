@@ -88,7 +88,8 @@ const OptimizePostModal = ({ onClose }) => {
                     <Form.Label className="LeftAlignedLabel">
                       {formData.props === "" ? (
                         <span>
-                          Description<span style={{ color: "red" }}>*</span>
+                          Paste your post here
+                          <span style={{ color: "red" }}>*</span>
                         </span>
                       ) : (
                         "Strengths & Weaknesses"

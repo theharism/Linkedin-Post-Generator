@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-const ShowUpgrade = ({ onClose }) => {
+const ShowUpgrade = ({ onClose, type }) => {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose(); // Close the modal when clicking on the overlay
@@ -24,12 +24,19 @@ const ShowUpgrade = ({ onClose }) => {
             }}
           >
             <img
-              src={require("../images/preview.jpg")}
+              src={
+                type === 1
+                  ? require("../images/preview.jpg")
+                  : require("../images/optimize.png")
+              }
               alt="linkedin preview"
               style={{
                 maxHeight: 342,
                 width: "100%",
                 aspectRatio: 1,
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Add shadow
+                borderRadius: 8, // Optional: Add borderRadius for a rounded appearance
+                zIndex: 1, // Optional: Adjust zIndex if needed
               }}
             />
             <Button
