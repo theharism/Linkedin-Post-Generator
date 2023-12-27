@@ -45,14 +45,6 @@
 .formHero .FormLinks > button:hover {
   background-color: #2394f7bb;
 }
-.Pencil {
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-  position: absolute;
-  bottom: -7px;
-  right: -4px;
-  font-size: 2rem;
-  color: black;
-}
 
 .looksOnLinkedIn {
   cursor: pointer; /* Change the cursor to a pointer when hovering */
@@ -63,12 +55,39 @@
 }
 
 
+.CheckMark {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: -15px;
+  right: -18px;
+  font-size: 2.5rem;
+  color: black;
+}
+
+.Pencil {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: -10px;
+  right: -6px;
+  font-size: 2.5rem;
+  color: black;
+}
+
 @media (min-width: 768px) {
   .Pencil {
     text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     position: absolute;
-    bottom: -7px;
-    right: -4px;
+    bottom: -10px;
+    right: -6px;
+    font-size: 2.5rem;
+    color: black;
+  }
+
+  .CheckMark {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: -15px;
+    right: -18px;
     font-size: 2.5rem;
     color: black;
   }

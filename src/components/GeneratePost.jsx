@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import "../style/HeroSection.css";
 import Swal from "sweetalert2";
+import CheckIcon from "@mui/icons-material/Check";
 import ShowUpgrade from "./ShowUpgrade";
 import MetadataModal from "./MetadataModal";
 import OptimizePostModal from "./OptimizePostModal";
@@ -18,7 +19,7 @@ const GeneratePost = () => {
   const metadataAsked = useSelector((state) => state.User.metadataAsked);
   const [showPostModal, setShowPostModal] = useState(false);
   const [optimizePost, setOptimizePost] = useState(false);
-  const [showUpgradeModal, setshowUpgradeModal] = useState(false);
+  const [showUpgradeModal, setshowUpgradeModal] = useState(0);
   const [showMetadataModal, setShowMetadataModal] = useState(false);
   const navigate = useNavigate();
 
@@ -31,11 +32,12 @@ const GeneratePost = () => {
   };
 
   const closeUpgradeModalfunc = () => {
-    setshowUpgradeModal(false);
+    setshowUpgradeModal(0);
   };
 
-  const showUpgradeModalfunc = () => {
-    setshowUpgradeModal(true);
+  const showUpgradeModalfunc = (type) => {
+    console.log(type, showUpgradeModal);
+    setshowUpgradeModal(type);
   };
 
   const showError = () => {
@@ -84,7 +86,7 @@ const GeneratePost = () => {
                 style={{ textDecoration: "none", color: "white" }}
                 className="FormLinks"
               >
-                <button style={{ position: "relative" }}>
+                <button style={{ position: "relative", width: 260 }}>
                   Create Your First Post
                   <FaPencilAlt className="Pencil" />
                 </button>
@@ -99,7 +101,13 @@ const GeneratePost = () => {
                     }}
                     className="FormLinks"
                   >
-                    <button style={{ position: "relative", marginTop: 15 }}>
+                    <button
+                      style={{
+                        position: "relative",
+                        marginTop: 15,
+                        width: 260,
+                      }}
+                    >
                       LinkedIn Post Preview
                       <FaMagnifyingGlass className="Pencil" />
                     </button>
@@ -112,9 +120,15 @@ const GeneratePost = () => {
                     }}
                     className="FormLinks"
                   >
-                    <button style={{ position: "relative", marginTop: 15 }}>
+                    <button
+                      style={{
+                        position: "relative",
+                        marginTop: 15,
+                        width: 260,
+                      }}
+                    >
                       Optimize Your Post
-                      <FaMagnifyingGlass className="Pencil" />
+                      <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
                     </button>
                   </Link>
                 </>
@@ -130,8 +144,12 @@ const GeneratePost = () => {
                     className="FormLinks"
                   >
                     <button
-                      style={{ position: "relative", marginTop: 15 }}
-                      onClick={showUpgradeModalfunc}
+                      style={{
+                        position: "relative",
+                        marginTop: 15,
+                        width: 260,
+                      }}
+                      onClick={() => showUpgradeModalfunc(1)}
                     >
                       LinkedIn Post Preview
                       <FaMagnifyingGlass className="Pencil" />
@@ -147,11 +165,15 @@ const GeneratePost = () => {
                     className="FormLinks"
                   >
                     <button
-                      style={{ position: "relative", marginTop: 15 }}
-                      onClick={showUpgradeModalfunc}
+                      style={{
+                        position: "relative",
+                        marginTop: 15,
+                        width: 260,
+                      }}
+                      onClick={() => showUpgradeModalfunc(2)}
                     >
                       Optimize Your Post
-                      <FaMagnifyingGlass className="Pencil" />
+                      <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
                     </button>
                   </ScrollLink>
                 </>
@@ -168,7 +190,7 @@ const GeneratePost = () => {
                 style={{ textDecoration: "none", color: "white" }}
                 className="FormLinks"
               >
-                <button style={{ position: "relative" }}>
+                <button style={{ position: "relative", width: 260 }}>
                   Create Your First Post
                   <FaPencilAlt className="Pencil" />
                 </button>
@@ -181,7 +203,9 @@ const GeneratePost = () => {
                 offset={30}
                 className="FormLinks"
               >
-                <button style={{ position: "relative", marginTop: 15 }}>
+                <button
+                  style={{ position: "relative", marginTop: 15, width: 260 }}
+                >
                   LinkedIn Post Preview
                   <FaMagnifyingGlass className="Pencil" />
                 </button>
@@ -194,9 +218,11 @@ const GeneratePost = () => {
                 offset={30}
                 className="FormLinks"
               >
-                <button style={{ position: "relative", marginTop: 15 }}>
+                <button
+                  style={{ position: "relative", marginTop: 15, width: 260 }}
+                >
                   Optimize Your Post
-                  <FaMagnifyingGlass className="Pencil" />
+                  <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
                 </button>
               </ScrollLink>
             </>
@@ -210,7 +236,7 @@ const GeneratePost = () => {
             style={{ textDecoration: "none", color: "white" }}
             className="FormLinks"
           >
-            <button style={{ position: "relative" }}>
+            <button style={{ position: "relative", width: 260 }}>
               Create Your First Post
               <FaPencilAlt className="Pencil" />
             </button>
@@ -223,7 +249,7 @@ const GeneratePost = () => {
             className="FormLinks"
           >
             <button
-              style={{ position: "relative", marginTop: 15 }}
+              style={{ position: "relative", marginTop: 15, width: 260 }}
               onClick={showModal}
               className="FormLinks"
             >
@@ -239,19 +265,21 @@ const GeneratePost = () => {
             className="FormLinks"
           >
             <button
-              style={{ position: "relative", marginTop: 15 }}
+              style={{ position: "relative", marginTop: 15, width: 260 }}
               onClick={showModal}
               className="FormLinks"
             >
               Optimize Your Post
-              <FaMagnifyingGlass className="Pencil" />
+              <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
             </button>
           </ScrollLink>
         </div>
       )}
 
       {showPostModal && <ModalPopup state={true} onClose={closeModal} />}
-      {showUpgradeModal && <ShowUpgrade onClose={closeUpgradeModalfunc} />}
+      {showUpgradeModal !== 0 && (
+        <ShowUpgrade type={showUpgradeModal} onClose={closeUpgradeModalfunc} />
+      )}
       {showMetadataModal && <MetadataModal onClose={closeMetadataModalfunc} />}
       {optimizePost && <OptimizePostModal onClose={closeOptimizePost} />}
     </>

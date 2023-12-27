@@ -74,10 +74,10 @@ const MetadataModal = ({ onClose }) => {
             <Row className="containerForm ">
               <Col>
                 <div className="before-after-text"></div>
-                <h2>Personalization</h2>
+                <h2>Profile Personalization</h2>
                 <h6>
-                  Help us personalize your experience by answering a few
-                  questions
+                  This is for Muse to better craft more personalized posts for
+                  you
                 </h6>
                 <Form className="FormPage">
                   <Form.Group className="Group">
