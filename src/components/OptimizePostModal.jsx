@@ -107,18 +107,21 @@ const OptimizePostModal = ({ onClose }) => {
                           : formData.props
                       }
                       onChange={handleChange}
+                      style={{
+                        height: 200,
+                      }}
                       required
                     />
                   </Form.Group>
                 </Form>
-
+                <br />
                 <Button
                   variant="primary"
                   className="submit w-100"
                   onClick={handleSubmitOptimize}
                 >
                   {loading ? (
-                    <ClipLoader color={"#123abc"} loading={loading} size={30} />
+                    <ClipLoader color={"#123abc"} loading={loading} size={25} />
                   ) : formData.props === "" ? (
                     "Optimize"
                   ) : (
