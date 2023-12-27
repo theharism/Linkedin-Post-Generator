@@ -356,6 +356,64 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
                   <span
                     style={{
                       color: "red",
+                      top: 380,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  Share post directly to LinkedIn{" "}
+                  <span
+                    style={{
+                      color: "red",
+                      top: 420,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  Post optimization{" "}
+                  <span
+                    style={{
+                      color: "red",
                       bottom: 315,
                       position: "absolute",
                       fontSize: 12,
@@ -521,6 +579,64 @@ export const YearlyPro = ({ handlePayment, cancel, email }) => {
                   }}
                 >
                   LinkedIn Post Preview{" "}
+                  <span
+                    style={{
+                      color: "red",
+                      top: 330,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  Share post directly to LinkedIn{" "}
+                  <span
+                    style={{
+                      color: "red",
+                      top: 370,
+                      position: "absolute",
+                      fontSize: 12,
+                    }}
+                  >
+                    New
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className="CheckSection"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <span>
+                  <FaCheck className="check" size={20} />
+                </span>
+                <p
+                  style={{
+                    margin: "0",
+                    color: "#6B7280",
+                    fontWeight: "bold",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  Post optimization{" "}
                   <span
                     style={{
                       color: "red",
