@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { toast } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,14 +34,13 @@ const MetadataModal = ({ onClose }) => {
   };
 
   const handleSubmit = () => {
+    dispatch(setMetadata({ metadata: formData }));
+
     if (formData.goals === "" || formData.targetAudience === "") {
-      toast.error("Please fill required fields !", {
-        position: "top-right",
-        autoClose: 1500,
-      });
+      onClose();
+
       return;
     }
-    dispatch(setMetadata({ metadata: formData }));
 
     // Replace this with the actual data you want to update
     const dataToUpdate = {
@@ -92,7 +90,6 @@ const MetadataModal = ({ onClose }) => {
                       className="FormInput"
                       value={formData.goals}
                       onChange={handleChange}
-                      required
                     />
                   </Form.Group>
 
@@ -108,7 +105,6 @@ const MetadataModal = ({ onClose }) => {
                       className="FormInput"
                       value={formData.targetAudience}
                       onChange={handleChange}
-                      required
                     />
                   </Form.Group>
 
@@ -134,6 +130,14 @@ const MetadataModal = ({ onClose }) => {
                   onClick={handleSubmit}
                 >
                   Submit
+                </Button>
+
+                <Button
+                  variant="primary"
+                  className="submit w-100"
+                  onClick={handleSubmit}
+                >
+                  Not interested in making my posts more personalized
                 </Button>
               </Col>
             </Row>

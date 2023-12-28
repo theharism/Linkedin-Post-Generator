@@ -148,7 +148,7 @@ const ModalPopup = ({ state, onClose }) => {
 
             dispatch(
               setUser({
-                user: { ...user1, authType: "google" },
+                user: { ...user1, metadataAsked: false, authType: "google" },
               })
             );
 
@@ -177,7 +177,12 @@ const ModalPopup = ({ state, onClose }) => {
         } else {
           dispatch(
             setUser({
-              user: { ...temp, authType: "google", referalCode: referalCode },
+              user: {
+                ...temp,
+                metadataAsked: false,
+                authType: "google",
+                referalCode: referalCode,
+              },
               write: true,
             })
           );
@@ -270,6 +275,7 @@ const ModalPopup = ({ state, onClose }) => {
                 email: formData.email,
                 authType: "emailPassword",
                 referalCode,
+                metadataAsked: false,
               },
               write: true,
             })
@@ -406,7 +412,11 @@ const ModalPopup = ({ state, onClose }) => {
 
             dispatch(
               setUser({
-                user: { ...user, authType: "emailPassword" },
+                user: {
+                  ...user,
+                  metadataAsked: false,
+                  authType: "emailPassword",
+                },
                 write: true,
               })
             );

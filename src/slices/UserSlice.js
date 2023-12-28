@@ -24,9 +24,7 @@ export const UserSlice = createSlice({
       state.goals = user.goals;
       state.personalizePosts = user.personalizePosts;
       state.targetAudience = user.targetAudience;
-      if (user.targetAudience) {
-        state.metadataAsked = true;
-      } else state.metadataAsked = false;
+      state.metadataAsked = user.metadataAsked;
       const write = action.payload.write;
       if (write) {
         localStorage.setItem("user", JSON.stringify(user));
@@ -41,6 +39,7 @@ export const UserSlice = createSlice({
       state.goals = "";
       state.personalizePosts = "";
       state.targetAudience = "";
+      state.metadataAsked = false;
       localStorage.removeItem("user");
     },
     setMetadata: (state, action) => {

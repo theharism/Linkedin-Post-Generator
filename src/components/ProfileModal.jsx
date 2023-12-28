@@ -105,7 +105,11 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           // Handle a successful response
           dispatch(
             setUser({
-              user: { ...response.data.user, authType: "emailPassword" },
+              user: {
+                ...response.data.user,
+                metadataAsked: false,
+                authType: "emailPassword",
+              },
               write: true,
             })
           );
