@@ -182,9 +182,9 @@ function Main({ onPress, HandleGPTResponse }) {
             Linkedin Post Generator
           </h1>
           <p style={{ textAlign: "left" }}>
-            Our database of top-performing posts allow us to Muse <br />
-            the most captivating, engaging, and converting Linkedin content
-            Instantly
+            Our database of top-performing LinkedIn posts allows us to genearte{" "}
+            <br />
+            captivating, engaging and converting Linkedin content, in seconds
           </p>
         </div>
 
