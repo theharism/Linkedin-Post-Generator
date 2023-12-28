@@ -79,9 +79,7 @@ const MetadataModal = ({ onClose }) => {
                 </h6>
                 <Form className="FormPage">
                   <Form.Group className="Group">
-                    <Form.Label className="LeftAlignedLabel">
-                      Goals<span style={{ color: "red" }}>*</span>
-                    </Form.Label>
+                    <Form.Label className="LeftAlignedLabel">Goals</Form.Label>
                     <Form.Control
                       as="textarea"
                       type="text"
@@ -95,7 +93,7 @@ const MetadataModal = ({ onClose }) => {
 
                   <Form.Group className="Group">
                     <Form.Label className="LeftAlignedLabel">
-                      Target Audience <span style={{ color: "red" }}>*</span>
+                      Target Audience
                     </Form.Label>
                     <Form.Control
                       as="textarea"
