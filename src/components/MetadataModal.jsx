@@ -129,7 +129,9 @@ const MetadataModal = ({ onClose }) => {
                 >
                   Submit
                 </Button>
-
+                <div style={{ fontSize: 16, color: "black", margin: 10 }}>
+                  OR
+                </div>
                 <Button
                   variant="primary"
                   className="submit w-100"
