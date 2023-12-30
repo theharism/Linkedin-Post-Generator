@@ -10,6 +10,7 @@ import app from "../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
+import PeopleIcon from "@mui/icons-material/People";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -335,6 +336,16 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
               </button>
             </>
           )}
+        </MenuItem>
+
+        <MenuItem
+          sx={{ fontFamily: "inherit" }}
+          onClick={() => navigate("referral")}
+        >
+          <ListItemIcon>
+            <PeopleIcon fontSize="small" />
+          </ListItemIcon>
+          Referral Program
         </MenuItem>
 
         {user.authType !== "google" && (

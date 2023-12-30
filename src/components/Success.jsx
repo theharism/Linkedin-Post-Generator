@@ -24,7 +24,6 @@ const Success = () => {
         .get(`${process.env.REACT_APP_BASE_URL}/api/success`, {
           params: {
             session_id: sessionId,
-            email,
           },
         })
         .then(async (response) => {

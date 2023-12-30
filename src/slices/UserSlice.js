@@ -7,7 +7,6 @@ export const UserSlice = createSlice({
     email: "",
     username: "",
     authType: "",
-    referalCode: "",
     goals: "",
     personalizePosts: "",
     targetAudience: "",
@@ -20,7 +19,6 @@ export const UserSlice = createSlice({
       state.email = user.email;
       state.username = user.username;
       state.authType = user.authType;
-      state.referalCode = user.referalCode;
       state.goals = user.goals;
       state.personalizePosts = user.personalizePosts;
       state.targetAudience = user.targetAudience;
@@ -35,7 +33,6 @@ export const UserSlice = createSlice({
       state.email = "";
       state.username = "";
       state.authType = "";
-      state.referalCode = "";
       state.goals = "";
       state.personalizePosts = "";
       state.targetAudience = "";

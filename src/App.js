@@ -25,6 +25,7 @@ import UseCases from "./pages/UseCases";
 import PostEditor from "./components/PostEditor";
 import Testimonials from "./pages/Testimonials";
 import LinkedInVerification from "./components/LinkedInVerification";
+import Referral from "./components/Referral";
 
 function App() {
   const auth = getAuth();
@@ -154,6 +155,16 @@ function App() {
                   <div>
                     <SubNavbar />
                     <Success />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/referral"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <Referral />
                   </div>
                 }
               />

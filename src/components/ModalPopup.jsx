@@ -106,7 +106,7 @@ const ModalPopup = ({ state, onClose }) => {
           username: user.uid,
         };
 
-        let referalCode = null;
+        // let referralCode = null;
 
         try {
           const response = await axios.post(
@@ -114,7 +114,7 @@ const ModalPopup = ({ state, onClose }) => {
             temp
           );
 
-          referalCode = response.data.user.referalCode;
+          // referralCode = response.data.user.referralCode;
 
           await axios.post(`${process.env.REACT_APP_BASE_URL}/api/useremail`, {
             fullName: user.displayName,
@@ -181,7 +181,7 @@ const ModalPopup = ({ state, onClose }) => {
                 ...temp,
                 metadataAsked: false,
                 authType: "google",
-                referalCode: referalCode,
+                // referralCode: referralCode,
               },
               write: true,
             })
@@ -215,7 +215,7 @@ const ModalPopup = ({ state, onClose }) => {
         return;
       }
 
-      let referalCode = null;
+      // let referralCode = null;
 
       try {
         const response = await axios.post(
@@ -228,7 +228,7 @@ const ModalPopup = ({ state, onClose }) => {
           }
         );
 
-        referalCode = response.data.user.referalCode;
+        // referralCode = response.data.user.referralCode;
       } catch (error) {
         if (error.response) {
           const errorMessage = error.response.data.error;
@@ -274,7 +274,7 @@ const ModalPopup = ({ state, onClose }) => {
                 username: formData.username,
                 email: formData.email,
                 authType: "emailPassword",
-                referalCode,
+                // referralCode,
                 metadataAsked: false,
               },
               write: true,

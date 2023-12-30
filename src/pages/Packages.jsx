@@ -8,6 +8,8 @@ import {
   YearlyPro,
   YearlyStarter,
 } from "../components/Package";
+import { createCheckoutSession } from "../constants/helper";
+import Swal from "sweetalert2";
 
 export function Modal({ children, closeModal }) {
   return (
@@ -25,8 +27,8 @@ export function Modal({ children, closeModal }) {
 const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [showPostModal, setShowPostModal] = useState(false);
+  const [referralCode, setReferralCode] = useState("");
 
   const authState = useSelector((state) => state.Auth.authState);
   const email = useSelector((state) => state.User.email);
@@ -35,11 +37,37 @@ const Packages = () => {
     setShowPostModal(false);
   };
 
-  const handlePayment = (url) => {
+  const handlePayment = async (price_id) => {
     if (!authState) {
       setShowPostModal(true);
     } else {
-      window.open(url, "_blank");
+      Swal.fire({
+        title: "Do you have a Referral Code?",
+        text: "Avail 20% discount using referral code",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          let inputValue;
+          const { value: temp } = await Swal.fire({
+            title: "Referral Code",
+            input: "text",
+            inputLabel: "Avail 20% discount using referral code",
+            inputValue,
+            showCancelButton: true,
+            inputValidator: (value) => {
+              if (!value) {
+                return "You need to write something!";
+              }
+            },
+          });
+          setReferralCode(temp);
+        }
+        const url = await createCheckoutSession(email, referralCode, price_id);
+        console.log(url);
+        window.open(url, "_blank");
+      });
     }
   };
 

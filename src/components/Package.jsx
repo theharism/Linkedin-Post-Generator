@@ -32,11 +32,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
         ) : (
           <button
             className="btn btn-primary plan"
-            onClick={() =>
-              handlePayment(
-                `https://buy.stripe.com/3cs6pV4glae4bFS004?prefilled_email=${email}`
-              )
-            }
+            onClick={() => handlePayment("price_1OTB74JOtdUfVp0DJTPrOePx")}
           >
             Choose Plan
           </button>

@@ -58,8 +58,6 @@ const LinkedinAuthentication = async (code, email) => {
 };
 
 const LinkedInPost = async (state, text, email) => {
-  console.log("Linkedin post");
-
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/linkedin-post`,
@@ -98,10 +96,37 @@ const LinkedInPost = async (state, text, email) => {
   }
 };
 
+const createCheckoutSession = async (email, referralCode, price_id) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/create-checkout-session`,
+      {
+        email,
+        referralCode,
+        price_id,
+      }
+    );
+    console.log(response.data);
+    if (response.data) {
+      return response.data.url;
+    }
+  } catch (error) {
+    console.log("Error create checkout session", error);
+
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "error",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
+    });
+  }
+};
+
 export {
   isEmail,
   checkSubscriptionType,
   generateLocalState,
   LinkedinAuthentication,
   LinkedInPost,
+  createCheckoutSession,
 };
