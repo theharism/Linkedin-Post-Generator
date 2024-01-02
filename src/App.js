@@ -180,8 +180,6 @@ function App() {
                 }
               />
 
-
-
               {type.startsWith("Pro") && (
                 <>
                   <Route

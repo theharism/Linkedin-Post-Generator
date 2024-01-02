@@ -10,7 +10,6 @@ import app from "../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
-import PeopleIcon from "@mui/icons-material/People";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -25,7 +24,7 @@ import "../style/ProfileModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
-import { PointsSlice, resetPoints } from "../slices/PointsSlice";
+import { resetPoints } from "../slices/PointsSlice";
 import Swal from "sweetalert2";
 import { checkSubscriptionType } from "../constants/helper";
 import MyPlans from "./MyPlans";
@@ -338,7 +337,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           )}
         </MenuItem>
 
-        <MenuItem
+        {/* <MenuItem
           sx={{ fontFamily: "inherit" }}
           onClick={() => navigate("referral")}
         >
@@ -346,7 +345,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
             <PeopleIcon fontSize="small" />
           </ListItemIcon>
           Referral Program
-        </MenuItem>
+        </MenuItem> */}
 
         {user.authType !== "google" && (
           <>

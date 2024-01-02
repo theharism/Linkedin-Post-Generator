@@ -11,6 +11,7 @@ const Referral = () => {
   const [loading, setLoading] = useState(false);
   const [referralCode, setReferralCode] = useState("");
   const [verification, setVerification] = useState(false);
+  const [balance, setBalance] = useState(0);
 
   async function getReferral() {
     setLoading(true);
@@ -21,6 +22,7 @@ const Referral = () => {
 
       setReferralCode(response.data.referralCode);
       setVerification(response.data.verification);
+      setBalance(response.data.balance);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -53,6 +55,27 @@ const Referral = () => {
     window.location.href = `${process.env.REACT_APP_BASE_URL}/api/referral/verification-link/create/${username}`;
   };
 
+  const Data = ({ heading, value }) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <h5>{heading}:</h5>
+        &nbsp;&nbsp;
+        <p style={{ color: "blue" }}>{value}</p>
+      </div>
+    );
+  };
+
+  const formattedBalance =
+    balance > 0 ? `$${(balance / 100).toFixed(2)}` : "$0";
+
+  <span>{formattedBalance}</span>;
+
   return (
     <Container className="PostGenContaier">
       <div className="container">
@@ -68,21 +91,29 @@ const Referral = () => {
         <br />
         {referralCode ? (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <h4>Referral Code:</h4>
-              &nbsp;&nbsp;
-              <p style={{ color: "blue" }}>
-                {verification ? referralCode : "***************"}
-              </p>
-            </div>
+            <Data
+              heading={"Referral Code"}
+              value={verification ? referralCode : "***************"}
+            />
+            <Data heading={"Available Balance"} value={formattedBalance} />
 
-            {verification ? null : (
+            {verification ? (
+              <>
+                <br />
+                <br />
+                <p style={{ fontSize: 14 }}>
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    Disclaimer
+                  </span>
+                  : The amount is transfered automatically to your connected
+                  bank account/card on daily basis. For more information, please
+                  email{" "}
+                  <a className="email" href="mailto:Josh@muse-tool.com">
+                    Josh@muse-tool.com
+                  </a>{" "}
+                </p>
+              </>
+            ) : (
               <>
                 <ReportIcon sx={{ color: "#f5cc00" }} fontSize="large" />
 
