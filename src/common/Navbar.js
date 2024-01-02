@@ -119,6 +119,9 @@ const NavbarComponent = () => {
           >
             Testimonials
           </ScrollLink>
+          <Link to="/affiliate" className="Link">
+            Affiliate Program
+          </Link>
         </div>
         <div className="right-nav-items">
           {authState ? (

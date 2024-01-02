@@ -26,6 +26,7 @@ import PostEditor from "./components/PostEditor";
 import Testimonials from "./pages/Testimonials";
 import LinkedInVerification from "./components/LinkedInVerification";
 import Referral from "./components/Referral";
+import AffiliateProgram from "./pages/AffiliateProgram";
 
 function App() {
   const auth = getAuth();
@@ -126,6 +127,16 @@ function App() {
               </div>
             }
           />
+          <Route
+            path="/affiliate"
+            element={
+              <div>
+                <SubNavbar />
+                <AffiliateProgram />
+                <Footer />
+              </div>
+            }
+          />
           {localAuth && (
             <>
               <Route
@@ -168,6 +179,8 @@ function App() {
                   </div>
                 }
               />
+
+
 
               {type.startsWith("Pro") && (
                 <>
