@@ -96,12 +96,18 @@ const LinkedInPost = async (state, text, email) => {
   }
 };
 
-const createCheckoutSession = async (email, referralCode, price_id) => {
+const createCheckoutSession = async (
+  email,
+  username,
+  referralCode,
+  price_id
+) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/create-checkout-session`,
       {
         email,
+        username,
         referralCode,
         price_id,
       }
