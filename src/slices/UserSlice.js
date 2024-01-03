@@ -37,7 +37,6 @@ export const UserSlice = createSlice({
       state.personalizePosts = "";
       state.targetAudience = "";
       state.metadataAsked = false;
-      localStorage.removeItem("user");
     },
     setMetadata: (state, action) => {
       const metadata = action.payload.metadata;

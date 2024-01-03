@@ -31,7 +31,7 @@ const Packages = () => {
   const [referralCode, setReferralCode] = useState("");
 
   const authState = useSelector((state) => state.Auth.authState);
-  const email = useSelector((state) => state.User.email);
+  const { email, username } = useSelector((state) => state.User);
 
   const hideModal = () => {
     setShowPostModal(false);
@@ -64,7 +64,12 @@ const Packages = () => {
           });
           setReferralCode(temp);
         }
-        const url = await createCheckoutSession(email, referralCode, price_id);
+        const url = await createCheckoutSession(
+          email,
+          username,
+          referralCode,
+          price_id
+        );
         console.log(url);
         window.open(url, "_blank");
       });

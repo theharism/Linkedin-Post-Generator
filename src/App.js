@@ -48,6 +48,8 @@ function App() {
       setAuth(false);
 
       localStorage.removeItem("user");
+      localStorage.removeItem("state");
+      localStorage.removeItem("response");
     }
   });
 
