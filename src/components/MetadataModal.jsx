@@ -56,7 +56,6 @@ const MetadataModal = ({ onClose }) => {
         dataToUpdate
       )
       .then((response) => {
-        console.log("Response:", response.data);
         onClose();
       })
       .catch((error) => {

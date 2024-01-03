@@ -36,7 +36,6 @@ const GeneratePost = () => {
   };
 
   const showUpgradeModalfunc = (type) => {
-    console.log(type, showUpgradeModal);
     setshowUpgradeModal(type);
   };
 

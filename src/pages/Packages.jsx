@@ -70,18 +70,9 @@ const Packages = () => {
           referralCode,
           price_id
         );
-        console.log(url);
         window.open(url, "_blank");
       });
     }
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   const handlePlanChange = (planType) => {

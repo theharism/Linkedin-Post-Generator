@@ -35,8 +35,6 @@ const generateLocalState = () => {
 };
 
 const LinkedinAuthentication = async (code, email) => {
-  console.log("Linkedin auth");
-
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/linkedin-auth`,
@@ -69,7 +67,6 @@ const LinkedInPost = async (state, text, email) => {
     );
 
     if (response.data.message) {
-      console.log(response.data.message);
       Swal.fire({
         title: "Post Created on Linkedin Sucessfully",
         icon: "success",
@@ -78,8 +75,6 @@ const LinkedInPost = async (state, text, email) => {
       });
       return true;
     } else if (response.data.url) {
-      console.log("url found");
-
       window.location.href = response.data.url;
 
       return false;
@@ -112,7 +107,6 @@ const createCheckoutSession = async (
         price_id,
       }
     );
-    console.log(response.data);
     if (response.data) {
       return response.data.url;
     }

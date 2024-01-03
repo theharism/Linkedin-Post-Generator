@@ -32,7 +32,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
         ) : (
           <button
             className="btn btn-primary plan"
-            onClick={() => handlePayment("price_1OTB74JOtdUfVp0DJTPrOePx")}
+            onClick={() => handlePayment("price_1OLunGJOtdUfVp0D70oWGCYy")}
           >
             Choose Plan
           </button>
@@ -160,11 +160,7 @@ export const YearlyStarter = ({ handlePayment, cancel, email }) => {
 
         {!cancel ? (
           <button
-            onClick={() =>
-              handlePayment(
-                `https://buy.stripe.com/bIYg0v8wB85Wh0c6ot?prefilled_email=${email}`
-              )
-            }
+            onClick={() => handlePayment("price_1OLutBJOtdUfVp0DQBdaD9Sc")}
             className="btn btn-primary plan"
           >
             Choose Plan
@@ -297,11 +293,7 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
 
         {!cancel ? (
           <button
-            onClick={() =>
-              handlePayment(
-                `https://buy.stripe.com/8wM7tZaEJ2LC25ifZ4?prefilled_email=${email}`
-              )
-            }
+            onClick={() => handlePayment("price_1OLuufJOtdUfVp0DIveFknLZ")}
             className="btn btn-primary plan"
           >
             Choose Plan
@@ -524,11 +516,7 @@ export const YearlyPro = ({ handlePayment, cancel, email }) => {
         {!cancel ? (
           <button
             className="btn btn-primary plan"
-            onClick={() =>
-              handlePayment(
-                `https://buy.stripe.com/cN24hN7sx3PGfW8cMT?prefilled_email=${email}`
-              )
-            }
+            onClick={() => handlePayment("price_1OLuv2JOtdUfVp0DepUXJohp")}
           >
             Choose Plan
           </button>

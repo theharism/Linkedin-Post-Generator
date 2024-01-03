@@ -200,8 +200,6 @@ function GPTResponse({ message, query, ifEdited }) {
     localStorage.setItem("state", state);
     localStorage.setItem("response", textToSend);
 
-    console.log("HaNDLE share press");
-
     setLoading(true);
 
     const status = await LinkedInPost(state, textToSend, email);
