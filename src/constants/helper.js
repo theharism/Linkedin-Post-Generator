@@ -98,6 +98,16 @@ const createCheckoutSession = async (
   price_id
 ) => {
   try {
+    if (referralCode === username + "_PARTNER") {
+      Swal.fire({
+        title: "You cannot use your own referral code",
+        icon: "error",
+        showConfirmButton: false, // Hide the "OK" button in the success popup
+        timer: 1500,
+      });
+      return;
+    }
+
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/create-checkout-session`,
       {
@@ -108,13 +118,13 @@ const createCheckoutSession = async (
       }
     );
     if (response.data) {
-      return response.data.url;
+      window.open(response.data.url, "_blank");
     }
   } catch (error) {
     console.log("Error create checkout session", error);
 
     Swal.fire({
-      title: "Internal Server Error",
+      title: error.response.data.error,
       icon: "error",
       showConfirmButton: false, // Hide the "OK" button in the success popup
       timer: 1500,

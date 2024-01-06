@@ -28,7 +28,7 @@ const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
-  const [referralCode, setReferralCode] = useState("");
+  // const [referralCode, setReferralCode] = useState("");
 
   const authState = useSelector((state) => state.Auth.authState);
   const { email, username } = useSelector((state) => state.User);
@@ -48,8 +48,9 @@ const Packages = () => {
         confirmButtonText: "Yes",
         cancelButtonText: "No",
       }).then(async (result) => {
+        let referralCode = "";
         if (result.isConfirmed) {
-          let inputValue;
+          let inputValue = "";
           const { value: temp } = await Swal.fire({
             title: "Referral Code",
             input: "text",
@@ -62,15 +63,10 @@ const Packages = () => {
               }
             },
           });
-          setReferralCode(temp);
+          referralCode = temp;
         }
-        const url = await createCheckoutSession(
-          email,
-          username,
-          referralCode,
-          price_id
-        );
-        window.open(url, "_blank");
+        console.log(referralCode);
+        await createCheckoutSession(email, username, referralCode, price_id);
       });
     }
   };
