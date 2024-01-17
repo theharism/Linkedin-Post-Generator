@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import LockResetRoundedIcon from "@mui/icons-material/LockResetRounded";
 import Logout from "@mui/icons-material/Logout";
 import app from "../config/firebaseConfig";
-import { useNavigate } from "react-router-dom";
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
@@ -26,14 +25,13 @@ import { resetUser, setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
 import { resetPoints } from "../slices/PointsSlice";
 import Swal from "sweetalert2";
-import { checkSubscriptionType } from "../constants/helper";
+import { checkSubscriptionType, signout } from "../constants/helper";
 import MyPlans from "./MyPlans";
 import { resetSubscription } from "../slices/SubscriptionSlice";
 import MetadataModal from "./MetadataModal";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, setState] = useState("");
   const [showMyPlanModal, setShowMyPlanModal] = useState(false);
@@ -45,29 +43,8 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
 
   const subscriptionType = checkSubscriptionType(subscription);
 
-  function signout() {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigate("/");
-        resetUser();
-        resetPoints();
-        resetSubscription();
-
-        Swal.fire({
-          title: "Signed Out!",
-          icon: "success",
-          showConfirmButton: false, // Hide the "OK" button in the success popup
-          timer: 1000,
-        });
-      })
-      .catch((error) => {
-        // An error happened.
-        toast.error("Error Signing out", {
-          position: "top-right",
-          autoClose: 1500,
-        });
-      });
+  function signOut() {
+    signout(auth);
   }
 
   const Modal = () => {
@@ -369,7 +346,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           </ListItemIcon>
           Personalization
         </MenuItem>
-        <MenuItem sx={{ fontFamily: "inherit" }} onClick={signout}>
+        <MenuItem sx={{ fontFamily: "inherit" }} onClick={signOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

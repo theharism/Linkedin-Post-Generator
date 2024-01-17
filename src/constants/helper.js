@@ -1,5 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 function isEmail(input) {
   // Define a regular expression pattern for an email
@@ -132,10 +134,30 @@ const createCheckoutSession = async (
   }
 };
 
+function signout(auth) {
+  signOut(auth)
+    .then(() => {
+      Swal.fire({
+        title: "Signed Out!",
+        icon: "success",
+        showConfirmButton: false, // Hide the "OK" button in the success popup
+        timer: 1000,
+      });
+    })
+    .catch((error) => {
+      // An error happened.
+      toast.error("Error Signing out", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+    });
+}
+
 export {
   isEmail,
   checkSubscriptionType,
   generateLocalState,
+  signout,
   LinkedinAuthentication,
   LinkedInPost,
   createCheckoutSession,

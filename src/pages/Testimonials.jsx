@@ -15,7 +15,6 @@ const Testimonials = () => {
         setData(response.data);
       } catch (error) {
         console.error("Error fetching testimonials:", error);
-        throw error;
       }
     };
 

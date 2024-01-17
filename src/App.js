@@ -27,6 +27,7 @@ import Testimonials from "./pages/Testimonials";
 import LinkedInVerification from "./components/LinkedInVerification";
 import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
+import { signout } from "./constants/helper";
 
 function App() {
   const auth = getAuth();
@@ -87,7 +88,10 @@ function App() {
           }
         } catch (error) {
           console.error("Error:", error);
-          // Handle errors
+
+          if (error.response.status === 401) {
+            signout(auth);
+          }
         }
       }
 
