@@ -13,7 +13,7 @@ header {
 }
 
 nav .Link {
-  margin: 0 1.4rem;
+  margin: 0 1rem;
   text-decoration: none;
   color: black;
 }
@@ -25,7 +25,7 @@ nav .Link {
   width: 100%;
 }
 nav .Link:hover {
-  margin: 0 1.4rem;
+  margin: 0 1rem;
   color: rgba(0, 0, 0, 0.527);
   text-decoration: none;
 }
@@ -79,15 +79,21 @@ header .nav-btn {
   margin-left: auto;
 }
 
-.account-icon-container {
+/* .account-icon-container {
   display: flex;
-  align-items: center; /* Vertically center items */
+  align-items: center;
   margin-left: auto; 
-}
+} */
 
 .account-icon {
   cursor: pointer;
+  background-color: #2394f7;
+  color: white;
+  border:none;
+  border-radius: 5px;
+  padding: 5px;
 }
+
 
 @media only screen and (max-width: 1200px) {
   .Menu svg {

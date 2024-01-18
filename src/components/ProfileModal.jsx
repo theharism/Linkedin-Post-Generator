@@ -7,7 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import LockResetRoundedIcon from "@mui/icons-material/LockResetRounded";
 import Logout from "@mui/icons-material/Logout";
 import app from "../config/firebaseConfig";
-import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { Link } from "react-router-dom";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import Form from "react-bootstrap/Form";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import Button from "react-bootstrap/Button";
@@ -21,13 +22,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/ProfileModal.css";
 import { useDispatch, useSelector } from "react-redux";
-import { resetUser, setUser } from "../slices/UserSlice";
+import { setUser } from "../slices/UserSlice";
 import { Divider } from "@mui/material";
-import { resetPoints } from "../slices/PointsSlice";
-import Swal from "sweetalert2";
 import { checkSubscriptionType, signout } from "../constants/helper";
 import MyPlans from "./MyPlans";
-import { resetSubscription } from "../slices/SubscriptionSlice";
 import MetadataModal from "./MetadataModal";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
@@ -274,6 +272,31 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
             </IconButton>
           )}
         </div>
+        <Divider />
+        <p style={{ fontSize: 12, marginLeft: 13 }}>Select Account</p>
+        <MenuItem
+          sx={{
+            fontFamily: "inherit",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            color: "#150261",
+            fontSize: 18,
+          }}
+          className="account-button"
+        >
+          {user.username}
+        </MenuItem>
+
+        <Divider />
+        <MenuItem
+          sx={{
+            fontFamily: "inherit",
+          }}
+        >
+          <Link to="/teams" className="teams-link">
+            Manage Teams
+          </Link>
+        </MenuItem>
         <Divider />
 
         <MenuItem sx={{ fontFamily: "inherit" }}>

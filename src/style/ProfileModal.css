@@ -24,3 +24,19 @@
   padding: 3px 10px;
 }
 
+.account-button{
+  border: none;
+  background-color: #23afff;
+  color: white;
+}
+
+.account-button:hover{
+  border: none;
+  background-color: #2393f6;
+}
+
+
+.teams-link{
+  text-decoration: none;
+  color: black;
+}

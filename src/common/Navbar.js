@@ -3,8 +3,8 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import "../style/Navbar.css";
 import logoImage from "../images/FinalLogo.png";
 import { Link as ScrollLink } from "react-scroll";
-import { Link, useNavigate } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ModalPopup from "../components/ModalPopup";
 import ProfileModal from "../components/ProfileModal";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ const NavbarComponent = () => {
 
   const authState = useSelector((state) => state.Auth.authState);
   const points = useSelector((state) => state.Points.points);
+  const { username } = useSelector((state) => state.User);
 
   const hideModal = () => {
     setShowPostModal(false);
@@ -129,11 +130,20 @@ const NavbarComponent = () => {
               <Link to="/myposts" className="Link">
                 My Posts
               </Link>
-              <AccountCircleIcon
+              <button
                 onClick={handleClick}
                 className="account-icon"
                 fontSize="medium"
-              />
+              >
+                {username}
+                <ArrowDropDownIcon />
+              </button>
+
+              {/* <AccountCircleIcon
+                onClick={handleClick}
+                className="account-icon"
+                fontSize="medium"
+              /> */}
             </>
           ) : (
             <>

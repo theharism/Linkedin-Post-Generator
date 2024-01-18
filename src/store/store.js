@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import UserSlice from "../slices/UserSlice";
 import SubscriptionSlice from "../slices/SubscriptionSlice";
 import PointsSlice from "../slices/PointsSlice";
+import TeamsSlice from "../slices/TeamsSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     User: UserSlice,
     Subscription: SubscriptionSlice,
     Points: PointsSlice,
+    Teams: TeamsSlice,
   },
 });

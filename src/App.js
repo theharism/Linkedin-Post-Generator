@@ -28,6 +28,7 @@ import LinkedInVerification from "./components/LinkedInVerification";
 import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
 import { signout } from "./constants/helper";
+import Team from "./components/Team";
 
 function App() {
   const auth = getAuth();
@@ -182,6 +183,16 @@ function App() {
                   <div>
                     <SubNavbar />
                     <Referral />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/teams"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <Team />
                   </div>
                 }
               />
