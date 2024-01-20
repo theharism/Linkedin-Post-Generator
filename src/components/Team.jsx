@@ -1,9 +1,10 @@
 import "../style/Team.css";
-import GroupsIcon from "@mui/icons-material/Groups";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
+import GroupsIcon from "@mui/icons-material/Groups";
 import Form from "react-bootstrap/Form";
 import FormField from "./FormField";
 import { Slider } from "@mui/material";
@@ -12,15 +13,14 @@ import { createTeam, getTeams } from "../slices/TeamsSlice";
 
 const Team = () => {
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
-
-  const { username } = useSelector((state) => state.User);
+  const navigate = useNavigate();
+  const { email } = useSelector((state) => state.User);
   const teams = useSelector((state) => state.Teams);
-  console.log(teams);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeams({ username }));
-  }, [dispatch, username]);
+    dispatch(getTeams({ email }));
+  }, [dispatch, email]);
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -46,7 +46,7 @@ const Team = () => {
         createTeam({
           name: formData.displayName,
           teamSize: formData.noofMembers,
-          username,
+          email,
         })
       );
       onClose();
@@ -112,34 +112,48 @@ const Team = () => {
     </Link>
   );
 
-  const DisplayTeam = ({ adminTeam }) => (
-    <div key={adminTeam.id} className="team-box">
-      <p className="team-name">{adminTeam.name}</p>
-      <Button className="dashboard-button">Dashboard</Button>
+  const DisplayTeam = ({ Team, isAdmin }) => (
+    <div className="team-box">
+      <p className="team-name">{Team.name}</p>
+      {isAdmin ? (
+        <Button
+          onClick={() => handleDashboardClick(Team._id)}
+          className="dashboard-button"
+        >
+          Dashboard
+        </Button>
+      ) : (
+        <Button className="dashboard-button">Leave Team</Button>
+      )}
     </div>
   );
+
+  const handleDashboardClick = (id) => {
+    console.log(id);
+    navigate(`/teams/${id}`);
+  };
+  const filteredTeams = teams.filter((team) => team.isAdmin);
 
   return (
     <div className="teams-container">
       <div>
         <div className="my-teams">
           <h3>My Teams</h3>
-          {teams.length > 0 && <CreateNewTeamButton />}
+          {filteredTeams.length > 0 && <CreateNewTeamButton />}
         </div>
 
         <hr />
 
         <div className="display-teams">
-          {teams.length > 0 ? (
+          {filteredTeams.length > 0 ? (
             <>
-              {teams
-                .filter((team) => team.isAdmin)
-                .map((adminTeam) => (
-                  <DisplayTeam
-                    adminTeam={adminTeam.team}
-                    key={adminTeam.team._id}
-                  />
-                ))}
+              {filteredTeams.map((Team) => (
+                <DisplayTeam
+                  Team={Team.team}
+                  key={Team.team._id}
+                  isAdmin={true}
+                />
+              ))}
             </>
           ) : (
             <CreateNewTeamButton />
@@ -155,28 +169,20 @@ const Team = () => {
         <hr />
 
         <div className="display-teams">
-          {teams.length < 0 ? <></> : <h5>You have n't joined any team yet</h5>}
+          {teams.length > 0 ? (
+            <>
+              {teams
+                .filter((team) => !team.isAdmin)
+                .map((Team) => (
+                  <DisplayTeam Team={Team.team} key={Team.team._id} />
+                ))}
+            </>
+          ) : (
+            <h5>You have n't joined any team yet</h5>
+          )}
         </div>
       </div>
 
-      {/* {teams.length > 0 ? (
-        <div> </div>
-      ) : (
-        <div className="empty-teams">
-          <Link
-            style={{ textDecoration: "none", color: "white" }}
-            className="FormLinks"
-          >
-            <button
-              style={{ position: "relative", width: 260 }}
-              onClick={() => setShowCreateTeamModal(true)}
-            >
-              Create a New Team
-              <GroupsIcon className="groupsIcon" sx={{ fontSize: 40 }} />
-            </button>
-          </Link>
-        </div>
-      )} */}
       {showCreateTeamModal && createNewTeamModal()}
     </div>
   );

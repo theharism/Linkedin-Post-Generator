@@ -23,7 +23,7 @@ import { setSubscription } from "../slices/SubscriptionSlice";
 import { setPoints } from "../slices/PointsSlice";
 import Swal from "sweetalert2";
 
-const ModalPopup = ({ state, onClose }) => {
+const ModalPopup = ({ state, onClose, overlay }) => {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const ModalPopup = ({ state, onClose }) => {
   };
 
   const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
+    if (e.target === e.currentTarget && !overlay) {
       onClose(); // Close the modal when clicking on the overlay
     }
   };

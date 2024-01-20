@@ -38,6 +38,11 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const user = useSelector((state) => state.User);
   const subscription = useSelector((state) => state.Subscription.type);
   const points = useSelector((state) => state.Points.points);
+  const teams = useSelector((state) =>
+    state.Teams.filter((obj) =>
+      obj.team.members.filter((member) => member.email === user.email)
+    )
+  );
 
   const subscriptionType = checkSubscriptionType(subscription);
 
@@ -280,12 +285,27 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
             flexDirection: "column",
             alignItems: "flex-start",
             color: "#150261",
-            fontSize: 18,
+            fontSize: 16,
           }}
           className="account-button"
         >
           {user.username}
         </MenuItem>
+
+        {teams.map((obj) => (
+          <MenuItem
+            sx={{
+              fontFamily: "inherit",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              color: "#150261",
+              fontSize: 16,
+            }}
+            className="account-button"
+          >
+            {obj.team.name}
+          </MenuItem>
+        ))}
 
         <Divider />
         <MenuItem

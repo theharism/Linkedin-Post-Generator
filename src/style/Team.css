@@ -16,6 +16,10 @@
    
 }
 
+p{
+    margin:0px
+}
+
 .team-box {
     display: flex;
     justify-content: space-between;
@@ -27,13 +31,35 @@
     border-radius: 5px;
     background-color: #150261;
 }
-  
+
+.team-box-left{
+    display: flex;
+    flex-direction: column;
+   justify-content: center;
+}
+ 
   .team-name {
     flex-grow: 1;
     color: white;
-    font-size: larger;
+    font-size: medium;
+  }
+  .team-email {
+    flex-grow: 1;
+    color: white;
+    font-size: x-small;
+  }
+  .member-properties{
+    color: red; 
+    margin-Left: 10px;
+    font-Size:small; 
   }
   
+.pending-members{
+    display: flex;
+    flex-direction: row;
+    align-Items: center;
+}
+
   .dashboard-button {
     background-color: #007bff;
     color: white;

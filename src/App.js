@@ -29,6 +29,7 @@ import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
 import { signout } from "./constants/helper";
 import Team from "./components/Team";
+import TeamDetails from "./components/TeamDetails";
 
 function App() {
   const auth = getAuth();
@@ -193,6 +194,16 @@ function App() {
                   <div>
                     <SubNavbar />
                     <Team />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/teams/:id"
+                element={
+                  <div>
+                    <SubNavbar />
+                    <TeamDetails />
                   </div>
                 }
               />
