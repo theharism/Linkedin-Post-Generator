@@ -9,7 +9,8 @@ import Form from "react-bootstrap/Form";
 import FormField from "./FormField";
 import { Slider } from "@mui/material";
 import { Button } from "react-bootstrap";
-import { createTeam, getTeams } from "../slices/TeamsSlice";
+import { createTeam, getTeams, removeMember } from "../slices/TeamsSlice";
+import Swal from "sweetalert2";
 
 const Team = () => {
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
@@ -18,14 +19,14 @@ const Team = () => {
   const teams = useSelector((state) => state.Teams);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTeams({ email }));
-  }, [dispatch, email]);
-
   const [formData, setFormData] = useState({
     displayName: "",
     noofMembers: 10,
   });
+
+  useEffect(() => {
+    dispatch(getTeams({ email }));
+  }, [dispatch, email]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,7 +101,7 @@ const Team = () => {
   const CreateNewTeamButton = () => (
     <Link
       style={{ textDecoration: "none", color: "white" }}
-      className="FormLinks"
+      className="new-team-member"
     >
       <button
         style={{ position: "relative", width: 260 }}
@@ -111,6 +112,22 @@ const Team = () => {
       </button>
     </Link>
   );
+
+  const handleLeaveTeam = ({ id }) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Leave",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeMember({ id, email, type: false }));
+      }
+    });
+  };
 
   const DisplayTeam = ({ Team, isAdmin }) => (
     <div className="team-box">
@@ -123,7 +140,12 @@ const Team = () => {
           Dashboard
         </Button>
       ) : (
-        <Button className="dashboard-button">Leave Team</Button>
+        <Button
+          className="dashboard-button"
+          onClick={() => handleLeaveTeam({ id: Team._id })}
+        >
+          Leave Team
+        </Button>
       )}
     </div>
   );

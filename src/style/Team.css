@@ -78,7 +78,7 @@ p{
     margin-bottom: 3rem;
 }
 
-.FormLinks > button {
+.new-team-member > button {
     border: none;
     outline: none;
     padding: 0.6rem;
@@ -89,7 +89,7 @@ p{
       rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.FormLinks > button:hover {
+.new-team-member > button:hover {
     background-color: #2394f7bb;
 }
 

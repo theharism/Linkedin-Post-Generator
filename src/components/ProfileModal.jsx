@@ -38,11 +38,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const user = useSelector((state) => state.User);
   const subscription = useSelector((state) => state.Subscription.type);
   const points = useSelector((state) => state.Points.points);
-  const teams = useSelector((state) =>
-    state.Teams.filter((obj) =>
-      obj.team.members.filter((member) => member.email === user.email)
-    )
-  );
+  const teams = useSelector((state) => state.Teams);
 
   const subscriptionType = checkSubscriptionType(subscription);
 

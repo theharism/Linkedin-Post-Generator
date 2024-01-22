@@ -30,6 +30,7 @@ import AffiliateProgram from "./pages/AffiliateProgram";
 import { signout } from "./constants/helper";
 import Team from "./components/Team";
 import TeamDetails from "./components/TeamDetails";
+import { getTeams } from "./slices/TeamsSlice";
 
 function App() {
   const auth = getAuth();
@@ -98,6 +99,8 @@ function App() {
       }
 
       fetchSubscriptionStatus();
+
+      dispatch(getTeams({ email: user.email }));
     }
   }, []);
 

@@ -7,7 +7,12 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import FormField from "./FormField";
 import { isEmail } from "../constants/helper.js";
-import { addMember, getTeams } from "../slices/TeamsSlice.js";
+import {
+  addMember,
+  add_remove_Admins,
+  removeMember,
+} from "../slices/TeamsSlice.js";
+import Swal from "sweetalert2";
 
 const TeamDetails = () => {
   const { id } = useParams();
@@ -83,7 +88,7 @@ const TeamDetails = () => {
   const AddNewMemberButton = () => (
     <Link
       style={{ textDecoration: "none", color: "white" }}
-      className="FormLinks"
+      className="new-team-member"
     >
       <button
         style={{ position: "relative", width: 260 }}
@@ -95,7 +100,38 @@ const TeamDetails = () => {
     </Link>
   );
 
+  const handleMemberFunctions = ({ email, type }) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText:
+        type === 2 ? "Make Admin" : type === 1 ? "Remove Admin" : "Remove",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        switch (type) {
+          case 1:
+            dispatch(add_remove_Admins({ id, email, type: 1 }));
+            break;
+          case 2:
+            dispatch(add_remove_Admins({ id, email, type: 2 }));
+            break;
+          case 3:
+            dispatch(removeMember({ id, email, type: true }));
+            break;
+
+          default:
+            break;
+        }
+      }
+    });
+  };
+
   const DisplayPersons = ({ Person, isAdmin, type, owner }) => (
+    //type= => true for member, false for pending member
     <div className="team-box">
       <div className="team-box-left">
         {Person.fullName ? (
@@ -124,11 +160,29 @@ const TeamDetails = () => {
           <Dropdown.Toggle id="dropdown-basic" />
           <Dropdown.Menu>
             {isAdmin ? (
-              <Dropdown.Item>Remove Admin</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() =>
+                  handleMemberFunctions({ email: Person.email, type: 1 })
+                }
+              >
+                Remove Admin
+              </Dropdown.Item>
             ) : (
-              <Dropdown.Item>Make Admin</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() =>
+                  handleMemberFunctions({ email: Person.email, type: 2 })
+                }
+              >
+                Make Admin
+              </Dropdown.Item>
             )}
-            <Dropdown.Item>Remove</Dropdown.Item>
+            <Dropdown.Item
+              onClick={() =>
+                handleMemberFunctions({ email: Person.email, type: 3 })
+              }
+            >
+              Remove
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       ) : (
@@ -158,37 +212,33 @@ const TeamDetails = () => {
       <div>
         <div className="members">
           <h3>Members</h3>
-          {teamDetails && teamDetails.members.length >= 1 && (
-            <AddNewMemberButton />
-          )}
+          {teamDetails?.members?.length >= 1 && <AddNewMemberButton />}
         </div>
 
         <hr />
 
         <div className="display-teams">
-          {teamDetails && (
-            <>
-              {teamDetails.members.map((member) => (
-                <DisplayPersons
-                  owner={teamDetails.owner}
-                  Person={member}
-                  key={member._id}
-                  isAdmin={teamDetails.admins.some(
-                    (obj) => obj.email === member.email
-                  )}
-                />
-              ))}
-              {teamDetails.pendingMembers &&
-                teamDetails.pendingMembers.map((member) => (
-                  <DisplayPersons
-                    owner={teamDetails.owner}
-                    Person={member}
-                    key={member._id}
-                    type={true}
-                  />
-                ))}
-            </>
-          )}
+          <>
+            {teamDetails?.members?.map((member) => (
+              <DisplayPersons
+                owner={teamDetails.owner}
+                Person={member}
+                key={member._id}
+                isAdmin={teamDetails.admins.some(
+                  (obj) => obj.email === member.email
+                )}
+              />
+            ))}
+
+            {teamDetails?.pendingMembers?.map((member) => (
+              <DisplayPersons
+                owner={teamDetails.owner}
+                Person={member}
+                key={member._id}
+                type={true}
+              />
+            ))}
+          </>
         </div>
       </div>
       {showAddNewMemberModal && AddNewMemberModal()}
