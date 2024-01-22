@@ -16,7 +16,7 @@ const NavbarComponent = () => {
   const open = Boolean(anchorEl);
 
   const authState = useSelector((state) => state.Auth.authState);
-  const points = useSelector((state) => state.Points.points);
+  const points = useSelector((state) => state.Subscription.points);
   const { username } = useSelector((state) => state.User);
 
   const hideModal = () => {

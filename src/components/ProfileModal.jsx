@@ -36,10 +36,10 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const [showMetadataModal, setShowMetadataModal] = useState(false);
 
   const user = useSelector((state) => state.User);
-  const subscription = useSelector((state) => state.Subscription.type);
-  const points = useSelector((state) => state.Points.points);
+  const subscription = useSelector((state) => state.Subscription?.type);
+  const points = useSelector((state) => state.Subscription?.points);
   const teams = useSelector((state) => state.Teams);
-
+  console.log(subscription);
   const subscriptionType = checkSubscriptionType(subscription);
 
   function signOut() {

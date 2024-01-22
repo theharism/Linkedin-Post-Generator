@@ -9,7 +9,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePoint } from "../slices/PointsSlice";
+import { deletePoint } from "../slices/SubscriptionSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -29,7 +29,7 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textareaAccordions, setTextareaAccordions] = useState([]);
 
   const email = useSelector((state) => state.User.email);
-  const points = useSelector((state) => state.Points.points);
+  const points = useSelector((state) => state.Subscription.points);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

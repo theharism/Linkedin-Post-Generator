@@ -16,10 +16,7 @@ import { resetAuthState, setAuthState } from "./slices/AuthSlice";
 import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
 import Success from "./components/Success";
-import { resetSubscription, setSubscription } from "./slices/SubscriptionSlice";
-import { setPoints } from "./slices/PointsSlice";
 import Footer from "./common/Footer";
-import axios from "axios";
 import BlockUser from "./components/BlockUser";
 import UseCases from "./pages/UseCases";
 import PostEditor from "./components/PostEditor";
@@ -27,10 +24,10 @@ import Testimonials from "./pages/Testimonials";
 import LinkedInVerification from "./components/LinkedInVerification";
 import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
-import { signout } from "./constants/helper";
 import Team from "./components/Team";
 import TeamDetails from "./components/TeamDetails";
 import { getTeams } from "./slices/TeamsSlice";
+import { getSubscription } from "./slices/SubscriptionSlice";
 
 function App() {
   const auth = getAuth();
@@ -64,45 +61,10 @@ function App() {
       const user = JSON.parse(userString);
       dispatch(setUser({ user: user, write: false }));
 
-      async function fetchSubscriptionStatus() {
-        try {
-          const response = await axios.get(
-            `${process.env.REACT_APP_BASE_URL}/api/userstatus`,
-            {
-              params: {
-                email: user.email,
-              },
-            }
-          );
-
-          const data = response.data;
-
-          if (data.userstatus === "blocked") {
-            // Render an <h1> element with the text "Loading" when status is "active"
-            setShowShowBlockuser(true);
-          }
-
-          if (data.subscriptionstatus === "active") {
-            dispatch(setSubscription({ subscription: data.subscription }));
-            dispatch(setPoints({ points: data.subscription.points }));
-          } else {
-            dispatch(resetSubscription());
-            dispatch(setPoints({ points: data.subscription.points }));
-          }
-        } catch (error) {
-          console.error("Error:", error);
-
-          if (error.response.status === 401) {
-            signout(auth);
-          }
-        }
-      }
-
-      fetchSubscriptionStatus();
-
       dispatch(getTeams({ email: user.email }));
+      dispatch(getSubscription({ key: user.email }));
     }
-  }, []);
+  }, [dispatch]);
 
   const onClose = () => {
     setShowEmailVerification(false);

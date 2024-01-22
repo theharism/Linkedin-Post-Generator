@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubscription } from "../slices/SubscriptionSlice";
-import { setPoints } from "../slices/PointsSlice";
 
 const Success = () => {
   const location = useLocation();
@@ -28,18 +27,10 @@ const Success = () => {
         })
         .then(async (response) => {
           setStatus(true);
-          const points = response.data.points;
-          const subscription = {
-            id: response.data.id,
-            createdDate: response.data.createdDate,
-            expiresDate: response.data.expiresDate,
-            type: response.data.type,
-          };
 
-          dispatch(setSubscription({ subscription }));
-          dispatch(setPoints({ points }));
+          dispatch(setSubscription(response.data));
 
-          if (subscription.type === "Starter")
+          if (response.data.type === "Starter")
             await axios.post(
               `${process.env.REACT_APP_BASE_URL}/api/useremail`,
               {
@@ -56,7 +47,7 @@ const Success = () => {
     } else {
       setError("Your payment cannot be verified. Try again later");
     }
-  }, []);
+  }, [dispatch, email, fullName, sessionId]);
 
   return (
     <div className="success-wrapper">

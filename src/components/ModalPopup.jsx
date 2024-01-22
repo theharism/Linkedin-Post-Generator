@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { isEmail } from "../constants/helper";
 import { setUser } from "../slices/UserSlice";
 import { setSubscription } from "../slices/SubscriptionSlice";
-import { setPoints } from "../slices/PointsSlice";
+import { setPoints } from "../slices/SubscriptionSlice";
 import Swal from "sweetalert2";
 
 const ModalPopup = ({ state, onClose, overlay }) => {

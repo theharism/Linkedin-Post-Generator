@@ -14,7 +14,7 @@ import OptimizePostModal from "./OptimizePostModal";
 
 const GeneratePost = () => {
   const authState = useSelector((state) => state.Auth.authState);
-  const points = useSelector((state) => state.Points.points);
+  const points = useSelector((state) => state.Subscription.points);
   const type = useSelector((state) => state.Subscription.type);
   const metadataAsked = useSelector((state) => state.User.metadataAsked);
   const [showPostModal, setShowPostModal] = useState(false);

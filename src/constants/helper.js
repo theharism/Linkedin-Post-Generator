@@ -12,6 +12,9 @@ function isEmail(input) {
 }
 
 function checkSubscriptionType(inputString) {
+  if (!inputString) {
+    return;
+  }
   const lowercaseString = inputString.toLowerCase();
   const hasMonthlySubstring = lowercaseString.includes("monthly");
   const hasYearlySubstring = lowercaseString.includes("yearly");
