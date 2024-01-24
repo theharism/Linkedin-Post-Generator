@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 
-export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
+export const MonthlyStarter = ({ handlePayment, cancel }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -132,7 +132,7 @@ export const MonthlyStarter = ({ handlePayment, cancel, email }) => {
     </div>
   );
 };
-export const YearlyStarter = ({ handlePayment, cancel, email }) => {
+export const YearlyStarter = ({ handlePayment, cancel }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -268,7 +268,7 @@ export const YearlyStarter = ({ handlePayment, cancel, email }) => {
     </div>
   );
 };
-export const MonthlyPro = ({ handlePayment, cancel, email }) => {
+export const MonthlyPro = ({ handlePayment, cancel }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -488,7 +488,7 @@ export const MonthlyPro = ({ handlePayment, cancel, email }) => {
     </div>
   );
 };
-export const YearlyPro = ({ handlePayment, cancel, email }) => {
+export const YearlyPro = ({ handlePayment, cancel }) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div

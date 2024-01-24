@@ -29,6 +29,7 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textareaAccordions, setTextareaAccordions] = useState([]);
 
   const email = useSelector((state) => state.User.email);
+  const { currentUserId, currentUsername } = useSelector((state) => state.Auth);
   const points = useSelector((state) => state.Subscription.points);
   const navigate = useNavigate();
 
@@ -142,7 +143,7 @@ function Main({ onPress, HandleGPTResponse }) {
         answers: selectedAnswers,
         selectedTone: isOtherToneSelected ? customTone : selectedTone,
         textAreaContents,
-        email: email,
+        email: currentUserId,
       };
 
       if (!userData.description || !userData.selectedTone) {

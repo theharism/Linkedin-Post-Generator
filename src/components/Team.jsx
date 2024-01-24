@@ -75,18 +75,15 @@ const Team = () => {
         <Slider
           style={{ width: "50%" }}
           value={formData.noofMembers}
-          min={1}
-          max={500}
+          min={10}
+          max={1000}
           name="noofMembers"
           onChange={handleChange}
         />
         <span>{formData.noofMembers} Members</span>
       </div>
 
-      <div style={{ margin: 15 }}>
-        <span>Team Cost</span>
-        <span style={{ fontSize: 25 }}>${formData.noofMembers * 10} 💸</span>
-      </div>
+      <div style={{ margin: 15 }} />
 
       <Button
         variant="primary"

@@ -16,6 +16,7 @@ import { resetSubscription } from "../slices/SubscriptionSlice";
 
 const MyPlans = ({ type, onClose }) => {
   const email = useSelector((state) => state.User.email);
+  const { currentUserId } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   const handleUpgrade = () => {
     onClose();
@@ -46,7 +47,7 @@ const MyPlans = ({ type, onClose }) => {
         try {
           const response = await axios.post(
             `${process.env.REACT_APP_BASE_URL}/api/cancelSubscription`,
-            { email }
+            { email: currentUserId }
           );
 
           if (response.data.message) {
@@ -83,37 +84,13 @@ const MyPlans = ({ type, onClose }) => {
   const ShowCurrentSubscription = () => {
     switch (type) {
       case "Starter (Monthly)":
-        return (
-          <MonthlyStarter
-            handlePayment={handlePayment}
-            cancel={true}
-            email={email}
-          />
-        );
+        return <MonthlyStarter handlePayment={handlePayment} cancel={true} />;
       case "Pro (Monthly)":
-        return (
-          <MonthlyPro
-            handlePayment={handlePayment}
-            cancel={true}
-            email={email}
-          />
-        );
+        return <MonthlyPro handlePayment={handlePayment} cancel={true} />;
       case "Starter (Yearly)":
-        return (
-          <YearlyStarter
-            handlePayment={handlePayment}
-            cancel={true}
-            email={email}
-          />
-        );
+        return <YearlyStarter handlePayment={handlePayment} cancel={true} />;
       case "Pro (Yearly)":
-        return (
-          <YearlyPro
-            handlePayment={handlePayment}
-            cancel={true}
-            email={email}
-          />
-        );
+        return <YearlyPro handlePayment={handlePayment} cancel={true} />;
       default:
         break;
     }

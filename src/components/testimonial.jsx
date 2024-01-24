@@ -3,7 +3,7 @@ import "../style/testimonials.css";
 import { Rating } from "@mui/material";
 
 const TestimonialComponent = ({ item }) => {
-  const imageURI = `${process.env.REACT_APP_BASE_URL}/api/images/${item.filePath}`;
+  // const imageURI = `${process.env.REACT_APP_BASE_URL}/api/images/${item.filePath}`;
   return (
     <div className="testiContainer">
       <div

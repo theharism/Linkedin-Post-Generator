@@ -6,7 +6,7 @@ export const getSubscription = createAsyncThunk(
   async (payload) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/api/subscription/${payload.key}`
+        `${process.env.REACT_APP_BASE_URL}/api/subscription/${payload.email}`
       );
 
       if (response.ok) {
@@ -53,7 +53,6 @@ export const SubscriptionSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSubscription.fulfilled, (state, action) => {
-        console.log(action.payload);
         return action.payload.subscription;
       })
       .addCase(getSubscription.rejected, (state, action) => {});

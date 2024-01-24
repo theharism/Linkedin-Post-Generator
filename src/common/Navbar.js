@@ -18,6 +18,7 @@ const NavbarComponent = () => {
   const authState = useSelector((state) => state.Auth.authState);
   const points = useSelector((state) => state.Subscription.points);
   const { username } = useSelector((state) => state.User);
+  const currentUsername = useSelector((state) => state.Auth.currentUsername);
 
   const hideModal = () => {
     setShowPostModal(false);
@@ -135,7 +136,7 @@ const NavbarComponent = () => {
                 className="account-icon"
                 fontSize="medium"
               >
-                {username}
+                {currentUsername}
                 <ArrowDropDownIcon />
               </button>
 

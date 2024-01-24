@@ -50,7 +50,7 @@ const GeneratePost = () => {
   };
 
   const closeMetadataModalfunc = () => {
-    window.location.href = "/post";
+    navigate("/post");
     setShowMetadataModal(false);
   };
 
@@ -59,11 +59,7 @@ const GeneratePost = () => {
   };
 
   const handleOnClick = () => {
-    if (metadataAsked) {
-      window.location.href = "/post";
-    } else {
-      showMetadataModalfunc();
-    }
+    showMetadataModalfunc();
   };
 
   const handleOptimizeClick = () => {
@@ -80,16 +76,30 @@ const GeneratePost = () => {
         <div className="formHero">
           {points > 0 ? (
             <>
-              <Link
-                onClick={handleOnClick}
-                style={{ textDecoration: "none", color: "white" }}
-                className="FormLinks"
-              >
-                <button style={{ position: "relative", width: 260 }}>
-                  Create Your First Post
-                  <FaPencilAlt className="Pencil" />
-                </button>
-              </Link>
+              {metadataAsked ? (
+                <Link
+                  to="/post"
+                  style={{ textDecoration: "none", color: "white" }}
+                  className="FormLinks"
+                >
+                  <button style={{ position: "relative", width: 260 }}>
+                    Create Your First Post
+                    <FaPencilAlt className="Pencil" />
+                  </button>
+                </Link>
+              ) : (
+                <Link
+                  onClick={handleOnClick}
+                  style={{ textDecoration: "none", color: "white" }}
+                  className="FormLinks"
+                >
+                  <button style={{ position: "relative", width: 260 }}>
+                    Create Your First Post
+                    <FaPencilAlt className="Pencil" />
+                  </button>
+                </Link>
+              )}
+
               {type.startsWith("Pro") ? (
                 <>
                   <Link

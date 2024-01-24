@@ -24,9 +24,9 @@ export const UserSlice = createSlice({
       state.targetAudience = user.targetAudience;
       state.metadataAsked = user.metadataAsked;
       const write = action.payload.write;
-      if (write) {
-        localStorage.setItem("user", JSON.stringify(user));
-      }
+      // if (write) {
+      //   localStorage.setItem("user", JSON.stringify(user));
+      // }
     },
     resetUser: (state) => {
       state.fullName = "";
@@ -44,7 +44,7 @@ export const UserSlice = createSlice({
       state.personalizePosts = metadata.personalizePosts;
       state.targetAudience = metadata.targetAudience;
       state.metadataAsked = true;
-      localStorage.setItem("user", JSON.stringify(state));
+      // localStorage.setItem("user", JSON.stringify(state));
     },
   },
 });

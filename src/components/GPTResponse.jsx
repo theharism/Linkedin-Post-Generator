@@ -9,6 +9,7 @@ import EditPostModal from "./EditPostModal";
 import Swal from "sweetalert2";
 import { LinkedInPost, generateLocalState } from "../constants/helper";
 import LinkedinPreview from "./linkedinPreview";
+import { useNavigate } from "react-router-dom";
 
 function GPTResponse({ message, query, ifEdited }) {
   const [loading, setLoading] = useState(false);
@@ -17,8 +18,10 @@ function GPTResponse({ message, query, ifEdited }) {
   const [Text, setText] = useState("");
   const pRef = useRef(null);
   const type = useSelector((state) => state.Subscription.type);
+  const navigate = useNavigate();
 
   const { username, email } = useSelector((state) => state.User);
+  const { currentUsername, currentUserId } = useSelector((state) => state.Auth);
 
   const handleTryNowClick = () => {
     window.location.reload();
@@ -135,7 +138,11 @@ function GPTResponse({ message, query, ifEdited }) {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/savepost`,
-        { content: message, username: username, question: query }
+        {
+          content: message,
+          username: username === currentUsername ? username : currentUserId,
+          question: query,
+        }
       );
 
       if (response.data.message) {
@@ -204,7 +211,7 @@ function GPTResponse({ message, query, ifEdited }) {
 
     const status = await LinkedInPost(state, textToSend, email);
     if (status) {
-      window.location.href = "/";
+      navigate("/");
     }
 
     setLoading(false);

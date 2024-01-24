@@ -2,6 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import { persistor } from "../store/store";
 
 function isEmail(input) {
   // Define a regular expression pattern for an email
@@ -96,6 +97,40 @@ const LinkedInPost = async (state, text, email) => {
   }
 };
 
+function calculateDiscountForTeam(teamSize) {
+  if (teamSize >= 10 && teamSize <= 100) {
+    return 0.1;
+  } else if (teamSize >= 101 && teamSize <= 500) {
+    return 0.2;
+  } else if (teamSize >= 501 && teamSize <= 1000) {
+    return 0.3;
+  }
+}
+
+const createTeamCheckoutSession = async (team_id, price_id) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/create-team-checkout-session`,
+      {
+        team_id,
+        price_id,
+      }
+    );
+    if (response.data) {
+      window.open(response.data.url, "_blank");
+    }
+  } catch (error) {
+    console.log("Error create team checkout session", error);
+
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "error",
+      showConfirmButton: false, // Hide the "OK" button in the success popup
+      timer: 1500,
+    });
+  }
+};
+
 const createCheckoutSession = async (
   email,
   username,
@@ -140,6 +175,8 @@ const createCheckoutSession = async (
 function signout(auth) {
   signOut(auth)
     .then(() => {
+      persistor.purge();
+      localStorage.removeItem("persist:root");
       Swal.fire({
         title: "Signed Out!",
         icon: "success",
@@ -159,9 +196,11 @@ function signout(auth) {
 export {
   isEmail,
   checkSubscriptionType,
+  calculateDiscountForTeam,
   generateLocalState,
   signout,
   LinkedinAuthentication,
   LinkedInPost,
+  createTeamCheckoutSession,
   createCheckoutSession,
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./common/Navbar";
 import SubNavbar from "./common/SubNav";
@@ -13,7 +13,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EmailVerifyModal from "./components/EmailVerifyModal";
 import { useDispatch, useSelector } from "react-redux";
 import { resetAuthState, setAuthState } from "./slices/AuthSlice";
-import { setUser } from "./slices/UserSlice";
 import MyPosts from "./components/MyPosts";
 import Success from "./components/Success";
 import Footer from "./common/Footer";
@@ -26,8 +25,6 @@ import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
 import Team from "./components/Team";
 import TeamDetails from "./components/TeamDetails";
-import { getTeams } from "./slices/TeamsSlice";
-import { getSubscription } from "./slices/SubscriptionSlice";
 
 function App() {
   const auth = getAuth();
@@ -47,24 +44,22 @@ function App() {
     } else {
       dispatch(resetAuthState());
       setAuth(false);
-
-      localStorage.removeItem("user");
-      localStorage.removeItem("state");
-      localStorage.removeItem("response");
+      // localStorage.removeItem("user");
+      // localStorage.removeItem("state");
+      // localStorage.removeItem("response");
     }
   });
 
-  useEffect(() => {
-    const userString = localStorage.getItem("user");
+  // useEffect(() => {
+  //   const userString = localStorage.getItem("user");
 
-    if (userString) {
-      const user = JSON.parse(userString);
-      dispatch(setUser({ user: user, write: false }));
-
-      dispatch(getTeams({ email: user.email }));
-      dispatch(getSubscription({ key: user.email }));
-    }
-  }, [dispatch]);
+  //   if (userString) {
+  //     const user = JSON.parse(userString);
+  //     dispatch(setUser({ user: user, write: false }));
+  //   dispatch(setCurrentUser({ name: username, id: email }));
+  //   dispatch(getTeams({ email: email }));
+  //   dispatch(getSubscription({ key: email }));
+  // }, [dispatch, username, email]);
 
   const onClose = () => {
     setShowEmailVerification(false);
@@ -173,7 +168,7 @@ function App() {
                 }
               />
 
-              {type.startsWith("Pro") && (
+              {type?.startsWith("Pro") && (
                 <>
                   <Route
                     path="/editor"

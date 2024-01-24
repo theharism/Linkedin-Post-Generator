@@ -27,6 +27,8 @@ import { Divider } from "@mui/material";
 import { checkSubscriptionType, signout } from "../constants/helper";
 import MyPlans from "./MyPlans";
 import MetadataModal from "./MetadataModal";
+import { setCurrentUser } from "../slices/AuthSlice";
+import { getSubscription } from "../slices/SubscriptionSlice";
 
 export default function ProfileModal({ anchorEl, open, handleClose }) {
   const auth = getAuth(app);
@@ -36,11 +38,10 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
   const [showMetadataModal, setShowMetadataModal] = useState(false);
 
   const user = useSelector((state) => state.User);
-  const subscription = useSelector((state) => state.Subscription?.type);
-  const points = useSelector((state) => state.Subscription?.points);
+  const { type, points } = useSelector((state) => state.Subscription) || {};
   const teams = useSelector((state) => state.Teams);
-  console.log(subscription);
-  const subscriptionType = checkSubscriptionType(subscription);
+  const subscriptionType = checkSubscriptionType(type);
+  const { currentUserId } = useSelector((state) => state.Auth);
 
   function signOut() {
     signout(auth);
@@ -134,7 +135,7 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
           // ..
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           // ..
           toast.error(errorMessage, {
@@ -226,6 +227,18 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
     setShowMetadataModal(true);
   };
 
+  const handleTeamChange = ({ name, id }) => {
+    dispatch(setCurrentUser({ name, id }));
+    if (name === user.username) {
+      dispatch(getSubscription({ email: id }));
+    } else {
+      const admin = teams.some((obj) => obj.isAdmin && obj.team._id === id);
+      if (admin) {
+        dispatch(getSubscription({ email: id }));
+      } else dispatch(getSubscription({ email: user.email }));
+    }
+  };
+
   return (
     <React.Fragment>
       <Menu
@@ -263,138 +276,159 @@ export default function ProfileModal({ anchorEl, open, handleClose }) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <div className="TypographyContainer">
-          <Typography sx={{ fontFamily: "inherit" }}>
-            {user.fullName}
-          </Typography>
-          {user.authType !== "google" && (
-            <IconButton size={"small"} onClick={() => setState("name")}>
-              <EditIcon fontSize="small" />
-            </IconButton>
-          )}
-        </div>
-        <Divider />
-        <p style={{ fontSize: 12, marginLeft: 13 }}>Select Account</p>
-        <MenuItem
-          sx={{
-            fontFamily: "inherit",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            color: "#150261",
-            fontSize: 16,
-          }}
-          className="account-button"
-        >
-          {user.username}
-        </MenuItem>
-
-        {teams.map((obj) => (
-          <MenuItem
-            sx={{
-              fontFamily: "inherit",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              color: "#150261",
-              fontSize: 16,
-            }}
-            className="account-button"
-          >
-            {obj.team.name}
-          </MenuItem>
-        ))}
-
-        <Divider />
-        <MenuItem
-          sx={{
-            fontFamily: "inherit",
-          }}
-        >
-          <Link to="/teams" className="teams-link">
-            Manage Teams
-          </Link>
-        </MenuItem>
-        <Divider />
-
-        <MenuItem sx={{ fontFamily: "inherit" }}>
-          <Typography sx={{ fontFamily: "inherit" }}>
-            Credits:{" "}
-            {points > 10000 ? (
-              <span style={infinitySymbolStyle}>&infin;</span>
-            ) : (
-              points
-            )}
-          </Typography>
-        </MenuItem>
-
-        <MenuItem sx={{ fontFamily: "inherit" }}>
-          <Typography sx={{ fontFamily: "inherit" }}>Plan: </Typography>
-          <Typography sx={{ fontFamily: "inherit", color: "green" }}>
-            &nbsp;{subscription}
-          </Typography>
-          &nbsp;&nbsp;&nbsp;
-          {subscriptionType === "Free" ? (
-            <ScrollLink
-              to="pricing"
-              spy={true}
-              smooth={true}
-              duration={80}
-              offset={30}
-            >
-              <button onClick={handleClose} className="upgrade-buuton">
-                Upgrade
-              </button>
-            </ScrollLink>
-          ) : (
-            <>
-              <button onClick={handleMyPlan} className="upgrade-buuton">
-                My Plan
-              </button>
-            </>
-          )}
-        </MenuItem>
-
-        {/* <MenuItem
-          sx={{ fontFamily: "inherit" }}
-          onClick={() => navigate("referral")}
-        >
-          <ListItemIcon>
-            <PeopleIcon fontSize="small" />
-          </ListItemIcon>
-          Referral Program
-        </MenuItem> */}
-
-        {user.authType !== "google" && (
+        {[
           <>
+            <div className="TypographyContainer">
+              <Typography sx={{ fontFamily: "inherit" }}>
+                {user.fullName}
+              </Typography>
+              {user.authType !== "google" && (
+                <IconButton size={"small"} onClick={() => setState("name")}>
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              )}
+            </div>
+            <Divider />
+            <p style={{ fontSize: 12, marginLeft: 13 }}>Select Account</p>
+            <MenuItem
+              sx={{
+                fontFamily: "inherit",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                fontSize: 16,
+              }}
+              className="account-button"
+              onClick={() =>
+                handleTeamChange({ name: user.username, id: user.email })
+              }
+            >
+              <span
+                style={{
+                  backgroundColor:
+                    user.email !== currentUserId ? "#fff" : "#150261",
+                  color: user.email !== currentUserId ? "#000" : "#fff",
+                  borderRadius: 3,
+                  width: "100%",
+                  paddingLeft: 4,
+                }}
+              >
+                {user.username}
+              </span>
+            </MenuItem>
+
+            {teams.map((obj) => (
+              <MenuItem
+                sx={{
+                  fontFamily: "inherit",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  color: obj.team._id !== currentUserId ? "#000" : "#150261",
+                  fontSize: 16,
+                }}
+                className="account-button"
+                onClick={() =>
+                  handleTeamChange({ name: obj.team.name, id: obj.team._id })
+                }
+              >
+                <span
+                  style={{
+                    backgroundColor:
+                      obj.team._id !== currentUserId ? "#fff" : "#150261",
+                    color: obj.team._id !== currentUserId ? "#000" : "#fff",
+                    borderRadius: 3,
+                    width: "100%",
+                    paddingLeft: 4,
+                  }}
+                >
+                  {obj.team.name}
+                </span>
+              </MenuItem>
+            ))}
+
+            <Divider />
+            <MenuItem
+              sx={{
+                fontFamily: "inherit",
+              }}
+            >
+              <Link to="/teams" className="teams-link">
+                Manage Teams
+              </Link>
+            </MenuItem>
+            <Divider />
+
+            <MenuItem sx={{ fontFamily: "inherit" }}>
+              <Typography sx={{ fontFamily: "inherit" }}>
+                Credits:{" "}
+                {points > 10000 ? (
+                  <span style={infinitySymbolStyle}>&infin;</span>
+                ) : (
+                  points
+                )}
+              </Typography>
+            </MenuItem>
+
+            <MenuItem sx={{ fontFamily: "inherit" }}>
+              <Typography sx={{ fontFamily: "inherit" }}>Plan: </Typography>
+              <Typography sx={{ fontFamily: "inherit", color: "green" }}>
+                &nbsp;{type}
+              </Typography>
+              &nbsp;&nbsp;&nbsp;
+              {subscriptionType === "Free" ? (
+                <ScrollLink
+                  to="pricing"
+                  spy={true}
+                  smooth={true}
+                  duration={80}
+                  offset={30}
+                >
+                  <button onClick={handleClose} className="upgrade-buuton">
+                    Upgrade
+                  </button>
+                </ScrollLink>
+              ) : (
+                <>
+                  <button onClick={handleMyPlan} className="upgrade-buuton">
+                    My Plan
+                  </button>
+                </>
+              )}
+            </MenuItem>
+
+            {user.authType !== "google" && (
+              <>
+                <MenuItem
+                  sx={{ fontFamily: "inherit" }}
+                  onClick={() => setState("password")}
+                >
+                  <ListItemIcon>
+                    <LockResetRoundedIcon fontSize="small" />
+                  </ListItemIcon>
+                  Change Password
+                </MenuItem>
+              </>
+            )}
             <MenuItem
               sx={{ fontFamily: "inherit" }}
-              onClick={() => setState("password")}
+              onClick={showMetadataModalfunc}
             >
               <ListItemIcon>
-                <LockResetRoundedIcon fontSize="small" />
+                <AutoFixHighIcon fontSize="small" />
               </ListItemIcon>
-              Change Password
+              Personalization
             </MenuItem>
-          </>
-        )}
-        <MenuItem
-          sx={{ fontFamily: "inherit" }}
-          onClick={showMetadataModalfunc}
-        >
-          <ListItemIcon>
-            <AutoFixHighIcon fontSize="small" />
-          </ListItemIcon>
-          Personalization
-        </MenuItem>
-        <MenuItem sx={{ fontFamily: "inherit" }} onClick={signOut}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+            <MenuItem sx={{ fontFamily: "inherit" }} onClick={signOut}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </>,
+        ]}
       </Menu>
       {state === "name" && <Modal />}
       {state === "password" && <Modal />}
-      {showMyPlanModal && <MyPlans onClose={onClose} type={subscription} />}
+      {showMyPlanModal && <MyPlans onClose={onClose} type={type} />}
       {showMetadataModal && <MetadataModal onClose={closeMetadataModalfunc} />}
     </React.Fragment>
   );

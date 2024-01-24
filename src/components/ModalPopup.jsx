@@ -19,9 +19,11 @@ import {
 import { useDispatch } from "react-redux";
 import { isEmail } from "../constants/helper";
 import { setUser } from "../slices/UserSlice";
-import { setSubscription } from "../slices/SubscriptionSlice";
+import { getSubscription, setSubscription } from "../slices/SubscriptionSlice";
 import { setPoints } from "../slices/SubscriptionSlice";
 import Swal from "sweetalert2";
+import { setCurrentUser } from "../slices/AuthSlice";
+import { getTeams } from "../slices/TeamsSlice";
 
 const ModalPopup = ({ state, onClose, overlay }) => {
   const auth = getAuth(app);
@@ -151,6 +153,10 @@ const ModalPopup = ({ state, onClose, overlay }) => {
                 user: { ...user1, metadataAsked: false, authType: "google" },
               })
             );
+
+            dispatch(setCurrentUser({ name: user1.username, id: user1.email }));
+            dispatch(getTeams({ email: user1.email }));
+            dispatch(getSubscription({ email: user1.email }));
 
             if (response.data.subscription) {
               const { id, createdDate, expiresDate, type, points } =
@@ -420,6 +426,10 @@ const ModalPopup = ({ state, onClose, overlay }) => {
                 write: true,
               })
             );
+
+            dispatch(setCurrentUser({ name: user.username, id: user.email }));
+            dispatch(getTeams({ email: user.email }));
+            dispatch(getSubscription({ email: user.email }));
 
             // ...
           })

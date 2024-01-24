@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Modal from "./Modal";
 import GroupsIcon from "@mui/icons-material/Groups";
-import { Button, Dropdown, Form } from "react-bootstrap";
+import { Button, Col, Dropdown, Form } from "react-bootstrap";
 import FormField from "./FormField";
-import { isEmail } from "../constants/helper.js";
+import {
+  calculateDiscountForTeam,
+  createTeamCheckoutSession,
+  isEmail,
+} from "../constants/helper.js";
 import {
   addMember,
   add_remove_Admins,
@@ -17,11 +21,13 @@ import Swal from "sweetalert2";
 const TeamDetails = () => {
   const { id } = useParams();
   const [showAddNewMemberModal, setShowAddNewMemberModal] = useState(false);
+  const [showActivateteamModal, setShowActivateModal] = useState(false);
+
   const dispatch = useDispatch();
   const teamDetails = useSelector(
     (state) => state.Teams.find((obj) => obj.team._id === id)?.team
   );
-  console.log(teamDetails);
+
   const { email } = useSelector((state) => state.User);
 
   const [formData, setFormData] = useState({
@@ -38,6 +44,7 @@ const TeamDetails = () => {
 
   const onClose = () => {
     setShowAddNewMemberModal(false);
+    setShowActivateModal(false);
   };
 
   const handleAddNewMembers = (e) => {
@@ -85,15 +92,113 @@ const TeamDetails = () => {
     </Modal>
   );
 
+  const ActivateTeamModal = () => (
+    <Modal
+      heading={"Activate Your Team"}
+      subheading={"Activating your team would allow you to add members"}
+      onClose={onClose}
+    >
+      <Col className="row d-flex flex-row justify-content-evenly w-100">
+        <div style={{ height: "50px" }} />
+        <div className="col-12 col-md-6 col-lg-6 ">
+          <div
+            className="card p-3"
+            style={{
+              textAlign: "left",
+            }}
+          >
+            <h4>Pro Package</h4>
+            <p style={{ color: "#6B7280" }}>To help you grow</p>
+
+            <h3>
+              {(
+                parseInt(teamDetails.teamSize) *
+                (49.99 - 49.99 * calculateDiscountForTeam(teamDetails.teamSize))
+              ).toFixed(2)}
+              <span style={{ color: "#6B7280" }}>/month</span>
+            </h3>
+            <h3>
+              <span
+                style={{
+                  color: "#d40000",
+                  marginLeft: 0,
+                  textDecoration: "line-through",
+                }}
+              >
+                {(parseInt(teamDetails.teamSize) * 49.99).toFixed(2)}
+              </span>
+            </h3>
+            <button
+              onClick={() =>
+                createTeamCheckoutSession(
+                  teamDetails._id,
+                  "price_1OYcCdJOtdUfVp0DfkBSsqof"
+                )
+              }
+              className="btn btn-primary plan"
+            >
+              Choose Plan
+            </button>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 col-lg-6 ">
+          <div
+            className="card p-3"
+            style={{
+              textAlign: "left",
+            }}
+          >
+            <h4>Pro Package</h4>
+            <p style={{ color: "#6B7280" }}>To help you grow</p>
+            <h3>
+              {(
+                parseInt(teamDetails.teamSize) *
+                (499.99 -
+                  499.99 * calculateDiscountForTeam(teamDetails.teamSize))
+              ).toFixed(2)}
+              <span style={{ color: "#6B7280" }}>/year</span>
+            </h3>
+            <h4>
+              <span
+                style={{
+                  color: "#d40000",
+                  marginLeft: 0,
+                  textDecoration: "line-through",
+                }}
+              >
+                {(parseInt(teamDetails.teamSize) * 499.99).toFixed(2)}
+              </span>
+            </h4>
+            <button
+              onClick={() =>
+                createTeamCheckoutSession(
+                  teamDetails._id,
+                  "price_1OYcCdJOtdUfVp0DfkBSsqof"
+                )
+              }
+              className="btn btn-primary plan"
+            >
+              Choose Plan
+            </button>
+          </div>
+        </div>
+        <div style={{ height: "50px" }} />
+      </Col>
+    </Modal>
+  );
+
+  function ShowModal() {
+    if (teamDetails.status === "inactive") {
+      setShowActivateModal(true);
+    } else setShowAddNewMemberModal(true);
+  }
+
   const AddNewMemberButton = () => (
     <Link
       style={{ textDecoration: "none", color: "white" }}
       className="new-team-member"
     >
-      <button
-        style={{ position: "relative", width: 260 }}
-        onClick={() => setShowAddNewMemberModal(true)}
-      >
+      <button style={{ position: "relative", width: 260 }} onClick={ShowModal}>
         Add New Member
         <GroupsIcon className="groupsIcon" sx={{ fontSize: 40 }} />
       </button>
@@ -128,6 +233,11 @@ const TeamDetails = () => {
         }
       }
     });
+  };
+
+  const handleResendInvite = ({ email }) => {
+    setFormData({ email });
+    handleAddNewMembers();
   };
 
   const DisplayPersons = ({ Person, isAdmin, type, owner }) => (
@@ -189,8 +299,20 @@ const TeamDetails = () => {
         <Dropdown>
           <Dropdown.Toggle id="dropdown-basic" />
           <Dropdown.Menu>
-            <Dropdown.Item>Resend Invite</Dropdown.Item>
-            <Dropdown.Item>Remove</Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                handleResendInvite({ email: Person.email });
+              }}
+            >
+              Resend Invite
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() =>
+                handleMemberFunctions({ email: Person.email, type: 3 })
+              }
+            >
+              Remove
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       )}
@@ -242,6 +364,7 @@ const TeamDetails = () => {
         </div>
       </div>
       {showAddNewMemberModal && AddNewMemberModal()}
+      {showActivateteamModal && ActivateTeamModal()}
     </div>
   );
 };

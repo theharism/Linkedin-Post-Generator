@@ -227,18 +227,19 @@ export const add_remove_Admins = createAsyncThunk(
 
 export const TeamsSlice = createSlice({
   name: "Teams",
-  initialState: JSON.parse(localStorage.getItem("teams")) || [],
+  // initialState: JSON.parse(localStorage.getItem("teams")) || [],
+  initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createTeam.fulfilled, (state, action) => {
         state.push(action.payload.team);
-        localStorage.setItem("teams", JSON.stringify(state));
+        // localStorage.setItem("teams", JSON.stringify(state));
       })
       .addCase(createTeam.rejected, (state, action) => {})
       .addCase(getTeams.fulfilled, (state, action) => {
         const teams = action.payload.teams;
-        localStorage.setItem("teams", JSON.stringify(teams));
+        // localStorage.setItem("teams", JSON.stringify(teams));
         return teams;
       })
       .addCase(getTeams.rejected, (state, action) => {})
@@ -251,7 +252,7 @@ export const TeamsSlice = createSlice({
           state[index] = action.payload.team;
         } else state.push(action.payload.team);
 
-        localStorage.setItem("teams", JSON.stringify(state));
+        // localStorage.setItem("teams", JSON.stringify(state));
       })
       .addCase(addMember.rejected, (state, action) => {})
       .addCase(removeMember.fulfilled, (state, action) => {
@@ -268,7 +269,7 @@ export const TeamsSlice = createSlice({
           }
         }
 
-        localStorage.setItem("teams", JSON.stringify(state));
+        // localStorage.setItem("teams", JSON.stringify(state));
       })
       .addCase(removeMember.rejected, (state, action) => {})
       .addCase(add_remove_Admins.fulfilled, (state, action) => {
@@ -281,7 +282,7 @@ export const TeamsSlice = createSlice({
           state[index] = action.payload.team;
         } else state.push(action.payload.team);
 
-        localStorage.setItem("teams", JSON.stringify(state));
+        // localStorage.setItem("teams", JSON.stringify(state));
       })
       .addCase(add_remove_Admins.rejected, (state, action) => {});
   },

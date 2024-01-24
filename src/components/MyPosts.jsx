@@ -10,17 +10,18 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Footer from "../common/Footer";
 import "../style/MyPosts.css";
-import { FaPencilAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import GeneratePost from "./GeneratePost";
 
 const MyPosts = () => {
   const username = useSelector((state) => state.User.username);
+  const { currentUserId, currentUsername } = useSelector((state) => state.Auth);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     try {
-      const endpointURL = `${process.env.REACT_APP_BASE_URL}/api/getposts/${username}`;
+      const endpointURL = `${process.env.REACT_APP_BASE_URL}/api/getposts/${
+        username === currentUsername ? username : currentUserId
+      }`;
 
       axios
         .get(endpointURL)
