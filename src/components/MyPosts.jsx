@@ -11,12 +11,17 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Footer from "../common/Footer";
 import "../style/MyPosts.css";
 import GeneratePost from "./GeneratePost";
+import ReactSearchBox from "react-search-box";
+import SearchIcon from "@mui/icons-material/Search";
 
 const MyPosts = () => {
   const username = useSelector((state) => state.User.username);
   const { currentUserId, currentUsername } = useSelector((state) => state.Auth);
   const [posts, setPosts] = useState([]);
-
+  const [searchInput, setSearchInput] = useState("");
+  const isAdmin = useSelector((state) =>
+    state.Teams.some((team) => team.isAdmin && team.team._id === currentUserId)
+  );
   useEffect(() => {
     try {
       const endpointURL = `${process.env.REACT_APP_BASE_URL}/api/getposts/${
@@ -35,7 +40,7 @@ const MyPosts = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [currentUserId, currentUsername, username]);
 
   const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -79,7 +84,14 @@ const MyPosts = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const RenderPost = ({ index, summary, content, time }) => {
+  const RenderPost = ({
+    index,
+    summary,
+    content,
+    time,
+    createdBy,
+    isShared,
+  }) => {
     const date = new Date(time);
 
     return (
@@ -95,12 +107,36 @@ const MyPosts = () => {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between", // Adjust this property
-                alignItems: "center", // Center vertically if needed
-                width: "100%", // Ensure the content takes up the full width
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
               }}
             >
-              <Typography sx={{ fontFamily: "inherit" }}>{summary}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "60%",
+                }}
+              >
+                <Typography sx={{ fontFamily: "inherit" }}>
+                  {summary}
+                </Typography>
+                {isAdmin && (
+                  <>
+                    <Typography sx={{ fontFamily: "inherit", fontSize: 14 }}>
+                      {createdBy}
+                    </Typography>
+
+                    <Typography
+                      sx={{ fontFamily: "inherit", fontSize: 14, color: "red" }}
+                    >
+                      {isShared ? "Shared on LinkedIn" : null}
+                    </Typography>
+                  </>
+                )}
+              </div>
               <Typography sx={{ fontFamily: "inherit" }}>
                 {date.toLocaleString("en-US", {
                   year: "numeric",
@@ -119,19 +155,6 @@ const MyPosts = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
-
-        {/* <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>{summary}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{content}</Typography>
-          </AccordionDetails>
-        </Accordion> */}
       </div>
     );
   };
@@ -141,19 +164,47 @@ const MyPosts = () => {
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <Container className="PostGenContaier">
+        <div style={{ position: "absolute", right: 30 }}>
+          <ReactSearchBox
+            placeholder="Search"
+            data={posts}
+            onChange={(text) => setSearchInput(text)}
+            leftIcon={<SearchIcon sx={{ color: "#787878" }} />}
+          />
+        </div>
         <div className="container">
           <div className="heading">
             <h1 className="bold-text">Saved Posts</h1>
           </div>
           {posts.length > 0 ? (
-            posts.map((item, index) => (
-              <RenderPost
-                index={index}
-                summary={item.question}
-                content={item.content}
-                time={item.createdAt}
-              />
-            ))
+            posts
+              .filter((item) => {
+                const summaryMatch = item.question
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase());
+                const contentMatch = item.content
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase());
+                const createdByMatch = item.teamId
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase());
+
+                return summaryMatch || contentMatch || createdByMatch;
+              })
+              .map((item, index) => (
+                <RenderPost
+                  key={index}
+                  index={index}
+                  summary={`${item.question
+                    .split(" ")
+                    .slice(0, 4)
+                    .join(" ")} ....`}
+                  content={item.content}
+                  time={item.createdAt}
+                  createdBy={item?.teamId}
+                  isShared={item?.isShared}
+                />
+              ))
           ) : (
             <GeneratePost />
           )}

@@ -8,7 +8,6 @@ export const getTeams = createAsyncThunk("teams/getTeams", async (payload) => {
 
   if (resp.ok) {
     const teams = await resp.json();
-
     return { teams };
   } else {
     return { teams: [] };

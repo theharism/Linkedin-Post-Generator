@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 2rem;
 }
 
 .left-info {
@@ -21,10 +22,22 @@
   
   .center-info {
     text-align: center;
+    
   }
 
 .members {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.memberButtons{
+  display: flex;
+  flex-direction: row;
+}
+
+.h3Buttons:hover{
+color: lightgray;
+cursor: pointer;
 }

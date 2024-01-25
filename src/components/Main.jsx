@@ -143,7 +143,8 @@ function Main({ onPress, HandleGPTResponse }) {
         answers: selectedAnswers,
         selectedTone: isOtherToneSelected ? customTone : selectedTone,
         textAreaContents,
-        email: currentUserId,
+        email,
+        teamId: currentUserId !== email ? currentUserId : null,
       };
 
       if (!userData.description || !userData.selectedTone) {

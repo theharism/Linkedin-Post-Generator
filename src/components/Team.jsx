@@ -11,6 +11,7 @@ import { Slider } from "@mui/material";
 import { Button } from "react-bootstrap";
 import { createTeam, getTeams, removeMember } from "../slices/TeamsSlice";
 import Swal from "sweetalert2";
+import { calculateDiscountForTeam } from "../constants/helper";
 
 const Team = () => {
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
@@ -81,6 +82,54 @@ const Team = () => {
           onChange={handleChange}
         />
         <span>{formData.noofMembers} Members</span>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginTop: 10,
+          marginBottom: 10,
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
+        <div>
+          <h5>
+            {(
+              parseInt(formData.noofMembers) *
+              (49.99 - 49.99 * calculateDiscountForTeam(formData.noofMembers))
+            ).toFixed(2)}
+            <span style={{ color: "#6B7280" }}>/month</span>
+          </h5>
+
+          <h5>
+            {(
+              parseInt(formData.noofMembers) *
+              (499.99 - 499.99 * calculateDiscountForTeam(formData.noofMembers))
+            ).toFixed(2)}
+            <span style={{ color: "#6B7280" }}>/year</span>
+          </h5>
+        </div>
+        <div>
+          <h5>
+            {(
+              49.99 -
+              49.99 * calculateDiscountForTeam(formData.noofMembers)
+            ).toFixed(2)}
+            <span style={{ color: "#6B7280" }}>/per member</span>
+          </h5>
+
+          <h5>
+            {(
+              499.99 -
+              499.99 * calculateDiscountForTeam(formData.noofMembers)
+            ).toFixed(2)}
+            <span style={{ color: "#6B7280" }}>/per member</span>
+          </h5>
+        </div>
+        <h5 style={{ color: "red" }}>
+          {calculateDiscountForTeam(formData.noofMembers) * 100}% Discount
+        </h5>
       </div>
 
       <div style={{ margin: 15 }} />

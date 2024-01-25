@@ -22,7 +22,6 @@ function GPTResponse({ message, query, ifEdited }) {
 
   const { username, email } = useSelector((state) => state.User);
   const { currentUsername, currentUserId } = useSelector((state) => state.Auth);
-
   const handleTryNowClick = () => {
     window.location.reload();
   };
@@ -134,13 +133,15 @@ function GPTResponse({ message, query, ifEdited }) {
     }
   };
 
-  const handleSavePost = async () => {
+  const handleSavePost = async (isShared) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/savepost`,
         {
           content: message,
           username: username === currentUsername ? username : currentUserId,
+          teamId: email,
+          isShared: isShared ? true : false,
           question: query,
         }
       );
@@ -208,7 +209,7 @@ function GPTResponse({ message, query, ifEdited }) {
     localStorage.setItem("response", textToSend);
 
     setLoading(true);
-
+    handleSavePost(true);
     const status = await LinkedInPost(state, textToSend, email);
     if (status) {
       navigate("/");
@@ -339,7 +340,7 @@ function GPTResponse({ message, query, ifEdited }) {
               </button>
               <button
                 className="btn btn-primary kuchbi"
-                onClick={handleSavePost}
+                onClick={() => handleSavePost(false)}
               >
                 Save
               </button>

@@ -64,17 +64,7 @@ const ModalPopup = ({ state, onClose, overlay }) => {
   const continueWithGoogle = async (e) => {
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-        // toast.success("Signed In Successfully", {
-        //   position: "top-right",
-        //   autoClose: 1500,
-        // });
 
         Swal.fire({
           title: "Signed In!",
@@ -111,7 +101,7 @@ const ModalPopup = ({ state, onClose, overlay }) => {
         // let referralCode = null;
 
         try {
-          const response = await axios.post(
+          await axios.post(
             `${process.env.REACT_APP_BASE_URL}/api/registeration`,
             temp
           );
@@ -224,7 +214,7 @@ const ModalPopup = ({ state, onClose, overlay }) => {
       // let referralCode = null;
 
       try {
-        const response = await axios.post(
+        await axios.post(
           `${process.env.REACT_APP_BASE_URL}/api/registeration`,
           {
             fullName: formData.fullName,
@@ -258,13 +248,6 @@ const ModalPopup = ({ state, onClose, overlay }) => {
       createUserWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential) => {
           // Signed up
-
-          const user = userCredential.user;
-
-          // toast.success("Registration Successfull", {
-          //   position: "top-right",
-          //   autoClose: 1500,
-          // });
 
           Swal.fire({
             title: "Registeration Successfull!",
