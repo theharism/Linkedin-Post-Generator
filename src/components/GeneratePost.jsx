@@ -13,7 +13,8 @@ import MetadataModal from "./MetadataModal";
 import OptimizePostModal from "./OptimizePostModal";
 
 const GeneratePost = () => {
-  const authState = useSelector((state) => state.Auth.authState);
+  const {authState,currentUserId} = useSelector((state) => state.Auth);
+  const {email} = useSelector((state)=>state.User);
   const points = useSelector((state) => state.Subscription.points);
   const type = useSelector((state) => state.Subscription.type);
   const metadataAsked = useSelector((state) => state.User.metadataAsked);
@@ -74,7 +75,7 @@ const GeneratePost = () => {
     <>
       {authState ? (
         <div className="formHero">
-          {points > 0 ? (
+          {points > 0 || currentUserId !== email ? (
             <>
               {metadataAsked ? (
                 <Link
