@@ -328,7 +328,7 @@ export const deleteTeam = createAsyncThunk("teams/delete", async (payload) => {
         timer: 1500,
       });
 
-      return Promise.resolve();
+      return Promise.resolve({ id });
     } else {
       Swal.fire({
         title: "Internal Server Error",
@@ -431,9 +431,7 @@ export const TeamsSlice = createSlice({
       })
       .addCase(cancelSubscription.rejected, (state, action) => {})
       .addCase(deleteTeam.fulfilled, (state, action) => {
-        return state.filter(
-          (team) => team.team._id !== action.payload.team.team._id
-        );
+        return state.filter((team) => team.team._id !== action.payload.id);
       })
       .addCase(deleteTeam.rejected, (state, action) => {});
   },

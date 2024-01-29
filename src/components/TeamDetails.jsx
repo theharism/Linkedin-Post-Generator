@@ -460,15 +460,17 @@ const TeamDetails = () => {
             >
               Members
             </h3>
-            <h3
-              className="h3Buttons"
-              style={{
-                borderBottom: selectedOption === 3 ? "2px solid red" : "none",
-              }}
-              onClick={() => setSelectedOption(3)}
-            >
-              Settings
-            </h3>
+            {teamDetails?.owner === email && (
+              <h3
+                className="h3Buttons"
+                style={{
+                  borderBottom: selectedOption === 3 ? "2px solid red" : "none",
+                }}
+                onClick={() => setSelectedOption(3)}
+              >
+                Settings
+              </h3>
+            )}
           </div>
           {teamDetails?.members?.length >= 1 && selectedOption === 2 && (
             <AddNewMemberButton />
