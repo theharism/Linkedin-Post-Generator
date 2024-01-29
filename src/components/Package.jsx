@@ -338,13 +338,14 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   LinkedIn Post Preview{" "}
                   <span
                     style={{
                       color: "red",
-                      top: 380,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}
@@ -367,13 +368,14 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   Share post directly to LinkedIn{" "}
                   <span
                     style={{
                       color: "red",
-                      top: 420,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}
@@ -396,13 +398,14 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   Post optimization{" "}
                   <span
                     style={{
                       color: "red",
-                      bottom: 315,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}
@@ -560,13 +563,14 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   LinkedIn Post Preview{" "}
                   <span
                     style={{
                       color: "red",
-                      top: 330,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}
@@ -589,13 +593,14 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   Share post directly to LinkedIn{" "}
                   <span
                     style={{
                       color: "red",
-                      top: 370,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}
@@ -618,13 +623,14 @@ export const YearlyPro = ({ handlePayment, cancel }) => {
                     color: "#6B7280",
                     fontWeight: "bold",
                     whiteSpace: "pre",
+                    position: "relative",
                   }}
                 >
                   Post optimization{" "}
                   <span
                     style={{
                       color: "red",
-                      bottom: 315,
+                      top: 0,
                       position: "absolute",
                       fontSize: 12,
                     }}

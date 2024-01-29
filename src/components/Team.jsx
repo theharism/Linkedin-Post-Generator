@@ -246,7 +246,7 @@ const Team = () => {
                 ))}
             </>
           ) : (
-            <h5>You have n't joined any team yet</h5>
+            <h5>You haven't joined any team yet</h5>
           )}
         </div>
       </div>

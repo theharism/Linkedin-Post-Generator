@@ -177,7 +177,6 @@ export const add_remove_Admins = createAsyncThunk(
   async (payload) => {
     try {
       const { id, email, type } = payload;
-      console.log(payload);
       //action.payload.type => 1 for make admin, 2 for remove admin
       const op = type === 2 ? "make-admin" : "remove-admin";
       const resp = await fetch(
@@ -224,6 +223,133 @@ export const add_remove_Admins = createAsyncThunk(
   }
 );
 
+export const extendTeam = createAsyncThunk("teams/extend", async (payload) => {
+  try {
+    const { id, newMembers } = payload;
+    //action.payload.type => 1 for make admin, 2 for remove admin
+    const resp = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/teams/${id}/extend`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ newMembers }),
+      }
+    );
+
+    if (resp.ok) {
+      Swal.fire({
+        title: "Team Size Extended.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      const team = await resp.json();
+      return Promise.resolve({ team });
+    } else {
+      Swal.fire({
+        title: "Internal Server Error",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return Promise.reject();
+    }
+  } catch (error) {
+    console.error("Extend Team Admin failed:", error);
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    return Promise.reject("Internal Server Error");
+  }
+});
+
+export const cancelSubscription = createAsyncThunk(
+  "teams/cancel-subscription",
+  async (payload) => {
+    try {
+      const { id } = payload;
+
+      const resp = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/api/teams/${id}/subscription/cancel`
+      );
+
+      if (resp.ok) {
+        Swal.fire({
+          title: "Team Subscription Cancelled",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        const team = await resp.json();
+        return Promise.resolve({ team });
+      } else {
+        console.log(resp);
+        Swal.fire({
+          title: "Internal Server Error",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return Promise.reject();
+      }
+    } catch (error) {
+      console.error("Team cancel subscription failed:", error);
+      Swal.fire({
+        title: "Internal Server Error",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return Promise.reject("Internal Server Error");
+    }
+  }
+);
+
+export const deleteTeam = createAsyncThunk("teams/delete", async (payload) => {
+  try {
+    const { id } = payload;
+
+    const resp = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/teams/${id}/delete`
+    );
+
+    if (resp.ok) {
+      Swal.fire({
+        title: "Team Deleted Successfully",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      return Promise.resolve();
+    } else {
+      Swal.fire({
+        title: "Internal Server Error",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return Promise.reject();
+    }
+  } catch (error) {
+    console.error("Team delete failed:", error);
+    Swal.fire({
+      title: "Internal Server Error",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    return Promise.reject("Internal Server Error");
+  }
+});
+
 export const TeamsSlice = createSlice({
   name: "Teams",
   // initialState: JSON.parse(localStorage.getItem("teams")) || [],
@@ -267,8 +393,6 @@ export const TeamsSlice = createSlice({
             state.splice(index, 1);
           }
         }
-
-        // localStorage.setItem("teams", JSON.stringify(state));
       })
       .addCase(removeMember.rejected, (state, action) => {})
       .addCase(add_remove_Admins.fulfilled, (state, action) => {
@@ -280,10 +404,38 @@ export const TeamsSlice = createSlice({
           //action.payload.type => True for kick, False for leave
           state[index] = action.payload.team;
         } else state.push(action.payload.team);
-
-        // localStorage.setItem("teams", JSON.stringify(state));
       })
-      .addCase(add_remove_Admins.rejected, (state, action) => {});
+      .addCase(add_remove_Admins.rejected, (state, action) => {})
+      .addCase(extendTeam.fulfilled, (state, action) => {
+        const index = state.findIndex(
+          (team) => team.team._id === action.payload.team.team._id
+        );
+
+        // If found, replace the team with the updated one
+        if (index !== -1) {
+          //action.payload.type => True for kick, False for leave
+          state[index] = action.payload.team;
+        } else state.push(action.payload.team);
+      })
+      .addCase(extendTeam.rejected, (state, action) => {})
+      .addCase(cancelSubscription.fulfilled, (state, action) => {
+        const index = state.findIndex(
+          (team) => team.team._id === action.payload.team.team._id
+        );
+
+        // If found, replace the team with the updated one
+        if (index !== -1) {
+          //action.payload.type => True for kick, False for leave
+          state[index] = action.payload.team;
+        } else state.push(action.payload.team);
+      })
+      .addCase(cancelSubscription.rejected, (state, action) => {})
+      .addCase(deleteTeam.fulfilled, (state, action) => {
+        return state.filter(
+          (team) => team.team._id !== action.payload.team.team._id
+        );
+      })
+      .addCase(deleteTeam.rejected, (state, action) => {});
   },
 });
 

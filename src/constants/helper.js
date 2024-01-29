@@ -107,7 +107,7 @@ function calculateDiscountForTeam(teamSize) {
   }
 }
 
-const createTeamCheckoutSession = async (team_id, price_id) => {
+const createTeamCheckoutSession = async (team_id, price_id, onClose) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/create-team-checkout-session`,
@@ -116,12 +116,20 @@ const createTeamCheckoutSession = async (team_id, price_id) => {
         price_id,
       }
     );
-    if (response.data) {
+    if (response.data.url) {
       window.open(response.data.url, "_blank");
+    } else {
+      Swal.fire({
+        title: "Subscription Updated Successfully",
+        icon: "success",
+        showConfirmButton: false, // Hide the "OK" button in the success popup
+        timer: 1500,
+      });
     }
+
+    onClose();
   } catch (error) {
     console.log("Error create team checkout session", error);
-
     Swal.fire({
       title: "Internal Server Error",
       icon: "error",
