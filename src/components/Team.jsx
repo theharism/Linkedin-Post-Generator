@@ -197,7 +197,6 @@ const Team = () => {
   );
 
   const handleDashboardClick = (id) => {
-    console.log(id);
     navigate(`/teams/${id}`);
   };
   const filteredTeams = teams.filter((team) => team.isAdmin);
