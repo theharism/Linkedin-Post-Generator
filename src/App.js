@@ -25,11 +25,11 @@ import Referral from "./components/Referral";
 import AffiliateProgram from "./pages/AffiliateProgram";
 import Team from "./components/Team";
 import TeamDetails from "./components/TeamDetails";
+import ProtectedRoute from "./navigation/protectedRoute";
 
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
-  const [localAuth, setAuth] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [showBlockUser, setShowShowBlockuser] = useState(false);
   const type = useSelector((state) => state.Subscription.type);
@@ -37,13 +37,11 @@ function App() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(setAuthState());
-      setAuth(true);
       if (auth.currentUser && !auth.currentUser.emailVerified) {
         setShowEmailVerification(true);
       }
     } else {
       dispatch(resetAuthState());
-      setAuth(false);
       // localStorage.removeItem("user");
       // localStorage.removeItem("state");
       // localStorage.removeItem("response");
@@ -105,93 +103,92 @@ function App() {
               </div>
             }
           />
-          {localAuth && (
-            <>
-              <Route
-                path="/post"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <RenderPost />
-                    <Footer />
-                  </div>
-                }
-              />
 
-              <Route
-                path="/myposts"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <MyPosts />
-                  </div>
-                }
-              />
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/post"
+              element={
+                <div>
+                  <SubNavbar />
+                  <RenderPost />
+                  <Footer />
+                </div>
+              }
+            />
 
-              <Route
-                path="/success"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <Success />
-                  </div>
-                }
-              />
+            <Route
+              path="/myposts"
+              element={
+                <div>
+                  <SubNavbar />
+                  <MyPosts />
+                </div>
+              }
+            />
 
-              <Route
-                path="/referral"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <Referral />
-                  </div>
-                }
-              />
+            <Route
+              path="/success"
+              element={
+                <div>
+                  <SubNavbar />
+                  <Success />
+                </div>
+              }
+            />
 
-              <Route
-                path="/teams"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <Team />
-                  </div>
-                }
-              />
+            <Route
+              path="/referral"
+              element={
+                <div>
+                  <SubNavbar />
+                  <Referral />
+                </div>
+              }
+            />
 
-              <Route
-                path="/teams/:id"
-                element={
-                  <div>
-                    <SubNavbar />
-                    <TeamDetails />
-                  </div>
-                }
-              />
+            <Route
+              path="/teams"
+              element={
+                <div>
+                  <SubNavbar />
+                  <Team />
+                </div>
+              }
+            />
 
-              {type?.startsWith("Pro") && (
-                <>
-                  <Route
-                    path="/editor"
-                    element={
-                      <div>
-                        <SubNavbar />
-                        <PostEditor />
-                      </div>
-                    }
-                  />
-                  <Route
-                    path="/verify"
-                    element={
-                      <div>
-                        <SubNavbar />
-                        <LinkedInVerification />
-                      </div>
-                    }
-                  />
-                </>
-              )}
-            </>
-          )}
+            <Route
+              path="/teams/:id"
+              element={
+                <div>
+                  <SubNavbar />
+                  <TeamDetails />
+                </div>
+              }
+            />
+
+            {type?.startsWith("Pro") && (
+              <>
+                <Route
+                  path="/editor"
+                  element={
+                    <div>
+                      <SubNavbar />
+                      <PostEditor />
+                    </div>
+                  }
+                />
+                <Route
+                  path="/verify"
+                  element={
+                    <div>
+                      <SubNavbar />
+                      <LinkedInVerification />
+                    </div>
+                  }
+                />
+              </>
+            )}
+          </Route>
         </Routes>
       </BrowserRouter>
       {showEmailVerification && <EmailVerifyModal onClose={onClose} />}
