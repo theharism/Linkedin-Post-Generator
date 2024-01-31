@@ -33,7 +33,9 @@ const Referral = () => {
     getReferral();
   }, []);
 
-  const generateReferralCode = async () => {
+  const generateReferralCode = async (e) => {
+    e.preventDefault();
+
     setLoading(true);
     try {
       const response = await axios.post(
