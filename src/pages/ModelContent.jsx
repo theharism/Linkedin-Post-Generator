@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function ModelContent({ closeModal }) {
+const ModelContent = ({ closeModal }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -25,6 +25,15 @@ function ModelContent({ closeModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.email || !formData.fullName || !formData.inquiry) {
+      toast.error("All Fields must be filled", {
+        position: "top-right",
+        autoClose: 1500, // Display the message for 3 seconds
+      });
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/sendMail`,
@@ -177,6 +186,6 @@ function ModelContent({ closeModal }) {
       </Row>
     </div>
   );
-}
+};
 
 export default ModelContent;
