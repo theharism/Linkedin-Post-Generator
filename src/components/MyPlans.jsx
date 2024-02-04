@@ -4,20 +4,14 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import "../style/MyPlans.css";
-import {
-  MonthlyPro,
-  MonthlyStarter,
-  UpgradePlan,
-  YearlyPro,
-  YearlyStarter,
-} from "./Package";
+import { CancelPlan, UpgradePlan } from "./Package";
 import Swal from "sweetalert2";
 import { resetSubscription } from "../slices/SubscriptionSlice";
 
 const MyPlans = ({ type, onClose }) => {
-  const email = useSelector((state) => state.User.email);
   const { currentUserId } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
+
   const handleUpgrade = () => {
     onClose();
 
@@ -33,7 +27,7 @@ const MyPlans = ({ type, onClose }) => {
     }
   };
 
-  const handlePayment = async () => {
+  const handleCancelPlan = async () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -81,20 +75,12 @@ const MyPlans = ({ type, onClose }) => {
     });
   };
 
-  const ShowCurrentSubscription = () => {
-    switch (type) {
-      case "Starter (Monthly)":
-        return <MonthlyStarter handlePayment={handlePayment} cancel={true} />;
-      case "Pro (Monthly)":
-        return <MonthlyPro handlePayment={handlePayment} cancel={true} />;
-      case "Starter (Yearly)":
-        return <YearlyStarter handlePayment={handlePayment} cancel={true} />;
-      case "Pro (Yearly)":
-        return <YearlyPro handlePayment={handlePayment} cancel={true} />;
-      default:
-        break;
-    }
-  };
+  const ShowCurrentSubscription = () => (
+    <CancelPlan
+      handleCancelPlan={handleCancelPlan}
+      title={type.split(" ")[0]}
+    />
+  );
 
   return (
     <div className="modal" onClick={handleOverlayClick}>

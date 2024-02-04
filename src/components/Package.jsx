@@ -1,7 +1,79 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 
-export const MonthlyStarter = ({ handlePayment, cancel }) => {
+const Property = ({ text, isBold, isNew }) => (
+  <div
+    className="CheckSection"
+    style={{ display: "flex", alignItems: "baseline" }}
+  >
+    <span>
+      <FaCheck className="check" size={20} />
+    </span>
+    <p
+      style={{
+        margin: "0",
+        color: "#6B7280",
+        fontWeight: isBold && "bold",
+        position: "relative",
+      }}
+    >
+      {text}&nbsp;
+      {isNew && (
+        <span
+          style={{
+            color: "red",
+            top: 0,
+            fontSize: 12,
+            position: "absolute",
+          }}
+        >
+          New
+        </span>
+      )}
+    </p>
+  </div>
+);
+
+const StarterProperties = () => (
+  <>
+    <Property
+      text={"Instant, well-formatted LinkedIn content in your desired tone"}
+    />
+    <Property text={"Generate and save posts for later"} />
+    <Property text={"No emojis"} />
+    <Property text={"No bulky paragraphs"} />
+    <Property text={"No complicated Ai wording"} />
+    <Property text={"Skimmable formatting"} />
+  </>
+);
+
+const ProProperties = () => (
+  <>
+    <Property text={"LinkedIn Post Preview"} isBold={true} isNew={true} />
+    <Property
+      text={"Share post directly to LinkedIn"}
+      isBold={true}
+      isNew={true}
+    />
+    <Property text={"Post optimization"} isBold={true} isNew={true} />
+    <Property
+      text={"Instant, well-formatted LinkedIn content in your desired tone"}
+    />
+    <Property text={"Generate and save posts for later"} />
+    <Property text={"No emojis"} />
+    <Property text={"No bulky paragraphs"} />
+    <Property text={"No complicated Ai wording"} />
+    <Property text={"Skimmable formatting"} />
+  </>
+);
+
+export const YearlyPackage = ({
+  title,
+  fullPrice,
+  discountedPrice,
+  handlePayment,
+  isStarter,
+}) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -10,129 +82,55 @@ export const MonthlyStarter = ({ handlePayment, cancel }) => {
           textAlign: "left",
         }}
       >
-        <h4>Starter Package</h4>
+        <h4>{title}</h4>
         <p style={{ color: "#6B7280" }}>To help you grow</p>
-        {!cancel ? (
-          <>
-            <h2>
-              $24.99 <span style={{ color: "#6B7280" }}>/mo</span>
-            </h2>
-            <p style={{ color: "#6B7280" }}>
-              $20.83 / month if you sign up for a year
-            </p>{" "}
-          </>
-        ) : null}
-        {cancel ? (
-          <button
-            className="btn btn-danger plan"
-            onClick={() => handlePayment()}
+        <h2>
+          {fullPrice}
+          <span style={{ color: "#6B7280" }}>/year</span>
+
+          <span
+            style={{
+              color: "#d40000",
+              marginLeft: 20,
+              textDecoration: "line-through",
+            }}
           >
-            Cancel Plan
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary plan"
-            onClick={() => handlePayment("price_1OLunGJOtdUfVp0D70oWGCYy")}
-          >
-            Choose Plan
-          </button>
-        )}
-        {!cancel ? (
-          <>
-            <hr />
-            <div className="card-body">
-              <h5>What's included</h5>
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
-                >
-                  12 posts / month
-                </p>
-              </div>
+            {discountedPrice}
+          </span>
+        </h2>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Instant, well-formatted LinkedIn content in your desired tone
-                </p>
-              </div>
+        <button className="btn btn-primary plan" onClick={handlePayment}>
+          Choose Plan
+        </button>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Generate and save posts for later
-                </p>
-              </div>
+        <hr />
+        <div className="card-body">
+          <h5>What's included</h5>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No bulky paragraphs
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No complicated Ai wording
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Skimmable formatting
-                </p>
-              </div>
-            </div>
-          </>
-        ) : null}
+          {isStarter ? (
+            <>
+              <Property text={"144 posts / year"} isBold={true} />
+              <StarterProperties />
+            </>
+          ) : (
+            <>
+              <Property text={"Unlimited posts / year"} isBold={true} />
+              <ProProperties />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 };
-export const YearlyStarter = ({ handlePayment, cancel }) => {
+
+export const MonthlyPackage = ({
+  title,
+  fullPrice,
+  discountedPrice,
+  handlePayment,
+  isStarter,
+}) => {
   return (
     <div className="col-12 col-md-6 col-lg-4 ">
       <div
@@ -141,577 +139,37 @@ export const YearlyStarter = ({ handlePayment, cancel }) => {
           textAlign: "left",
         }}
       >
-        <h4>Starter Package</h4>
+        <h4>{title}</h4>
         <p style={{ color: "#6B7280" }}>To help you grow</p>
-        {!cancel ? (
-          <h3>
-            $249.99 <span style={{ color: "#6B7280" }}>/year</span>
-            <span
-              style={{
-                color: "#d40000",
-                marginLeft: 20,
-                textDecoration: "line-through",
-              }}
-            >
-              $299.99
-            </span>
-          </h3>
-        ) : null}
+        <h2>
+          {fullPrice}
+          <span style={{ color: "#6B7280" }}>/mo</span>
+        </h2>
 
-        {!cancel ? (
-          <button
-            onClick={() => handlePayment("price_1OLutBJOtdUfVp0DQBdaD9Sc")}
-            className="btn btn-primary plan"
-          >
-            Choose Plan
-          </button>
-        ) : (
-          <button
-            onClick={() => handlePayment()}
-            className="btn btn-danger plan"
-          >
-            Cancel Plan
-          </button>
-        )}
-        {!cancel ? (
-          <>
-            <hr />
-            <div className="card-body">
-              <h5>What's included</h5>
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
-                >
-                  144 posts / year
-                </p>
-              </div>
+        <p style={{ color: "#6B7280" }}>
+          {discountedPrice}/ month if you sign up for a year
+        </p>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Instant, well-formatted LinkedIn content in your desired tone
-                </p>
-              </div>
+        <button className="btn btn-primary plan" onClick={handlePayment}>
+          Choose Plan
+        </button>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Generate and save posts for later
-                </p>
-              </div>
+        <hr />
+        <div className="card-body">
+          <h5>What's included</h5>
 
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No bulky paragraphs
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No complicated Ai wording
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Skimmable formatting
-                </p>
-              </div>
-            </div>
-          </>
-        ) : null}
-      </div>
-    </div>
-  );
-};
-export const MonthlyPro = ({ handlePayment, cancel }) => {
-  return (
-    <div className="col-12 col-md-6 col-lg-4 ">
-      <div
-        className="card  p-3"
-        style={{
-          textAlign: "left",
-        }}
-      >
-        <h4>Pro Package</h4>
-        <p style={{ color: "#6B7280" }}>To help you grow</p>
-        {!cancel ? (
-          <>
-            <h2>
-              $49.99 <span style={{ color: "#6B7280" }}>/mo</span>
-            </h2>
-
-            <p style={{ color: "#6B7280" }}>
-              $41.66 / month if you sign up for a year
-            </p>
-          </>
-        ) : null}
-
-        {!cancel ? (
-          <button
-            onClick={() => handlePayment("price_1OLuufJOtdUfVp0DIveFknLZ")}
-            className="btn btn-primary plan"
-          >
-            Choose Plan
-          </button>
-        ) : (
-          <button
-            onClick={() => handlePayment()}
-            className="btn btn-danger plan"
-          >
-            Cancel Plan
-          </button>
-        )}
-        {!cancel ? (
-          <>
-            <hr />
-            <div className="card-body">
-              <h5>What's included</h5>
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
-                >
-                  Unlimited posts / month
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  LinkedIn Post Preview{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  Share post directly to LinkedIn{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  Post optimization{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Instant, well-formatted LinkedIn content in your desired tone
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Generate and save posts for later
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No bulky paragraphs
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No complicated Ai wording
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Skimmable formatting
-                </p>
-              </div>
-            </div>
-          </>
-        ) : null}
-      </div>
-    </div>
-  );
-};
-export const YearlyPro = ({ handlePayment, cancel }) => {
-  return (
-    <div className="col-12 col-md-6 col-lg-4 ">
-      <div
-        className="card p-3"
-        style={{
-          textAlign: "left",
-        }}
-      >
-        <h4>Pro Package</h4>
-        <p style={{ color: "#6B7280" }}>To help you grow</p>
-        {!cancel ? (
-          <h3>
-            $499.99 <span style={{ color: "#6B7280" }}>/year</span>
-            <span
-              style={{
-                color: "#d40000",
-                marginLeft: 20,
-                textDecoration: "line-through",
-              }}
-            >
-              $599.99
-            </span>
-          </h3>
-        ) : null}
-        {!cancel ? (
-          <button
-            className="btn btn-primary plan"
-            onClick={() => handlePayment("price_1OLuv2JOtdUfVp0DepUXJohp")}
-          >
-            Choose Plan
-          </button>
-        ) : (
-          <button
-            className="btn btn-danger plan"
-            onClick={() => handlePayment()}
-          >
-            Cancel Plan
-          </button>
-        )}
-        {!cancel ? (
-          <>
-            <hr />
-            <div className="card-body">
-              <h5>What's included</h5>
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{ margin: "0", color: "#6B7280", fontWeight: "bold" }}
-                >
-                  Unlimited posts / Year
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  LinkedIn Post Preview{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  Share post directly to LinkedIn{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p
-                  style={{
-                    margin: "0",
-                    color: "#6B7280",
-                    fontWeight: "bold",
-                    whiteSpace: "pre",
-                    position: "relative",
-                  }}
-                >
-                  Post optimization{" "}
-                  <span
-                    style={{
-                      color: "red",
-                      top: 0,
-                      position: "absolute",
-                      fontSize: 12,
-                    }}
-                  >
-                    New
-                  </span>
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Instant, well-formatted LinkedIn content in your desired tone
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Generate and save posts for later
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>No emojis</p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No bulky paragraphs
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  No complicated Ai wording
-                </p>
-              </div>
-
-              <div
-                className="CheckSection"
-                style={{ display: "flex", alignItems: "baseline" }}
-              >
-                <span>
-                  <FaCheck className="check" size={20} />
-                </span>
-                <p style={{ margin: "0", color: "#6B7280" }}>
-                  Skimmable formatting
-                </p>
-              </div>
-            </div>
-          </>
-        ) : null}
+          {isStarter ? (
+            <>
+              <Property text={"12 posts / month"} isBold={true} />
+              <StarterProperties />
+            </>
+          ) : (
+            <>
+              <Property text={"Unlimited posts / month"} isBold={true} />
+              <ProProperties />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -731,6 +189,26 @@ export const UpgradePlan = ({ handleUpgrade }) => {
 
         <button className="btn btn-primary plan" onClick={handleUpgrade}>
           Upgrade Plan
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export const CancelPlan = ({ title, handleCancelPlan }) => {
+  return (
+    <div className="col-12 col-md-6 col-lg-4 ">
+      <div
+        className="card p-3"
+        style={{
+          textAlign: "left",
+        }}
+      >
+        <h4>{title} Package</h4>
+        <p style={{ color: "#6B7280" }}>To help you grow</p>
+
+        <button className="btn btn-danger plan" onClick={handleCancelPlan}>
+          Cancel Plan
         </button>
       </div>
     </div>

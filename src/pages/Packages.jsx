@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../style/Packages.css";
 import ModalPopup from "../components/ModalPopup";
 import { useSelector } from "react-redux";
-import {
-  MonthlyPro,
-  MonthlyStarter,
-  YearlyPro,
-  YearlyStarter,
-} from "../components/Package";
+import { YearlyPackage, MonthlyPackage } from "../components/Package";
 import { createCheckoutSession } from "../constants/helper";
 import Swal from "sweetalert2";
 
-export function Modal({ children, closeModal }) {
-  return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={closeModal}>
-          &times;
-        </span>
-        {children}
-      </div>
-    </div>
-  );
-}
-
 const Packages = () => {
   const [activePlan, setActivePlan] = useState("Monthly");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
-  // const [referralCode, setReferralCode] = useState("");
 
-  const authState = useSelector((state) => state.Auth.authState);
+  const { authState } = useSelector((state) => state.Auth);
   const { email, username } = useSelector((state) => state.User);
 
   const hideModal = () => {
@@ -74,13 +54,14 @@ const Packages = () => {
     setActivePlan(planType);
   };
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-  }, [isModalOpen]);
+  const ChangePlan = ({ plan }) => (
+    <button
+      className={`btn btn-primary plan ${activePlan === plan ? "active" : ""}`}
+      onClick={() => handlePlanChange(plan)}
+    >
+      {plan}
+    </button>
+  );
 
   return (
     <div className="Packages container ">
@@ -89,58 +70,55 @@ const Packages = () => {
         <h4>Pricing for all your content needs</h4>
         <p>It doesn't cost. It pays. Cancel anytime (monthly)</p>
 
-        {/* <div className="coming-soon">
-          <span>Coming Soon....</span>
-        </div> */}
-        <button
-          href="#"
-          className={`btn btn-primary plan ${
-            activePlan === "Monthly" ? "active" : ""
-          }`}
-          onClick={() => handlePlanChange("Monthly")}
-        >
-          Monthly
-        </button>
-        <button
-          href="#"
-          className={`btn btn-primary plan ${
-            activePlan === "Yearly" ? "active" : ""
-          }`}
-          onClick={() => handlePlanChange("Yearly")}
-        >
-          Yearly
-        </button>
+        <ChangePlan plan={"Monthly"} />
+        <ChangePlan plan={"Yearly"} />
       </div>
 
-      {activePlan === "Monthly" && (
-        <div className="row d-flex flex-row justify-content-center w-100 ">
-          <MonthlyStarter
-            handlePayment={handlePayment}
-            cancel={false}
-            email={email}
-          />
-          <MonthlyPro
-            handlePayment={handlePayment}
-            cancel={false}
-            email={email}
-          />
-        </div>
-      )}
-
-      {activePlan === "Yearly" && (
-        <div className="row d-flex flex-row justify-content-center w-100">
-          <YearlyStarter
-            handlePayment={handlePayment}
-            cancel={false}
-            email={email}
-          />
-          <YearlyPro
-            handlePayment={handlePayment}
-            cancel={false}
-            email={email}
-          />
-        </div>
-      )}
+      <div className="row d-flex flex-row justify-content-center w-100 ">
+        {activePlan === "Monthly" ? (
+          <>
+            <MonthlyPackage
+              title={"Starter Package"}
+              fullPrice={"$24.99"}
+              discountedPrice={"$20.83"}
+              isStarter={true}
+              handlePayment={() =>
+                handlePayment("price_1OLunGJOtdUfVp0D70oWGCYy")
+              }
+            />
+            <MonthlyPackage
+              title={"Pro Package"}
+              fullPrice={"$49.99"}
+              discountedPrice={"$41.66"}
+              isStarter={false}
+              handlePayment={() =>
+                handlePayment("price_1OLuufJOtdUfVp0DIveFknLZ")
+              }
+            />
+          </>
+        ) : (
+          <>
+            <YearlyPackage
+              title={"Starter Package"}
+              fullPrice={"$249.99"}
+              discountedPrice={"$299.99"}
+              isStarter={true}
+              handlePayment={() =>
+                handlePayment("price_1OLutBJOtdUfVp0DQBdaD9Sc")
+              }
+            />
+            <YearlyPackage
+              title={"Pro Package"}
+              fullPrice={"$499.99"}
+              discountedPrice={"$599.99"}
+              isStarter={false}
+              handlePayment={() =>
+                handlePayment("price_1OLuv2JOtdUfVp0DepUXJohp")
+              }
+            />
+          </>
+        )}
+      </div>
 
       {showPostModal && <ModalPopup state={true} onClose={hideModal} />}
     </div>
