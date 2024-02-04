@@ -65,7 +65,6 @@ const Packages = () => {
           });
           referralCode = temp;
         }
-        console.log(referralCode);
         await createCheckoutSession(email, username, referralCode, price_id);
       });
     }

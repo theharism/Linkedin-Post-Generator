@@ -223,7 +223,7 @@ function GPTResponse({ message, query, ifEdited }) {
       <div className="GPTcontainer">
         <h2 className="RepsonseText">GENERATED POST</h2>
 
-        {type.startsWith("Pro") ? (
+        {type?.startsWith("Pro") ? (
           <>
             <div
               style={{

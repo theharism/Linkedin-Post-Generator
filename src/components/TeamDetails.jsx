@@ -84,6 +84,10 @@ const TeamDetails = () => {
     }
   }, [teamDetails, selectedOption]);
 
+  if (!teamDetails) {
+    return null;
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -185,7 +189,7 @@ const TeamDetails = () => {
               onClick={() =>
                 createTeamCheckoutSession(
                   teamDetails._id,
-                  "price_1OYcCdJOtdUfVp0DfkBSsqof",
+                  "price_1OLuufJOtdUfVp0DIveFknLZ",
                   onClose
                 )
               }
@@ -227,7 +231,7 @@ const TeamDetails = () => {
               onClick={() =>
                 createTeamCheckoutSession(
                   teamDetails._id,
-                  "price_1OYcCdJOtdUfVp0DfkBSsqof",
+                  "price_1OLuv2JOtdUfVp0DepUXJohp",
                   onClose
                 )
               }
@@ -608,18 +612,21 @@ const TeamDetails = () => {
               >
                 Save
               </Button>
-              <Button
-                style={{
-                  margin: 10,
-                  color: "black",
-                  backgroundColor: "lightgray",
-                  border: "none",
-                  marginTop: "1.5rem",
-                }}
-                onClick={handleCancelTeamSubscription}
-              >
-                Cancel Subscription
-              </Button>
+
+              {teamDetails?.status === "active" && (
+                <Button
+                  style={{
+                    margin: 10,
+                    color: "black",
+                    backgroundColor: "lightgray",
+                    border: "none",
+                    marginTop: "1.5rem",
+                  }}
+                  onClick={handleCancelTeamSubscription}
+                >
+                  Cancel Subscription
+                </Button>
+              )}
               <Button
                 style={{
                   margin: 10,

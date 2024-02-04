@@ -29,7 +29,7 @@ function Main({ onPress, HandleGPTResponse }) {
   const [textareaAccordions, setTextareaAccordions] = useState([]);
 
   const email = useSelector((state) => state.User.email);
-  const { currentUserId, currentUsername } = useSelector((state) => state.Auth);
+  const { currentUserId } = useSelector((state) => state.Auth);
   const points = useSelector((state) => state.Subscription.points);
   const navigate = useNavigate();
 
@@ -165,7 +165,8 @@ function Main({ onPress, HandleGPTResponse }) {
       if (response.data.message) {
         localStorage.setItem("response", response.data.message.content);
         HandleGPTResponse(response.data.message.content, userData.description);
-        dispatch(deletePoint());
+
+        currentUserId === email && dispatch(deletePoint());
       }
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -368,7 +369,7 @@ function Main({ onPress, HandleGPTResponse }) {
         </div>
       </div>
 
-      {points > 0 ? (
+      {points > 0 || currentUserId !== email ? (
         <div className="PostSubmit">
           <button
             className="submit-button"

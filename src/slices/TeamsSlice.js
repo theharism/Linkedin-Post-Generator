@@ -290,7 +290,6 @@ export const cancelSubscription = createAsyncThunk(
         const team = await resp.json();
         return Promise.resolve({ team });
       } else {
-        console.log(resp);
         Swal.fire({
           title: "Internal Server Error",
           icon: "error",

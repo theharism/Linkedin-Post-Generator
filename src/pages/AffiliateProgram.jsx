@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import style from "../style/AffiliateProgra.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { Slider } from "@mui/material";
+import { useSelector } from "react-redux";
+import ModalPopup from "../components/ModalPopup";
 
 const AffiliateProgram = () => {
   const [value, setValue] = useState(10);
-  const navigate = useNavigate();
+  const [showPostModal, setShowPostModal] = useState(false);
+  const { authState } = useSelector((state) => state.Auth);
 
   const valueHandler = (event, newValue) => {
     setValue(newValue);
   };
+
+  const closeModal = () => {
+    setShowPostModal(false);
+  };
+
+  function handleReferralNavigate() {
+    setShowPostModal(true);
+  }
 
   return (
     <>
@@ -39,28 +50,53 @@ const AffiliateProgram = () => {
             by registering your bank account number to us on which you'll
             receive cashbacks.
           </p>
-          <Link
-            to={"/referral"}
-            style={{
-              textDecoration: "none",
-              color: "white",
-            }}
-            className={style.FormLinks}
-          >
-            <button
+          {authState ? (
+            <Link
+              to={"/referral"}
               style={{
-                position: "relative",
-                marginTop: 15,
-                width: 290,
+                textDecoration: "none",
+                color: "white",
               }}
+              className={style.FormLinks}
             >
-              Join the Affiliate Program
-              <CurrencyExchangeIcon
-                className="CheckMark"
-                sx={{ fontSize: 50 }}
-              />
-            </button>
-          </Link>
+              <button
+                style={{
+                  position: "relative",
+                  marginTop: 15,
+                  width: 290,
+                }}
+              >
+                Join the Affiliate Program
+                <CurrencyExchangeIcon
+                  className="CheckMark"
+                  sx={{ fontSize: 50 }}
+                />
+              </button>
+            </Link>
+          ) : (
+            <Link
+              onClick={handleReferralNavigate}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+              className={style.FormLinks}
+            >
+              <button
+                style={{
+                  position: "relative",
+                  marginTop: 15,
+                  width: 290,
+                }}
+              >
+                Join the Affiliate Program
+                <CurrencyExchangeIcon
+                  className="CheckMark"
+                  sx={{ fontSize: 50 }}
+                />
+              </button>
+            </Link>
+          )}
         </div>
         <hr className={style.line} />
         <div className={style.introDiv}>
@@ -91,6 +127,7 @@ const AffiliateProgram = () => {
           </div>
         </div>
       </div>
+      {showPostModal && <ModalPopup state={true} onClose={closeModal} />}
     </>
   );
 };

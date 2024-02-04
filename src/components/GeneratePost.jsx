@@ -13,8 +13,8 @@ import MetadataModal from "./MetadataModal";
 import OptimizePostModal from "./OptimizePostModal";
 
 const GeneratePost = () => {
-  const {authState,currentUserId} = useSelector((state) => state.Auth);
-  const {email} = useSelector((state)=>state.User);
+  const { authState, currentUserId } = useSelector((state) => state.Auth);
+  const { email } = useSelector((state) => state.User);
   const points = useSelector((state) => state.Subscription.points);
   const type = useSelector((state) => state.Subscription.type);
   const metadataAsked = useSelector((state) => state.User.metadataAsked);
@@ -101,7 +101,7 @@ const GeneratePost = () => {
                 </Link>
               )}
 
-              {type.startsWith("Pro") ? (
+              {type?.startsWith("Pro") ? (
                 <>
                   <Link
                     to={"/editor"}

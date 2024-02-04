@@ -32,7 +32,7 @@ export const MonthlyStarter = ({ handlePayment, cancel }) => {
         ) : (
           <button
             className="btn btn-primary plan"
-            onClick={() => handlePayment("price_1OTB74JOtdUfVp0DJTPrOePx")}
+            onClick={() => handlePayment("price_1OLunGJOtdUfVp0D70oWGCYy")}
           >
             Choose Plan
           </button>
@@ -293,7 +293,7 @@ export const MonthlyPro = ({ handlePayment, cancel }) => {
 
         {!cancel ? (
           <button
-            onClick={() => handlePayment("price_1OYcCdJOtdUfVp0DfkBSsqof")}
+            onClick={() => handlePayment("price_1OLuufJOtdUfVp0DIveFknLZ")}
             className="btn btn-primary plan"
           >
             Choose Plan
