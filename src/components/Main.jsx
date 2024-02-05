@@ -28,11 +28,11 @@ function Main({ onPress, HandleGPTResponse }) {
   const [questionAccordions, setQuestionAccordions] = useState([]);
   const [textareaAccordions, setTextareaAccordions] = useState([]);
 
-  const email = useSelector((state) => state.User.email);
+  const { email } = useSelector((state) => state.User);
   const { currentUserId } = useSelector((state) => state.Auth);
-  const points = useSelector((state) => state.Subscription.points);
-  const navigate = useNavigate();
+  const { points } = useSelector((state) => state.Subscription);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const navigateHome = () => {
@@ -40,7 +40,7 @@ function Main({ onPress, HandleGPTResponse }) {
     Swal.fire({
       title: "Out of Credits. Upgrade your plan to Muse",
       icon: "warning",
-      showConfirmButton: false, // Hide the "OK" button in the success popup
+      showConfirmButton: false,
       timer: 1500,
     });
   };
@@ -54,6 +54,7 @@ function Main({ onPress, HandleGPTResponse }) {
       setTextArea("");
     }
   };
+
   const toggleQuestionAccordion = (index) => {
     const updatedQuestionAccordions = [...questionAccordions];
     updatedQuestionAccordions[index] = !updatedQuestionAccordions[index];
@@ -81,6 +82,7 @@ function Main({ onPress, HandleGPTResponse }) {
       }
     }
   };
+
   const handleCustomChange = (e) => {
     setCustomQuestion(e.target.value);
   };
@@ -202,15 +204,6 @@ function Main({ onPress, HandleGPTResponse }) {
             value={description}
             onChange={handleDescription}
           />
-          {/* 
-          </textArea>
-          <input
-            className="MainDesc"
-            type="text"
-            placeholder="What should the Post be about..."
-            value={description}
-            onChange={handleDescription}
-          /> */}
         </div>
 
         <div className="question-container">
