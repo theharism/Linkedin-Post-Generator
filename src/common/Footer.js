@@ -38,11 +38,11 @@ const Footer = () => {
         </a>
       </div>
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal closeModal={closeModal}>
           <ModelContent closeModal={closeModal} />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };

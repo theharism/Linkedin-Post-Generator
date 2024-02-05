@@ -12,7 +12,7 @@ const LinkedInVerification = () => {
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const email = useSelector((state) => state.User.email);
+  const { email } = useSelector((state) => state.User);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -22,37 +22,43 @@ const LinkedInVerification = () => {
     const error = urlParams.get("error");
     const errorDescription = urlParams.get("error_description");
 
+    if (!state || !queryState) {
+      return;
+    }
+
     if (state === queryState) {
       setAuthorized(true);
+
       if (error) {
         setError(errorDescription);
         setTimeout(() => {
           navigate("/");
         }, [3000]);
-      } else {
-        async function Move() {
-          const status = await LinkedinAuthentication(code, email);
-          if (status) {
-            setPosting(true);
-
-            const status2 = await LinkedInPost(state, text, email);
-            if (status2) {
-              navigate("/");
-            }
-          } else {
-            setError("There was an error authenticating");
-            setTimeout(() => {
-              navigate("/");
-            }, [3000]);
-          }
-        }
-
-        Move();
+        return;
       }
-    } else {
-      setAuthorized(false);
+
+      async function Move() {
+        const status = await LinkedinAuthentication(code, email);
+        if (status) {
+          setPosting(true);
+
+          const status2 = await LinkedInPost(state, text, email);
+          if (status2) {
+            navigate("/");
+          }
+        } else {
+          setError(
+            "There was an error authenticating. Redirecting in 3 seconds"
+          );
+          setTimeout(() => {
+            navigate("/");
+          }, [3000]);
+        }
+      }
+
+      Move();
     }
-  }, []);
+  }, [email, navigate, state, text]);
 
   return (
     <div className="success-wrapper">
@@ -79,9 +85,7 @@ const LinkedInVerification = () => {
             </>
           )
         ) : (
-          <>
-            <h2 style={{ fontSize: 80 }}>Unauthorized Access</h2>
-          </>
+          <h2 style={{ fontSize: 60 }}>Unauthorized Access</h2>
         )}
       </div>
     </div>

@@ -3,21 +3,23 @@ import { useSelector } from "react-redux";
 import ModalPopup from "./ModalPopup";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 import "../style/HeroSection.css";
 import Swal from "sweetalert2";
 import CheckIcon from "@mui/icons-material/Check";
 import ShowUpgrade from "./ShowUpgrade";
 import MetadataModal from "./MetadataModal";
 import OptimizePostModal from "./OptimizePostModal";
+import {
+  MuseButton,
+  MuseLinkButton,
+  MuseScrollLinkButton,
+} from "./MuseButtons";
 
 const GeneratePost = () => {
   const { authState, currentUserId } = useSelector((state) => state.Auth);
-  const { email } = useSelector((state) => state.User);
-  const points = useSelector((state) => state.Subscription.points);
-  const type = useSelector((state) => state.Subscription.type);
-  const metadataAsked = useSelector((state) => state.User.metadataAsked);
+  const { email, metadataAsked } = useSelector((state) => state.User);
+  const { points, type } = useSelector((state) => state.Subscription);
   const [showPostModal, setShowPostModal] = useState(false);
   const [optimizePost, setOptimizePost] = useState(false);
   const [showUpgradeModal, setshowUpgradeModal] = useState(0);
@@ -45,7 +47,7 @@ const GeneratePost = () => {
     Swal.fire({
       title: "Out of Credits. Upgrade your plan to Muse",
       icon: "error",
-      showConfirmButton: false, // Hide the "OK" button in the success popup
+      showConfirmButton: false,
       timer: 1500,
     });
   };
@@ -55,12 +57,8 @@ const GeneratePost = () => {
     setShowMetadataModal(false);
   };
 
-  const showMetadataModalfunc = () => {
-    setShowMetadataModal(true);
-  };
-
   const handleOnClick = () => {
-    showMetadataModalfunc();
+    setShowMetadataModal(true);
   };
 
   const handleOptimizeClick = () => {
@@ -78,211 +76,115 @@ const GeneratePost = () => {
           {points > 0 || currentUserId !== email ? (
             <>
               {metadataAsked ? (
-                <Link
-                  to="/post"
-                  style={{ textDecoration: "none", color: "white" }}
-                  className="FormLinks"
-                >
-                  <button style={{ position: "relative", width: 260 }}>
-                    Create Your First Post
-                    <FaPencilAlt className="Pencil" />
-                  </button>
-                </Link>
+                <MuseLinkButton
+                  handleOnClick={"/post"}
+                  text={"Create Your First Post"}
+                  icon={<FaPencilAlt className="Pencil" />}
+                />
               ) : (
-                <Link
-                  onClick={handleOnClick}
-                  style={{ textDecoration: "none", color: "white" }}
-                  className="FormLinks"
-                >
-                  <button style={{ position: "relative", width: 260 }}>
-                    Create Your First Post
-                    <FaPencilAlt className="Pencil" />
-                  </button>
-                </Link>
+                <MuseButton
+                  handleOnClick={handleOnClick}
+                  text={"Create Your First Post"}
+                  icon={<FaPencilAlt className="Pencil" />}
+                />
               )}
 
               {type?.startsWith("Pro") ? (
                 <>
-                  <Link
-                    to={"/editor"}
-                    style={{
-                      textDecoration: "none",
-                      color: "white",
-                    }}
-                    className="FormLinks"
-                  >
-                    <button
-                      style={{
-                        position: "relative",
-                        marginTop: 15,
-                        width: 260,
-                      }}
-                    >
-                      LinkedIn Post Preview
-                      <FaMagnifyingGlass className="Pencil" />
-                    </button>
-                  </Link>
-                  <Link
-                    onClick={handleOptimizeClick}
-                    style={{
-                      textDecoration: "none",
-                      color: "white",
-                    }}
-                    className="FormLinks"
-                  >
-                    <button
-                      style={{
-                        position: "relative",
-                        marginTop: 15,
-                        width: 260,
-                      }}
-                    >
-                      Optimize Your Post
+                  <MuseLinkButton
+                    handleOnClick={"/editor"}
+                    text={"LinkedIn Post Preview"}
+                    icon={<FaMagnifyingGlass className="Pencil" />}
+                  />
+
+                  <MuseButton
+                    handleOnClick={handleOptimizeClick}
+                    text={"Optimize Your Post"}
+                    icon={
                       <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
-                    </button>
-                  </Link>
+                    }
+                  />
                 </>
               ) : (
                 <>
-                  <ScrollLink
-                    to="pricing"
-                    spy={true}
-                    smooth={true}
-                    duration={2500}
-                    offset={0}
-                    style={{ textDecoration: "none", color: "white" }}
-                    className="FormLinks"
-                  >
-                    <button
-                      style={{
-                        position: "relative",
-                        marginTop: 15,
-                        width: 260,
-                      }}
-                      onClick={() => showUpgradeModalfunc(1)}
-                    >
-                      LinkedIn Post Preview
-                      <FaMagnifyingGlass className="Pencil" />
-                    </button>
-                  </ScrollLink>
-                  <ScrollLink
-                    to="pricing"
-                    spy={true}
-                    smooth={true}
-                    duration={2500}
-                    offset={0}
-                    style={{ textDecoration: "none", color: "white" }}
-                    className="FormLinks"
-                  >
-                    <button
-                      style={{
-                        position: "relative",
-                        marginTop: 15,
-                        width: 260,
-                      }}
-                      onClick={() => showUpgradeModalfunc(2)}
-                    >
-                      Optimize Your Post
-                      <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
-                    </button>
-                  </ScrollLink>
+                  {[...Array(2)].map((_, index) => (
+                    <MuseScrollLinkButton
+                      handleOnClick={
+                        index === 0
+                          ? () => showUpgradeModalfunc(1)
+                          : () => showUpgradeModalfunc(2)
+                      }
+                      text={
+                        index === 0
+                          ? "LinkedIn Post Preview"
+                          : "Optimize Your Post"
+                      }
+                      icon={
+                        index === 0 ? (
+                          <FaMagnifyingGlass className="Pencil" />
+                        ) : (
+                          <CheckIcon
+                            className="CheckMark"
+                            sx={{ fontSize: 60 }}
+                          />
+                        )
+                      }
+                    />
+                  ))}
                 </>
               )}
             </>
           ) : (
             <>
-              <ScrollLink
-                onClick={showError}
-                spy={true}
-                smooth={true}
-                duration={80}
-                offset={30}
-                style={{ textDecoration: "none", color: "white" }}
-                className="FormLinks"
-              >
-                <button style={{ position: "relative", width: 260 }}>
-                  Create Your First Post
-                  <FaPencilAlt className="Pencil" />
-                </button>
-              </ScrollLink>
-
-              <ScrollLink
-                onClick={showError}
-                smooth={true}
-                duration={80}
-                offset={30}
-                className="FormLinks"
-              >
-                <button
-                  style={{ position: "relative", marginTop: 15, width: 260 }}
-                >
-                  LinkedIn Post Preview
-                  <FaMagnifyingGlass className="Pencil" />
-                </button>
-              </ScrollLink>
-
-              <ScrollLink
-                onClick={showError}
-                smooth={true}
-                duration={80}
-                offset={30}
-                className="FormLinks"
-              >
-                <button
-                  style={{ position: "relative", marginTop: 15, width: 260 }}
-                >
-                  Optimize Your Post
-                  <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
-                </button>
-              </ScrollLink>
+              {[...Array(3)].map((_, index) => (
+                <MuseButton
+                  key={index}
+                  handleOnClick={showError}
+                  text={
+                    index === 0
+                      ? "Create Your First Post"
+                      : index === 1
+                      ? "LinkedIn Post Preview"
+                      : "Optimize Your Post"
+                  }
+                  icon={
+                    index === 0 ? (
+                      <FaPencilAlt className="Pencil" />
+                    ) : index === 1 ? (
+                      <FaMagnifyingGlass className="Pencil" />
+                    ) : (
+                      <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
+                    )
+                  }
+                />
+              ))}
             </>
           )}
         </div>
       ) : (
         <div className="formHero">
-          <br />
-          <Link
-            onClick={showModal}
-            style={{ textDecoration: "none", color: "white" }}
-            className="FormLinks"
-          >
-            <button style={{ position: "relative", width: 260 }}>
-              Create Your First Post
-              <FaPencilAlt className="Pencil" />
-            </button>
-          </Link>
-
-          <ScrollLink
-            smooth={true}
-            duration={1000}
-            offset={30}
-            className="FormLinks"
-          >
-            <button
-              style={{ position: "relative", marginTop: 15, width: 260 }}
-              onClick={showModal}
-              className="FormLinks"
-            >
-              LinkedIn Post Preview
-              <FaMagnifyingGlass className="Pencil" />
-            </button>
-          </ScrollLink>
-
-          <ScrollLink
-            smooth={true}
-            duration={1000}
-            offset={30}
-            className="FormLinks"
-          >
-            <button
-              style={{ position: "relative", marginTop: 15, width: 260 }}
-              onClick={showModal}
-              className="FormLinks"
-            >
-              Optimize Your Post
-              <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
-            </button>
-          </ScrollLink>
+          {[...Array(3)].map((_, index) => (
+            <MuseButton
+              key={index}
+              handleOnClick={showModal}
+              text={
+                index === 0
+                  ? "Create Your First Post"
+                  : index === 1
+                  ? "LinkedIn Post Preview"
+                  : "Optimize Your Post"
+              }
+              icon={
+                index === 0 ? (
+                  <FaPencilAlt className="Pencil" />
+                ) : index === 1 ? (
+                  <FaMagnifyingGlass className="Pencil" />
+                ) : (
+                  <CheckIcon className="CheckMark" sx={{ fontSize: 60 }} />
+                )
+              }
+            />
+          ))}
         </div>
       )}
 
