@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import ModelContent from "../pages/ModelContent";
-import { Modal } from "../pages/Packages";
+import Modal from "../components/Modal";
 import "../style/Footer.css";
 
 const Footer = () => {
@@ -38,11 +38,11 @@ const Footer = () => {
         </a>
       </div>
 
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <Modal closeModal={closeModal}>
           <ModelContent closeModal={closeModal} />
         </Modal>
-      )} */}
+      )}
     </div>
   );
 };
