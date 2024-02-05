@@ -13,33 +13,36 @@ import "../style/MyPosts.css";
 import GeneratePost from "./GeneratePost";
 import ReactSearchBox from "react-search-box";
 import SearchIcon from "@mui/icons-material/Search";
+import Swal from "sweetalert2";
 
 const MyPosts = () => {
-  const username = useSelector((state) => state.User.username);
+  const { username } = useSelector((state) => state.User);
   const { currentUserId, currentUsername } = useSelector((state) => state.Auth);
   const [posts, setPosts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const isAdmin = useSelector((state) =>
     state.Teams.some((team) => team.isAdmin && team.team._id === currentUserId)
   );
-  useEffect(() => {
-    try {
-      const endpointURL = `${process.env.REACT_APP_BASE_URL}/api/getposts/${
-        username === currentUsername ? username : currentUserId
-      }`;
 
-      axios
-        .get(endpointURL)
-        .then((response) => {
-          setPosts(response.data);
-        })
-        .catch((error) => {
-          // Handle any errors that occur during the request
-          console.error("Error:", error);
+  useEffect(() => {
+    const endpointURL = `${process.env.REACT_APP_BASE_URL}/api/getposts/${
+      username === currentUsername ? username : currentUserId
+    }`;
+
+    axios
+      .get(endpointURL)
+      .then((response) => {
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error getting posts:", error);
+        Swal.fire({
+          title: "Internal Server Error",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
         });
-    } catch (error) {
-      console.log(error);
-    }
+      });
   }, [currentUserId, currentUsername, username]);
 
   const Accordion = styled((props) => (
