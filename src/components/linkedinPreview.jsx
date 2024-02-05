@@ -37,33 +37,32 @@ const LinkedinPreview = ({ content }) => {
     initialDisplayLines = 1;
   }
 
+  const DeviceIcons = ({ id, icon }) => (
+    <IconButton
+      color={selectedDevice === id ? "primary" : "default"}
+      size="small"
+      onClick={() => changeDevice(id)}
+    >
+      {icon}
+    </IconButton>
+  );
+
+  const BaseButtons = ({ alt, src, text }) => (
+    <div>
+      <img src={src} alt={alt} />
+      <span className={style.iconX}>{text}</span>
+    </div>
+  );
+
   return (
     <div className={style.LinkdIn_Post}>
       <div className={style.Devices}>
         <p>Device: </p>
-        <IconButton
-          color={selectedDevice === 1 ? "primary" : "default"}
-          size="small"
-          onClick={() => changeDevice(1)}
-        >
-          <PhoneIphoneIcon />
-        </IconButton>
+        <DeviceIcons id={1} icon={<PhoneIphoneIcon />} />
         {!isMobile && (
           <>
-            <IconButton
-              color={selectedDevice === 2 ? "primary" : "default"}
-              size="small"
-              onClick={() => changeDevice(2)}
-            >
-              <TabletMacIcon />
-            </IconButton>
-            <IconButton
-              color={selectedDevice === 3 ? "primary" : "default"}
-              size="small"
-              onClick={() => changeDevice(3)}
-            >
-              <DesktopMacOutlinedIcon />
-            </IconButton>
+            <DeviceIcons id={2} icon={<TabletMacIcon />} />
+            <DeviceIcons id={3} icon={<DesktopMacOutlinedIcon />} />
           </>
         )}
       </div>
@@ -88,9 +87,7 @@ const LinkedinPreview = ({ content }) => {
                 <p className={style.title}>
                   <span>{fullName}</span>
                   <span className={style.you}> • You</span>
-                  {/* <br /> */}
                   <span className={style.muse}>Muse</span>
-                  {/* <br /> */}
                   <span className={style.muse}>
                     9h •&nbsp;
                     <img src={world} alt="world" />
@@ -100,7 +97,6 @@ const LinkedinPreview = ({ content }) => {
             </div>
             <svg
               role="none"
-              aria-hidden="true"
               className="artdeco-button__icon"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -109,11 +105,7 @@ const LinkedinPreview = ({ content }) => {
               data-supported-dps="24x24"
               data-test-icon="thumbs-up-outline-medium"
             >
-              <use
-                href="#thumbs-up-outline-medium"
-                width="24"
-                height="24"
-              ></use>
+              <use href="#thumbs-up-outline-medium" width="24" height="24" />
             </svg>
           </div>
         </div>
@@ -148,22 +140,10 @@ const LinkedinPreview = ({ content }) => {
         </div>
         <hr />
         <div className={style.footer}>
-          <div>
-            <img src={like} alt="like" />
-            <span className={style.iconX}>Like</span>
-          </div>
-          <div>
-            <img src={comment} alt="comment" />
-            <span className={style.iconX}>Comments</span>
-          </div>
-          <div>
-            <img src={repost} alt="repost" />
-            <span className={style.iconX}>Repost</span>
-          </div>
-          <div>
-            <img src={send} alt="send" />
-            <span className={style.iconX}>Send</span>
-          </div>
+          <BaseButtons alt={"link"} src={like} text={"Like"} />
+          <BaseButtons alt={"comment"} src={comment} text={"Comments"} />
+          <BaseButtons alt={"repost"} src={repost} text={"Repost"} />
+          <BaseButtons alt={"send"} src={send} text={"Send"} />
         </div>
       </div>
     </div>
