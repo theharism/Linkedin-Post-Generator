@@ -175,42 +175,23 @@ export const MonthlyPackage = ({
   );
 };
 
-export const UpgradePlan = ({ handleUpgrade }) => {
-  return (
-    <div className="col-12 col-md-6 col-lg-4 ">
-      <div
-        className="card p-3"
-        style={{
-          textAlign: "left",
-        }}
+export const CustomizePlan = ({ title, type, onClick }) => (
+  <div className="col-12 col-md-6 col-lg-5 ">
+    <div
+      className="card p-3"
+      style={{
+        textAlign: "left",
+      }}
+    >
+      <h4>{title} Package</h4>
+      <p style={{ color: "#6B7280" }}>To help you grow</p>
+
+      <button
+        className={`btn btn-${type === 1 ? "primary" : "danger"} plan`}
+        onClick={onClick}
       >
-        <h4>Upgrade Package</h4>
-        <p style={{ color: "#6B7280" }}>To help you grow</p>
-
-        <button className="btn btn-primary plan" onClick={handleUpgrade}>
-          Upgrade Plan
-        </button>
-      </div>
+        {type === 2 ? "Cancel" : title} Plan
+      </button>
     </div>
-  );
-};
-
-export const CancelPlan = ({ title, handleCancelPlan }) => {
-  return (
-    <div className="col-12 col-md-6 col-lg-4 ">
-      <div
-        className="card p-3"
-        style={{
-          textAlign: "left",
-        }}
-      >
-        <h4>{title} Package</h4>
-        <p style={{ color: "#6B7280" }}>To help you grow</p>
-
-        <button className="btn btn-danger plan" onClick={handleCancelPlan}>
-          Cancel Plan
-        </button>
-      </div>
-    </div>
-  );
-};
+  </div>
+);
