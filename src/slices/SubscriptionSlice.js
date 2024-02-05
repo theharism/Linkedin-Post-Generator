@@ -41,7 +41,7 @@ export const SubscriptionSlice = createSlice({
       return action.payload.subscription;
     },
     resetSubscription: (state, action) => {
-      return action.payload.subscription;
+      return action.payload;
     },
     setPoints: (state, action) => {
       state.points = action.payload.points;
