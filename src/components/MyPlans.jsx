@@ -1,15 +1,17 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import "../style/MyPlans.css";
-import { CancelPlan, UpgradePlan } from "./Package";
+import { CustomizePlan } from "./Package";
 import Swal from "sweetalert2";
 import { resetSubscription } from "../slices/SubscriptionSlice";
+import Modal from "./Modal";
+import { Row } from "react-bootstrap";
 
 const MyPlans = ({ type, onClose }) => {
-  const { currentUserId } = useSelector((state) => state.Auth);
+  const { email } = useSelector((state) => state.User);
+  const subscription = useSelector((state) => state.Subscription);
   const dispatch = useDispatch();
 
   const handleUpgrade = () => {
@@ -18,12 +20,6 @@ const MyPlans = ({ type, onClose }) => {
     const section = document.getElementById("pricing");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose(); // Close the modal when clicking on the overlay
     }
   };
 
@@ -41,60 +37,50 @@ const MyPlans = ({ type, onClose }) => {
         try {
           const response = await axios.post(
             `${process.env.REACT_APP_BASE_URL}/api/cancelSubscription`,
-            { email: currentUserId }
+            { email }
           );
 
           if (response.data.message) {
             Swal.fire({
               title: response.data.message,
               icon: "success",
-              showConfirmButton: false, // Hide the "OK" button in the success popup
-              timer: 1000,
+              showConfirmButton: true,
             });
             dispatch(
               resetSubscription({
-                subscription: {
-                  id: null,
-                  createdDate: "",
-                  expiresDate: "",
-                  type: "Free",
-                },
+                ...subscription,
+                id: "***",
               })
             );
           }
         } catch (error) {
           console.log(error);
           Swal.fire({
-            title: error.response.data.error,
-            icon: "warning",
+            title: error.response.data.message,
+            icon: "error",
             showConfirmButton: false, // Hide the "OK" button in the success popup
-            timer: 1000,
+            timer: 1500,
           });
         }
       }
     });
   };
 
-  const ShowCurrentSubscription = () => (
-    <CancelPlan
-      handleCancelPlan={handleCancelPlan}
-      title={type.split(" ")[0]}
-    />
-  );
-
   return (
-    <div className="modal" onClick={handleOverlayClick}>
-      <div className="modal-content">
-        <div className="containerForm ">
-          <Col className="row d-flex flex-row justify-content-evenly w-100">
-            <div style={{ height: "50px" }} />
-            <UpgradePlan handleUpgrade={handleUpgrade} />
-            <ShowCurrentSubscription />
-            <div style={{ height: "50px" }} />
-          </Col>
-        </div>
-      </div>
-    </div>
+    <Modal
+      onClose={onClose}
+      heading={"My Plans"}
+      subheading={"Customize your plans according to your needs"}
+    >
+      <Row className="justify-content-evenly">
+        <CustomizePlan title={"Upgrade"} type={1} onClick={handleUpgrade} />
+        <CustomizePlan
+          title={type.split(" ")[0]}
+          type={2}
+          onClick={handleCancelPlan}
+        />
+      </Row>
+    </Modal>
   );
 };
 
